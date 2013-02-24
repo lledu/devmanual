@@ -1,0 +1,74 @@
+<?xml version="1.0"?>
+<guide self="ebuild-writing/functions/pkg_postinst/">
+<chapter>
+<title>pkg_postinst</title>
+
+<body>
+<table>
+  <tr>
+    <th>Function</th>
+    <ti><c>pkg_postinst</c></ti>
+  </tr>
+  <tr>
+    <th>Purpose</th>
+    <ti>Called after image is installed to <c>${ROOT}</c></ti>
+  </tr>
+  <tr>
+    <th>Sandbox</th>
+    <ti>Disabled</ti>
+  </tr>
+  <tr>
+    <th>Privilege</th>
+    <ti>root</ti>
+  </tr>
+  <tr>
+    <th>Called for</th>
+    <ti>ebuild, binary</ti>
+  </tr>
+</table>
+</body>
+
+<section>
+<title>Default <c>pkg_postinst</c></title>
+<body>
+<codesample lang="ebuild">
+pkg_postinst()
+{
+    return
+}
+</codesample>
+</body>
+</section>
+
+<section>
+<title>Sample <c>pkg_postinst</c></title>
+<body>
+<codesample lang="ebuild">
+pkg_postinst() {
+    if $OLD_FLUXBOX_VERSION ; then
+        ewarn "You must restart fluxbox before using the [include] /directory/"
+        ewarn "feature if you are upgrading from an older fluxbox!"
+        ewarn " "
+    fi
+    elog "If you experience font problems, or if fluxbox takes a very"
+    elog "long time to start up, please try the 'disablexmb' USE flag."
+    elog "If that fails, please report bugs upstream."
+}
+</codesample>
+</body>
+</section>
+
+<section>
+<title>Common <c>pkg_postinst</c> Tasks</title>
+<body>
+<p>
+The most common use for <c>pkg_postinst</c> is to display post-install
+informational messages or warnings.  If you want to display selective
+upgrade messages, you should do the call to <c>has_version</c> in an
+earlier phase, like <c>pkg_preinst</c>, and store the result in a global
+variable.</p>
+</body>
+</section>
+
+</chapter>
+</guide>

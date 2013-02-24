@@ -1,0 +1,147 @@
+<?xml version="1.0"?>
+<guide self="ebuild-writing/file-format/">
+<chapter>
+<title>Ebuild 文件格式</title>
+
+<body>
+<p>
+ebuild文件是在特定环境执行的 <c>bash</c> 脚本，以 <c>.ebuild</c> 后缀明加以辨别.
+</p>
+</body>
+
+<section>
+<title>命名规则</title>
+<body>
+
+<p>
+ebuild 文件应该用这样的格式这样命名 <c>name-version.ebuild</c>.
+</p>
+
+<p>
+名字字段应仅包含小写非重音字母，数字，连字符，下划线+其他字符。不建议大写字母开头。
+</p>
+
+<note>
+和 <uri link="http://www.opengroup.org/onlinepubs/000095399/basedefs/xbd_chap03.html#tag_03_276">
+IEEE1003.1-2004-3.276</uri>一样, 除外点字符和另外的加字符. 
+</note>
+
+<p>
+版本字段的设置比较复杂。它由句点（或休止符，点号，小数点）将一个和多个隔开的数字组成。(eg <c>1.2.3</c>, <c>20050108</c>). 最后一个数字后可以仅可以添加一个字母(e.g. <c>1.2b</c>). 该字母常不用表示 'beta' 状态 <d/>
+portage 认为 <c>1.2b</c> 版本较 <c>1.2</c> 及 <c>1.2a</c> 更新.
+</p>
+
+<p>
+可以将后缀名添加到版本信息中以明确软件包发行的种类，在以下的列表中，(最低版本的在第一行)。
+</p>
+
+<table>
+  <tr>
+    <th>Suffix</th>
+    <th>Meaning</th>
+  </tr>
+  <tr>
+    <ti><c>_alpha</c></ti>
+    <ti>Alpha release (earliest)</ti>
+  </tr>
+  <tr>
+    <ti><c>_beta</c></ti>
+    <ti>Beta release</ti>
+  </tr>
+  <tr>
+    <ti><c>_pre</c></ti>
+    <ti>Pre release</ti>
+  </tr>
+  <tr>
+    <ti><c>_rc</c></ti>
+    <ti>Release candidate</ti>
+  </tr>
+  <tr>
+    <ti>(no suffix)</ti>
+    <ti>Normal release</ti>
+  </tr>
+  <tr>
+    <ti>_p</ti>
+    <ti>Patch level</ti>
+  </tr>
+</table>
+
+<p>
+上述任何后缀可添加在非零正数后
+</p>
+
+<p>
+这些后缀标识可以连接在一起并分别处理。看一些例子。
+ (最低版本的在第一行):
+
+<ul>
+  <li>foo-1.0.0_alpha_pre</li>
+  <li>foo-1.0.0_alpha_rc1</li>
+  <li>foo-1.0.0_beta_pre</li>
+  <li>foo-1.0.0_beta_p1</li>
+</ul>
+</p>
+
+<p>
+数字部分尽量不要长于18个数字.
+</p>
+
+<p>
+最后可以用<c>-r1</c> 的形式表示软件包的修订版数. 最初的软件包版本应该没有修订版数后缀，第一版可以用<c>-r1</c> 表示, 第二版可以用 <c>-r2</c> 以此类推. 详见 <uri link="::general-concepts/ebuild-revisions"/>.
+</p>
+
+<p>
+综上，我们将写出类似这样的文件名 <c>libfoo-1.2.5b_pre5-r2.ebuild</c>.
+</p>
+
+</body>
+</section>
+
+<section>
+<title>Ebuild Header</title>
+<body>
+
+<p>
+所有提交到portage树的 ebuilds 都应在文档起始部分有显示版权的三行表头. 这必须与 <c>$(portageq portdir)/header.txt</c>的内容一致. 并需确保 <c>$Header: $</c> 行没有被故意修改 <d/> CVS 将会专门处理这一行。
+</p>
+
+<codesample lang="ebuild">
+# Copyright 1999-2006 Gentoo Foundation
+# Distributed under the terms of the GNU General Public License v2
+# $Header: $
+</codesample>
+
+</body>
+</section>
+
+<section>
+<title>缩进和空白</title>
+<body>
+
+<p>
+ebuilds 中必须使用 tabs 键缩进, 一个tab 一步缩进。每个tab 代表四个空格，Tabs应该只能用来缩进，不要在句中使用。
+</p>
+
+<p>
+避免大片空白区域: 如果提交的ebuilds的头或尾区包含空白（利用空格替代tabs键缩进）repo管理者会给出相应的警告。 
+</p>
+
+<p>
+尽量不要使行宽多于80位，一位基本等同于一个字符 <d/> tabs 键是4位.
+</p>
+
+</body>
+</section>
+
+<section>
+<title>字符设置</title>
+<body>
+<p>
+所有ebuilds (包括eclasses, metadata 和 ChangeLogs) 必须使用 UTF-8 字符编码. 详见 <uri
+link="http://www.gentoo.org/proj/en/glep/glep-0031.html">GLEP 31</uri>.
+</p>
+</body>
+</section>
+
+</chapter>
+</guide>

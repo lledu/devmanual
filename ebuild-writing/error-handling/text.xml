@@ -1,0 +1,123 @@
+<?xml version="1.0"?>
+<guide self="ebuild-writing/error-handling/">
+<chapter>
+<title>排错</title>
+
+<section>
+<title>排错的重要性</title>
+<body>
+
+<p>
+得当的错误控制至关重要:
+</p>
+
+<ul>
+  <li>
+  有残缺欠完整的软件包的错误必须在它被安装到现行的系统上之前，先被探测到。若这些安装的错误没有扑捉到，现有安装包将不能正确安装。
+  </li>
+  <li>
+  接收到 bug 报告时，若你明确是某一个调用导致的错误，你将能很轻松的搞定它。而不是仅仅在是隔靴搔痒，仅仅说是 <c>src_compile</c> 中什么什么的问题。
+  </li>
+  <li>
+  良好的错误控制和提示将会是你更少收到软件包的bug报告。
+  </li>
+</ul>
+
+</body>
+</section>
+
+<section>
+<title><c>die</c>函数 </title>
+<body>
+
+<p>
+<c>die</c> 函数常用来处理致命的错误并终止程序运行。它的参数就是提示的信息。
+</p>
+
+<p>
+尽管<c>die</c> 函数可以无参运行。但是仍然推荐附加上一小段提示信息方便错误信息的查找，这点尤为重要，尤其在函数在多出出错的情况。
+</p>
+
+<p>
+一些软件包包含有遇到错误执行终止的功能。但另外一些没有，例如在在 <c>epatch</c>函数后省略<c>|| die</c>是安全可信的,当对于 <c>emake</c> 而言旧并非如此。这是因为二进制包使不能调用<c>|| die</c> ,调用是bash具有的功能。请在此处查看那些二进制扩展包的命令<c>ls /usr/lib*/portage/bin/ebuild-helpers</c>.
+</p>
+
+<p>
+有时能及时显示额外的错误信息也是很有给力的，试试
+<c>eerror</c> 。相见 <uri link="::ebuild-writing/messages"/>.
+</p>
+
+<p>
+没事的时候多用用<c>|| die</c> 函数，错不了的。
+</p>
+</body>
+</section>
+
+<section>
+<title><c>die</c> 和 Subshells</title>
+<body>
+
+<warning>
+<c>die</c> <b>不能在subshell运行</b>.
+</warning>
+
+<p>
+以下的代码不能如期运行，因为把 <c>die</c> 放在subshell:
+</p>
+
+<codesample lang="ebuild">
+[[ -f foorc ]] &amp;&amp; ( update_foorc || die "Couldn't update foorc!" )
+</codesample>
+
+<p>
+正确的修正方法是使用 <c>if</c> 替代:
+</p>
+
+<codesample lang="ebuild">
+if [[ -f foorc ]] ; then
+    update_foorc || die "Couldn't update foorc!"
+fi
+</codesample>
+
+<p>
+使用管道时，subshell就会被介入，所以下面的代码也是不安全的:
+</p>
+
+<codesample lang="ebuild">
+cat list | while read file ; do epatch ${file} ; done
+</codesample>
+
+<p>
+使用输入重定向（&lt;） (见 <uri link="::tools-reference/cat/#Abuse of cat"/>)
+可避免此类问题:
+</p>
+
+<codesample lang="ebuild">
+while read file ; do epatch ${file} ; done &lt; list
+</codesample>
+
+</body>
+</section>
+
+<section>
+<title><c>assert</c> 函数和 <c>$PIPESTATUS</c></title>
+<body>
+
+<p>
+在任何情况下使用管道时，使用 <c>$?</c> 行简单情形测试时将不能正确的探测到错误，除了语句中最后一个命令能够探测到。<c>bash</c> 提供的 <c>$PIPESTATUS</c> 变量可以解决此类问题。Portage提供的 <c>assert</c> 函数可检测此变量。
+</p>
+
+<codesample lang="ebuild">
+bunzip2 "${DISTDIR}/${VIM_RUNTIME_SNAP}" | tar xf
+assert
+</codesample>
+
+<p>
+如有需要了解 <c>$PIPESTATUS</c>变量的更详细的介绍, 请参考manpage. 大部分时候有 <c>assert</c> 足以.
+</p>
+
+</body>
+</section>
+
+</chapter>
+</guide>

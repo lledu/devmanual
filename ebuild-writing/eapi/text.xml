@@ -1,0 +1,776 @@
+<?xml version="1.0"?>
+<guide self="ebuild-writing/eapi/">
+<chapter>
+<title>EAPI 用途及描述</title>
+
+<body>
+<p>
+包管理规范（PMS）致力于确保ebuilds 文件格式，ebuild repos库格式（Gentoo Portage树为主要代表）标准化，也是包管理者方便管理符合严格遵守上述标准的ebuilds文件的一致要求。
+</p>
+
+<p>
+EAPI 规定 ebuilds 和其他的包管理相关文档的标准，并规范化相关文档的语法和内容。它实际上是包管理规范（PMS）的继承和坚持。
+</p>
+
+<p>
+本节提供不同版本EAPIs 用法和说明.
+</p>
+
+<section>
+<title>Usage of EAPIs</title>
+<body>
+<important>
+各版的EAPI的主要特色在PMS的附录中都有描述。两页可打印的小册子，可以参考主树中的 <c>app-doc/pms</c> .
+</important>
+<p>
+如果EAPI 在 ebuild中未被定义, 系统将默认 EAPI=0 . 如果想覆盖当前的 EAPI 变量，则应该在 ebuild文档前面定义它:
+</p>
+
+<note>
+大多数开发者更愿省略EAPI后方版本的引号。然而，PMS也允许单引和双引号。
+</note>
+
+<codesample lang="ebuild">
+# Copyright 1999-2010 Gentoo Foundation
+# Distributed under the terms of the GNU General Public License v2
+# $Header: $
+
+EAPI=1
+inherit eutils
+
+</codesample>
+
+<important>
+EAPI 只能且只能在ebuild 文档中被定义,不能定义在 eclasses中. (但eclasses 允许有EAPI的条件代码)
+</important>
+
+</body>
+</section>
+
+<section>
+<title>EAPI=1</title>
+<body>
+
+<ul>
+	<li>
+		<p><b>默认 src_compile 语句函数</b></p>
+		<p>
+		支持变量 <c>ECONF_SOURCE</c> , 
+		<c>econf</c>也支持此变量, 已被 <c>src_compile</c> 当作默认。
+		</p>
+		<codesample lang="ebuild">
+src_compile() {
+	if [[ -x ${ECONF_SOURCE:-.}/configure ]] ; then
+		econf
+	fi
+	if [ -f Makefile ] || [ -f GNUmakefile ] || [ -f makefile ] ; then
+		emake || die "emake failed"
+	fi
+}
+		</codesample>
+	</li>
+	<li>
+		<p><b>SLOT 依赖</b></p>
+		<p>
+		原则上讲，任何软件包（即使再袖珍）在Portage中都存在与之对应的 SLOT. 		我们常常通过在软件包名称后加冒号，然后再添上SLOT 值，来完美实现同一软件包的不同版本在同一系统的共存，满足不同的需求.
+		</p>
+		<p>
+		<b>SLOT 依赖举例:</b>
+		<ul>
+			<li><c>x11-libs/qt:3</c></li>
+			<li><c>~x11-libs/qt-3.3.8:3</c></li>
+			<li><c>&gt;=x11-libs/qt-3.3.8:3</c></li>
+			<li><c>=x11-libs/qt-3.3*:3</c></li>
+		</ul>
+		</p>
+	</li>
+	<li>
+		<p><b>IUSE默认设置 </b></p>
+		<p>
+		于 USE 标识前置 + 或 - 来开启或关闭 IUSE 变量中的USE功能
+		</p>
+
+		<important>
+		默认的USE标识添加顺序是 <c>USE_ORDER="env:pkg:conf:defaults:pkginternal:env.d"</c>
+		(见 man make.conf)
+		</important>
+		<important>
+		将IUSE变量留空并不影响用户USE标识的设定 (make.conf 和 package.use)
+		</important>
+
+		<codesample lang="ebuild">
+# Copyright 1999-2010 Gentoo Foundation
+# Distributed under the terms of the GNU General Public License v2
+# $Header: $
+
+EAPI=1
+
+IUSE="foo +bar"
+
+		</codesample>
+	</li>
+</ul>
+
+</body>
+</section>
+
+
+<section>
+<title>EAPI=2</title>
+<body>
+
+<subsection>
+<title>man page安装</title>
+<body>
+<ul>
+	<li>
+		<p><b>doman 语言支持</b></p>
+		<p>
+		<c>doman</c> 主动探测语言编码并将其安装在相应目录中。
+		<codesample lang="ebuild">
+doman foo.1
+# will go into /usr/share/man/man1/foo.1
+doman foo.lang.1
+# will go into /usr/share/man/lang/man1/foo.1 with EAPI=2
+		</codesample>
+		</p>
+	</li>
+</ul>
+</body>
+</subsection>
+
+<subsection>
+<title>Metadata</title>
+<body>
+<ul>
+	<li>
+		<p><b>Blocker Atoms</b></p>
+		<p>
+		<ul>
+			<li>
+				<p><b>旧指令的新意义</b></p>
+				<p>
+				屏蔽软件包虽仍然使用原有的!atom 指令，但其产生的结果较之前有所不同。有冲突的软件包可以暂时被安装。当暂时安装有冲突的软件包时，较新的软件包会覆盖较旧的被屏蔽的软件包，这些被覆盖的文件不在属于旧的软件包，即使是旧的软件包被卸载后它们仍存在，这些残留的旧包只有在不再被屏蔽后才能完全卸载。
+			</p>
+			</li>
+			<li>
+				<p><b>新的 !!atom 指令</b></p>
+				<p>
+				现在支持新的!!atom 指令了，在这种情况下系统将不会安装暂时由冲突的软件包，如果一个软件包恰好被由!atom 和 !!atom混合而成的指令屏蔽，!!atom 指令优先级高于!atom指令.
+				</p>
+			</li>
+		</ul>
+		</p>
+	</li>
+	<li>
+		<p><b>USE 依赖</b></p>
+		<p>
+		主要依赖于USE标识的软件包。
+		</p>
+		<p>例如:
+		<ul>
+			<li><c>foo[bar]</c> foo包 将 bar标识激活</li>
+			<li><c>foo[bar,baz]</c> foo包 将bar，baz同时激活
+			</li>
+			<li><c>foo[-bar,baz]</c> foo包将关闭bar，激活baz </li>
+			<li><c>foo[bar?]</c> 指 <c>bar? ( foo[bar] ) !bar? ( foo )</c></li>
+			<li><c>foo[!bar?]</c> 指 <c>bar? ( foo ) !bar? ( foo[-bar] )</c></li>
+			<li><c>foo[bar=]</c> 指 <c>bar? ( foo[bar] ) !bar? ( foo[-bar] )</c></li>
+			<li><c>foo[!bar=]</c> 指 <c>bar? ( foo[-bar] ) !bar? ( foo[bar] )</c></li>
+		</ul>
+		</p>
+	</li>
+	<li>
+		<p><b>SRC_URI输出文件名的定制</b></p>
+		<p>
+		对于指定的URI输出的文件名称现在已经支持自定义了。 "<c>-&gt;</c>" 操作符后添加拟定好的文件名称即可。通常字段，操作符及自定义名称之间使用空白分割。
+		</p>
+		<p>例如:</p>
+		<codesample lang="ebuild">
+SRC_URI="http://dl.google.com/earth/client/GE4/release_4_3/GoogleEarthLinux.bin
+                        -&gt; GoogleEarthLinux-${PV}.bin"
+		</codesample>
+	</li>
+</ul>
+</body>
+</subsection>
+
+<subsection>
+<title>辅助函数</title>
+<body>
+<ul>
+	<li>
+		<p><b>新的<c>src_prepare</c> 辅助函数</b></p>
+		<p>
+		src_prepare 函数在 <c>src_unpack</c>函数运行成功后调用，cwd目录初始化在 <c>$S</c>.
+		</p>
+	</li>
+	<li>
+		<p><b>新的<c>src_configure</c> 辅助函数</b></p>
+		<p>
+		 <c>src_compile</c> 函数中的 configure 部分已被独立使用 <c>src_configure</c>辅助函数. 该函数在 <c>src_prepare</c> 和
+		<c>src_compile</c> 之间调用。
+		</p>
+		<p>在EAPI2中默认存在的辅助函数 <c>src_configure</c> 和 <c>src_compile</c>:
+		<codesample lang="ebuild">
+src_configure() {
+	if [[ -x ${ECONF_SOURCE:-.}/configure ]] ; then
+		econf
+	fi
+}
+
+src_compile() {
+	if [ -f Makefile ] || [ -f GNUmakefile ] || [ -f makefile ] ; then
+		emake || die "emake failed"
+	fi
+}
+		</codesample>
+		</p>
+	</li>
+	<li>
+		<p><b>辅助函数的执行顺序</b></p>
+		<p>
+		<ul>
+			<li><c>pkg_setup</c></li>
+			<li><c>src_unpack</c></li>
+			<li><c>src_prepare</c></li>
+			<li><c>src_configure</c></li>
+			<li><c>src_compile</c></li>
+			<li><c>src_test</c></li>
+			<li><c>src_install</c></li>
+			<li><c>pkg_preinst</c></li>
+			<li><c>pkg_postinst</c></li>
+			<li><c>pkg_prerm</c></li>
+			<li><c>pkg_postrm</c></li>
+		</ul>
+		</p>
+	</li>
+	<li>
+		<p><b>默认的辅助函数</b></p>
+		<p>
+		默认的 <c>pkg_nofetch</c> 函数和 <c>src_*</c> 函数可以通过以 <c>default_</c>开头的相应辅助函数名称使用。例如调用 <c>default_src_compile</c> 和调用 <c>src_compile</c> 是等价的。
+		</p>
+		<p>默认的辅助函数如下:
+		<ul>
+			<li><c>default_pkg_nofetch</c></li>
+			<li><c>default_src_unpack</c></li>
+			<li><c>default_src_prepare</c></li>
+			<li><c>default_src_configure</c></li>
+			<li><c>default_src_compile</c></li>
+			<li><c>default_src_test</c></li>
+		</ul>
+		</p>
+	</li>
+	<li>
+		<p><b>默认函数的别名</b></p>
+		<p>
+		"目前将<c>default</c>" 函数名被定义为调用 <c>default_*</c> 之类函数的的别名。例如，在<c>src_compile</c>函数中调用 "<c>default</c>"就等价于调用 <c>default_src_compile</c>函数。
+		</p>
+	</li>
+</ul>
+</body>
+</subsection>
+
+</body>
+</section>
+<section>
+<title>EAPI=3</title>
+<body>
+
+<ul>
+	<li>
+		<p><b>Gentoo 前缀名的支持</b></p>
+		<p>
+		变量 <c>EPREFIX</c>, <c>EROOT</c>, 和<c>ED</c>的启用。想要在ebuilds中启用这些功能，必须提前注明是 EAPI3 。
+			见 <uri link="http://www.gentoo.org/proj/en/gentoo-alt/prefix/techdocs.xml#doc_chap2">Gentoo Prefix Techdocs</uri> 详细内容.
+		</p>
+	</li>
+	<li>
+		<p><b>unpack 添加 .xz 和 .tar.xz文件的支持</b></p>
+		<p>
+		 <c>unpack</c> 命令 支持解压 xz-archives 和 xz-compressed 压缩包。
+		</p>
+	</li>
+</ul>
+
+</body>
+</section>
+
+<section>
+<title>EAPI=4</title>
+<body>
+
+<subsection>
+<title>解读</title>
+<body>
+<ul>
+	<li>
+		<p><b>程序能针对致命错误可行自我了断，非致命性错误除外</b></p>
+		<p>
+			<!-- TODO link auf fuunction-reference -->
+			EAPI=4规约中，Ebuild 函数将能自行了断。 如果期望获得non-zero状态，可以调用 <c>nonfatal function
+			[arg,...]</c>.
+		</p>
+		<p>例如:</p>
+		<codesample lang="ebuild">
+EAPI=1
+...
+src_install() {
+	emake DESTDIR="${D}" install || die "make install failed"
+	dodoc ChangeLog README
+}
+		</codesample>
+		<codesample lang="ebuild">
+EAPI=4
+...
+src_install() {
+	emake DESTDIR="${D}" install
+	nonfatal dodoc ChangeLog README
+}
+		</codesample>
+	</li>
+	<li>
+		<p><b>dodoc递归</b></p>
+		<p>
+			<c>dodoc</c> 支持递归参数 <c>-r</c> , 使
+			<c>dodoc</c> 将安装相关文档直接安装在相应的文档目录.
+		</p>
+		<p>实例:</p>
+		<codesample lang="ebuild">
+src_install() {
+	default
+	dodoc ChangeLog
+	dodoc -r doc/
+}
+		</codesample>
+	</li>
+	<li>
+		<p><b>doins 符号链接</b></p>
+		<p>
+			EAPI=4规约中, <c>doins</c> 支持安装符号链接，前几版中不支持。
+		</p>
+	</li>
+	<li>
+		<p><b>dosed 和 dohard 禁用</b></p>
+		<p>
+			命令 <c>dosed</c> 和 <c>dohard</c> 在本 EAPI规约中禁用喽.
+		</p>
+	</li>
+	<li>
+		<p><b>econf 辅助函数中添加参数 --disable-dependency-tracking</b></p>
+		<p>
+			EAPI=4版规约中, <c>econf</c> 添加
+			<c>--disable-dependency-tracking</c> 功能.
+		</p>
+	</li>
+	<li>
+		<p><b>docompress可控压缩</b></p>
+		<p>
+			当在<c>src_install</c>进程中，想要压缩目标文件夹 <c>${D}</c>中相关文件时,可使用
+			<c>docompress</c> 命令。
+			为了更好地控制想要被压缩的文件及不想被压缩的文件，可以使用include 或 exclude 想过文件夹或单纯的文件列表。系统默认包含文件的列表如下:
+			<ul>
+				<li><c>/usr/share/doc</c></li>
+				<li><c>/usr/share/info</c></li>
+				<li><c>/usr/share/man</c></li>
+			</ul>
+			默认排除的列表如下:
+			<ul>
+				<li><c>/usr/share/doc/${PF}/html</c></li>
+			</ul>
+			当一个文件夹被设置成 in- 或 excluded时，文件夹内的子目录及相应文件将被做出相应的处理。当一个文件被设置成in-或excluded时，该文件将被做出相应的处理(排除的优先级高于包含<d/> 如果一个文件同时具有in-及excluded两个属性，默认会舍弃包含属性)。
+		</p>
+		<p>
+			如果 <c>docompress</c> 的第一个参数是 <c>-x</c> ，该项目将会被添加指排除列表，否则就会被添加至包含列表。
+		</p>
+		<note>
+			当调用 <c>docompress</c> ，<e>没有</e> 必要给出具体的目录路径因为所在的工作路径已定。若在<c>src_install</c> 命令后该文件仍步存在时，系统将给出警告。
+		</note>
+	</li>
+</ul>
+</body>
+</subsection>
+
+<subsection>
+<title>Metadata</title>
+<body>
+<ul>
+	<li>
+		<p><b>USE默认依赖</b></p>
+		<p>
+			在EAPI=2规约中，  <c>(+)</c> 及
+			<c>(-)</c> 添加至use-dep中，它用来辅助定义某个给定软件包中原本不存在的默认值(USE标识)。<c>(+)</c> 标识开启这个 use标识，<c>(-)</c> 自然表示关闭之。
+			<p>实例:</p>
+			<codesample lang="ebuild">
+DEPEND="
+	>=dev-libs/boost-1.32[boost(+)]
+	sys-devel/gcc[openmp(-)]"
+			</codesample>
+		</p>
+	</li>
+</ul>
+</body>
+</subsection>
+
+<subsection>
+<title>辅助函数</title>
+<body>
+<ul>
+	<li>
+		<p><b>新的pkg_pretend 辅助函数</b></p>
+		<p>
+			<c>pkg_pretend</c> 函数是运行在在主函数前的常规检测 (意味着该函数运行在包管理软件计算系统依赖后，安装软件包之前)。
+			该函数会常规的检测内核配置，并且可能在发现系统的问题后
+			<c>eerror</c> 或 <c>die</c> .
+			<important>
+				该程序运行阶段，尚且不能保证所有 ebuild's 相关依赖都能被安装完毕。
+		    </important>
+			<important>
+				由于 <c>pkg_pretend</c> 函数是在主函数运行前调用，不能保证系统环境变量能正确保存。
+			</important>
+		</p>
+		<p>实例:</p>
+		<codesample lang="ebuild">
+# Copyright 1999-2009 Gentoo Foundation
+# Distributed under the terms of the GNU General Public License v2
+# $Header: $
+
+EAPI=4
+inherit linux-info
+...
+
+CONFIG_CHECK="FUSE_FS"
+ERROR_FUSE_FS="this is an unrealistic testcase..."
+
+pkg_pretend() {
+	if use kernel_linux ; then
+		if [[ -e "${ROOT}"/usr/src/linux/.config ]] ; then
+			if kernel_is lt 2 6 30 ; then
+				check_extra_config
+			fi
+		fi
+	fi
+}
+		</codesample>
+	</li>
+	<li>
+		<p><b> src_install 不再是 no-op了</b></p>
+		<p>
+			在EAPI=4中的 default <c>src_install</c> 函数:
+		</p>
+		<codesample lang="ebuild">
+src_install() {
+	if [[ -f Makefile ]] || [[ -f GNUmakefile]] || [[ -f makefile ]] ; then
+		emake DESTDIR="${D}" install
+	fi
+
+	if ! declare -p DOCS >/dev/null 2>&amp;1 ; then
+		local d
+		for d in README* ChangeLog AUTHORS NEWS TODO CHANGES THANKS BUGS \
+				FAQ CREDITS CHANGELOG ; do
+			[[ -s "${d}" ]] &amp;&amp; dodoc "${d}"
+		done
+	elif declare -p DOCS | grep -q "^declare -a " ; then
+		dodoc "${DOCS[@]}"
+	else
+		dodoc ${DOCS}
+	fi
+}
+		</codesample>
+	</li>
+	<li>
+		<p><b>未安装包的pkg_info </b></p>
+		<p>
+			该函数<c>pkg_info</c> 也能被尚未安装的软件包调用。
+			Ebuild 编写人员应注意此处。
+		</p>
+	</li>
+</ul>
+</body>
+</subsection>
+
+<subsection>
+<title>变量</title>
+<body>
+<ul>
+	<li>
+		<p><b>REQUIRED_USE</b></p>
+		<p>
+			变量<c>REQUIRED_USE</c>  contains a list of assertions that
+			must be met by the configuration of USE flags to be valid for this
+			ebuild. In order to be matched, a USE flag in a terminal element
+			must be enabled (or disabled if it has an exclamation mark prefix).
+		</p>
+		<p>
+			Essentially, <c>REQUIRED_USE</c> is an analogue of <c>DEPEND</c>
+			style syntax. For example, to state that some combination is
+			forbidden, i.e. "if <c>foo</c> is set, <c>bar</c> must be unset":
+		</p>
+		<codesample lang="ebuild">
+REQUIRED_USE="foo? ( !bar )"
+		</codesample>
+		<p>
+			To state "if <c>foo</c> is set, then at least one of <c>bar</c>,
+			<c>baz</c>, and <c>quux</c> must be activated":
+		</p>
+		<codesample lang="ebuild">
+REQUIRED_USE="foo? ( || ( bar baz quux ) )"
+		</codesample>
+		<p>
+			To state "exactly one of <c>foo</c>, <c>bar</c>, or <c>baz</c> must
+			be set, but not several":
+		</p>
+		<codesample lang="ebuild">
+REQUIRED_USE="^^ ( foo bar baz )"
+		</codesample>
+		<p>
+			Note that the last relationship is that of an Exclusive OR (XOR).
+			While an XOR could be formed from usual <c>DEPEND</c> syntax, a
+			specific <c>^^</c> operator has been added for this case.
+		</p>
+		<p>
+			Finally, to state "at least one of <c>foo</c>, <c>bar</c>, or
+			<c>baz</c> must be set":
+		</p>
+		<codesample lang="ebuild">
+REQUIRED_USE="|| ( foo bar baz )"
+		</codesample>
+
+		<important>
+			See section
+			<uri link="::general-concepts/use-flags/#conflicting-use-flags" />
+			for when (and when not) to use <c>REQUIRED_USE</c>.
+		</important>
+	</li>
+	<li>
+		<p><b>REPLACING_VERSIONS and REPLACED_BY_VERSION</b></p>
+		<p>
+			The <c>REPLACING_VERSIONS</c> variable contains a
+			whitespace-separated list of all versions (<c>PVR</c>) of this
+			package that are being replaced (uninstalled or overwritten) as a
+			result of this install. It is a list, not a single optional value,
+			to handle pathological cases such as installing <c>foo-2:2</c> to
+			replace <c>foo-2:1</c> and <c>foo-3:2</c>.
+		</p>
+		<p>
+			<c>REPLACING_VERSIONS</c> is valid in <c>pkg_preinst</c> and
+			<c>pkg_postinst</c>. In addition, it may be available in
+			<c>pkg_pretend</c> and <c>pkg_setup</c>, although you should take
+			care to handle binary package creation and installation correctly
+			when using it in these phases.
+		</p>
+		<p>
+			The <c>REPLACED_BY</c> variable contains the single version
+			(<c>PVR</c>) of this package that is replacing us, if we are being
+			uninstalled as part of an install, or an empty string otherwise.
+			It is valid in <c>pkg_prerm</c> and <c>pkg_postrm</c>.
+		</p>
+	</li>
+	<li>
+		<p><b>MERGE_TYPE</b></p>
+		<p>
+			The <c>MERGE_TYPE</c> variable contains the type of package that
+			is being merged. Possible values are:
+			<dl>
+				<dt><c>source</c></dt>
+				<dd><p>
+					if building and installing a package from source,
+				</p></dd>
+				<dt><c>binary</c></dt>
+				<dd><p>
+					if installing a binary package,
+				</p></dd>
+				<dt><c>buildonly</c></dt>
+				<dd><p>
+					if building a binary package without installing it.
+				</p></dd>
+			</dl>
+		</p>
+	</li>
+	<li>
+		<p><b>DOCS</b></p>
+		<p>
+			The <c>DOCS</c> variable is an array or whitespace-separated list
+			of documentation files for the default <c>src_install</c> function
+			to install using <c>dodoc</c>. If undefined, a reasonable default
+			list is used. See the default <c>src_install</c> function above.
+		</p>
+	</li>
+	<li>
+		<p><b>AA and KV variables are gone</b></p>
+		<p>
+			The <c>AA</c> and <c>KV</c> variables are no longer set in EAPI=4.
+		</p>
+	</li>
+	<li>
+		<p><b>no more RDEPEND="${DEPEND}"</b></p>
+		<p>
+			When <c>RDEPEND</c> is unset, there will no longer be an automatic
+			assignment of <c>RDEPEND="${DEPEND}"</c>.
+		</p>
+	</li>
+</ul>
+</body>
+</subsection>
+
+</body>
+</section>
+
+<section>
+<title>EAPI=5</title>
+<body>
+
+<subsection>
+<title>Metadata</title>
+<body>
+<ul>
+	<li>
+		<p><b>REQUIRED_USE supports new at-most-one-of operator</b></p>
+		<p>
+		The new <b>at-most-one-of</b> operator consists of the string <c>'??'</c>, and is satisfied if zero or one (but no more) of its child elements is matched.
+		</p>
+	</li>
+	<li>
+		<p><b>SLOT supports optional "sub-slot" part</b></p>
+		<p>
+		The <c>SLOT</c> variable may contain an optional <b>sub-slot</b> part that follows the regular slot and is delimited by a <c>/</c> character. The sub-slot must be a valid slot name. The sub-slot is used to represent cases in which an upgrade to a new version of a package with a different sub-slot may require dependent packages to be rebuilt. When the sub-slot part is omitted from the SLOT definition, the package is considered to have an implicit sub-slot which is equal to the regular slot.
+		</p>
+	</li>
+	<li>
+		<p><b>Slot operators and sub-slots in dependencies</b></p>
+		<p>
+		A slot dependency may contain an optional sub-slot part that follows the regular slot and is delimited by a <c>/</c> character. This can be useful for packages installing pre-built binaries that require a library with a specific soname version which corresponds to the sub-slot. For example:
+		</p>
+		<codesample lang="ebuild">
+RDEPEND="dev-libs/foo:0/3"
+		</codesample>
+		<p>
+		Dependency atoms can use <b>slot operators</b> to clarify what should happen if the slot and/or sub-slot of a runtime dependency changes:
+		</p>
+		<ul>
+			<li>
+			<c>:*</c> Indicates that any slot value is acceptable. In addition, for runtime dependencies, indicates that the package specifying the dependency will not break if the package matching the dependency is replaced by a different matching package with a different slot and/or sub-slot.
+			</li>
+			<li>
+			<c>:=</c> Indicates that any slot value is acceptable. In addition, for runtime dependencies, indicates that the package specifying the dependency will break unless there is available a package matching the dependency and whose slot and sub-slot are equal to the slot and sub-slot of the best installed version that had matched this dependency at the time when the package specifying this dependency had been installed.
+			</li>
+			<li>
+			<c>:slot=</c> Indicates that only a specific slot value is acceptable, and otherwise behaves identically to the <c>:=</c> operator.
+				<note>
+				use <c>:slot/subslot</c> without a <c>=</c> to depend on a specific slot and sub-slot pair; it's a syntax error to use <c>:slot/subslot=</c> in an ebuild.
+				</note>
+			</li>
+		</ul>
+		<p>
+		The <c>:slot</c> dependency syntax continues to behave like in EAPI=4 or earlier, i.e. it indicates that only the specific slot value is acceptable, but the package will not break when the version matching the runtime dependency is replaced by a version with a different sub-slot.
+		</p>
+		<p>
+		For example:
+		</p>
+		<codesample lang="ebuild">
+RDEPEND="dev-libs/foo:2=
+	&gt;=dev-libs/bar-0.9:=
+	media-gfx/baz:*
+	x11-misc/wombat:0"
+		</codesample>
+		<p>
+		means that the package should be rebuilt when <c>foo:2</c> or <c>&gt;=bar-0.9</c> are upgraded to versions with different subslots, but that changes in subslots of <c>baz</c> or <c>wombat:0</c> should be ignored.
+		</p>
+	</li>
+</ul>
+</body>
+</subsection>
+
+<subsection>
+<title>Profiles</title>
+<body>
+<ul>
+	<li>
+		<p><b>Profile stable USE forcing and masking</b></p>
+		<p>
+		In profile directories with an EAPI supporting stable masking, new USE configuration files are supported: <c>use.stable.mask</c>, <c>use.stable.force</c>, <c>package.use.stable.mask</c> and <c>package.use.stable.force</c>. These files behave similarly to previously supported USE configuration files, except that they only influence packages that are merged due to a stable keyword.
+		</p>
+	</li>
+</ul>
+</body>
+</subsection>
+
+<subsection>
+<title>Helpers</title>
+<body>
+<ul>
+	<li>
+		<p><b>econf adds --disable-silent-rules</b></p>
+		<p>
+		This option will automatically be passed if <c>--disable-silent-rules</c> occurs in the output of <c>configure --help</c>.
+		</p>
+	</li>
+	<li>
+		<p><b>new* commands can read from standard input</b></p>
+		<p>
+		Standard input is read when the first parameter is <c>-</c> (a hyphen).
+		</p>
+	</li>
+	<li>
+		<p><b>New option --host-root for {has,best}_version</b></p>
+		<p>
+		This option <c>--host-root</c> will cause the query to apply to the host root instead of ROOT.
+		</p>
+	</li>
+	<li>
+		<p><b>New doheader helper function</b></p>
+		<p>
+		Installs the given header files into <c>/usr/include/</c>, by default with file mode <c>0644</c>. This can be overridden by setting <c>INSOPTIONS</c> with the <c>insopts</c> function.
+		</p>
+	</li>
+	<li>
+		<p><b>New usex helper function</b></p>
+		<p>
+		<!-- We probably need an example here -->
+		<pre>
+USAGE: usex &#9001;USE flag&#9002; [true output] [false output] [true suffix] [false suffix]
+DESCRIPTION:
+If USE flag is set, echo [true output][true suffix] (defaults to "yes"),
+ otherwise echo [false output][false suffix] (defaults to "no").
+		</pre>
+		</p>
+	</li>
+</ul>
+</body>
+</subsection>
+
+<subsection>
+<title>Phases</title>
+<body>
+<ul>
+	<li>
+		<p><b>src_test supports parallel tests</b></p>
+		<p>
+		Unlike older EAPIs, the default <c>src_test</c> implementation will not pass the -j1 option to emake.
+		</p>
+	</li>
+</ul>
+</body>
+</subsection>
+
+<subsection>
+<title>Variables</title>
+<body>
+<ul>
+	<li>
+		<p><b>EBUILD_PHASE_FUNC</b></p>
+		<p>
+		During execution of an ebuild phase function (such as <c>pkg_setup</c> or <c>src_unpack</c>),
+		the <c>EBUILD_PHASE_FUNC</c> variable will contain the name of the phase function that is currently executing.
+		</p>
+	</li>
+</ul>
+</body>
+</subsection>
+
+</body>
+</section>
+
+</body>
+</chapter>
+</guide>

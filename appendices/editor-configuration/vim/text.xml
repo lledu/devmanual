@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<guide self="appendices/editor-configuration/vim/">
+<chapter>
+<title>Configuring <c>vim</c> and <c>gvim</c></title>
+<body>
+
+<p>
+For full whitespace, character set, syntax highlighting and indent settings for
+all of Gentoo's file-types in <c>vim</c> and <c>gvim</c>, emerge the
+<c>app-vim/gentoo-syntax</c> package.
+</p>
+
+<p>
+Full documentation is provided with the package, and can be viewed
+by using <c>vim</c>'s internal help browser (<c>:help gentoo-syntax</c>).
+</p>
+
+<p>
+When fixing ebuilds with broken whitespace, the <c>:retab!</c> command may be
+of interest. The ! is required to replace spaces with tabs.
+</p>
+
+</body>
+</chapter>
+</guide>

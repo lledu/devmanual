@@ -1,0 +1,58 @@
+<?xml version="1.0"?>
+<guide root="true">
+<chapter>
+<title>主目录</title>
+
+<body>
+<p>
+这是一份需不断更改以适应实时需求的开发文档，需要在大家的努力共同维护。它可能存在诸多谬误和不足。目的旨在给开发者和用户提供正确，详尽，可操作，及时更新的参考。
+</p>
+<dl>
+    <dt>参加编写人员</dt>
+    <dd>
+        <p>
+            Ciaran McCreesh, Grant Goodyear, Aaron Walker, Robert Coie,
+            Tom Martin, Paul Varner, Ilya Volynets-Evenbakh,
+            Diego Pettenò, Fernando J. Pereda, Simon Stelling, Alin Dobre,
+            Joseph Jezak, Tim Yamin, Mark Loeser, Petteri Räty, Markos
+            Chandras, Mike Pagano, Julian Ospald, Ulrich Müller
+        </p>
+    </dd>
+</dl>
+<p>
+欢迎完善该文档.具体操作详见<uri link="::appendices/contributing"/>
+章节. 如您有对本文有任何的建议和意见，错误的修改等请参照<uri link="https://bugs.gentoo.org/buglist.cgi?product=Doc%20Other;component=Devmanual;resolution=---">bug list</uri>和提交一<uri link="https://bugs.gentoo.org/enter_bug.cgi?product=Doc%20Other;component=Devmanual;format=guided">new bug</uri>.
+这部分 <uri link="::appendices/contributors"/>
+列举了各个编委为本文所做的具体工作.
+</p>
+</body>
+
+<section>
+<title>目录框架</title>
+<body>
+<contentsTree maxdepth="1"/>
+</body>
+</section>
+
+<section>
+<title>章节安排</title>
+<body>
+<contentsTree/>
+</body>
+</section>
+</chapter>
+
+<include href="quickstart/"/>
+<include href="general-concepts/"/>
+<include href="ebuild-writing/"/>
+<include href="eclass-writing/"/>
+<include href="profiles/"/>
+<include href="keywording/"/>
+<include href="tasks-reference/"/>
+<include href="function-reference/"/>
+<!-- <include href="eclass-reference/"/> -->
+<include href="tools-reference/"/>
+<include href="hosted-projects/"/>
+<include href="archs/"/>
+<include href="appendices/"/>
+</guide>

@@ -1,0 +1,32 @@
+<?xml version="1.0"?>
+<guide self="general-concepts/herds-and-projects/">
+<chapter>
+<title>Herds and Projects</title>
+
+<body>
+
+<p>
+A <e>herd</e> is a collection of packages with an associated set of maintainers.
+It can happen for example because of retirement that a herd has no developers
+but this should be avoided if at all possible. A herd has an associated email
+address which can be used for bugzilla assignments. This email address is
+<b>not</b> always <c>herdname@gentoo.org</c> <d/> for example, because of the
+way Gentoo's email aliases are set up, the <c>cron</c> herd use
+<c>cron-bugs@gentoo.org</c> (aliases cannot match system usernames).
+</p>
+
+<p>
+A <e>project</e> is a group formed for handling a particular general area. A project
+may have herds associated with it.
+</p>
+
+<p>
+Sometimes herd and project names overlap <d/> for example, the <c>sparc</c> project
+has an associated <c>sparc</c> herd which maintains sparc-specific packages (such
+as the <c>silo</c> bootloader). This is <e>not</e> always the case.
+</p>
+
+</body>
+</chapter>
+</guide>
+

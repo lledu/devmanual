@@ -1,0 +1,388 @@
+<?xml version="1.0"?>
+<guide self="quickstart/">
+<chapter>
+<title>Ebuild快速上手</title>
+
+<body>
+<p>
+本章节<e>简要</e>介绍ebuild的写法。故特意避开现实开发可能遇到的种种不顺<d/>相反，在此仅给出数个可行实例让初学诸君对ebuilds的运行机制在总体上有大致了解。高手勿喷。
+</p>
+
+<p>
+更详尽的内容，请参考 <uri link="::ebuild-writing"/>  和 <uri link="::general-concepts"/> 。
+</p>
+
+<p>
+PS:本章所用实例均更改、删减自portage树中的ebuilds。
+</p>
+</body>
+
+<section>
+<title>第一个Ebuild</title>
+
+<body>
+<p>
+先拿这个 <e>Exuberant Ctags</e> 给源码加标签的ebuild开刀吧. 这里是简化版的。详细的 <c>dev-util/ctags/ctags-5.5.4.ebuild</c> (相见portage中ebuilds).
+</p>
+
+<codesample lang="ebuild">
+# Copyright 1999-2012 Gentoo Foundation
+# Distributed under the terms of the GNU General Public License v2
+# $Header: $
+
+EAPI=4
+
+DESCRIPTION="Exuberant ctags generates tags files for quick source navigation"
+HOMEPAGE="http://ctags.sourceforge.net"
+SRC_URI="mirror://sourceforge/ctags/${P}.tar.gz"
+
+LICENSE="GPL-2"
+SLOT="0"
+KEYWORDS="~mips ~sparc ~x86"
+
+src_configure() {
+    econf --with-posix-regex
+}
+
+src_install() {
+    emake DESTDIR="${D}" install
+
+    dodoc FAQ NEWS README
+    dohtml EXTENDING.html ctags.html
+}
+</codesample>
+</body>
+
+<subsection>
+<title>基本格式</title>
+
+<body>
+<p>
+正如您所见，ebuilds只是在特殊环境中可执行的 <c>bash</c> 脚本。
+</p>
+
+<p>
+在最开始的部分（以#开始的区域）是head区域 . 所有的ebuilds都是如此.
+</p>
+
+<p>
+Ebuilds 常使用 tabs 键, 一键四空格. 详见
+<uri link="::ebuild-writing/file-format"/>.
+</p>
+</body>
+</subsection>
+
+<subsection>
+<title>信息变量</title>
+
+<body>
+<p>
+接下来，下面的这一系列变量都在向portage解释软件包有关 ebuild 和 package 信息。
+</p>
+
+<p>
+ebuild中的变量 <c>EAPI</c> , 相见 <uri link="::ebuild-writing/eapi"/>.
+</p>
+
+<p>
+变量 <c>DESCRIPTION</c> 是<e>简洁</e>描述软件包及其作用的。
+</p>
+
+<p>
+变量 <c>HOMEPAGE</c> 是软件包主页面的链接地址 (谨记添加 <c>http://</c> 部分).
+</p>
+
+<p>
+变量 <c>SRC_URI</c> 提供给系统 portage 软件包可供下载的链接地址。 
+这里 <c>mirror://sourceforge/</c> 是指一个&quot;任何具体&quot;可用的下载地址.
+<c>${P}</c> 是由 Portage 中提供的软件包的名称和版本号的变量。
+<d/> 此例中, 就是指 <c>ctags-5.5.4</c>.
+</p>
+
+<p>
+变量 <c>LICENSE</c> 是 <c>GPL-2</c> (the GNU General Public License version 2).
+</p>
+
+<p>
+变量 <c>SLOT</c>  指软件安装至 Portage 中的那个 slot . 如果之前没有相关 slots , 可直接 <c>&quot;0&quot;</c> 或参考
+<uri link="::general-concepts/slotting"/>.
+</p>
+
+<p>
+变量 <c>KEYWORDS</c> 是指该 ebuild 被测试的系统构架. 我们常用 <c>~</c> 指较新的、不稳定的 ebuilds <d/> 软件包可能不稳定，或它们能否正常运行亦未可知. 详情请参考 <uri link="::keywording"/> .
+</p>
+</body>
+</subsection>
+
+<subsection>
+<title>构建函数</title>
+
+<body>
+<p>
+函数 <c>src_configure</c>. 当对软件包做通常的 <e>configure</e> 时 Portage 将调用该函数. 函数 <c>econf</c>是一个供 <c>./configure</c> 调用的 wrapper. 一旦 <c>econf</c> 出现任何问题, Portage 将停会止工作.
+</p>
+
+<p>
+函数 <c>src_install</c> .当对软件包做通常的 <e>install</e> 时 Porgtage 将调用该函数. 此处与通常略有不同 <d/> 软件默认先安装在 <c>${D}</c> 变量对应的目录，而不是直接安装在现运行的系统上(Portage 默认如此 <d/> 相见 <uri link="::general-concepts/install-destinations"/> 和 <uri link="::general-concepts/sandbox"/>).
+</p>
+
+<note>
+这种典型的安装方法就是传说中的 <c>emake DESTDIR=&quot;${D}&quot;
+install</c>. 对于任何标准的 <c>Makefile</c> 都适用. 如果这样使 sandbox 报错, 请使用 <c>einstall</c>
+安装软件. 若依旧出错，请参考 <uri
+link="::ebuild-writing/functions/src_install/"/> 进行手动安装.
+</note>
+
+<p>
+函数 <c>dodoc</c> 和 <c>dohtml</c> 是在需要在相应的 <c>/usr/share/doc</c> 下建立man page 时用到的.
+</p>
+
+<p>
+Ebuilds 中能定义其他函数 (参考 <uri link="::ebuild-writing/functions"/>).
+通常情况（不用再次定义其他功能函数），Portage 自己默认就能做很多'正确的判断'. 因此就没有必要定义如 <c>src_unpack</c> 或 <c>src_compile</c> 之类的函数, 例如<d/> 函数 <c>src_unpack</c> 常用来解压各种压缩包及完善源码的补丁，此时系统默认的功能即可满足日常所需. 类似的, 函数 <c>src_compile</c> 将能 <c>emake</c> 作为一个 wrapper 替代各种 <c>make</c>.
+</p>
+
+<note>
+很久以前, 常将 <c>|| die</c> 结构用在每个命令后来排查错误. 在 EAPI 4 中可将其舍弃 <d/>因为
+Portage 内置函数一旦出错将自行停止运行.
+</note>
+</body>
+</subsection>
+
+</section>
+
+<section>
+<title>Ebuild with Dependencies</title>
+
+<body>
+<p>
+在 ctags 的例子中, 我们并没有告诉 Portage 任何它依赖的软件包. 事实上它只需用基本工具链编译运行即可，恰好不需要额外添加依赖, (见 <uri link="::general-concepts/dependencies#Implicit System Dependency"/>
+不需要依赖的原因). 然而，生活并非常如此简单.
+</p>
+
+<p>
+看一下这个 <c>app-misc/detox/detox-1.1.1.ebuild</c>:
+</p>
+
+<codesample lang="ebuild">
+# Copyright 1999-2012 Gentoo Foundation
+# Distributed under the terms of the GNU General Public License v2
+# $Header: $
+
+EAPI=4
+
+DESCRIPTION="detox safely removes spaces and strange characters from filenames"
+HOMEPAGE="http://detox.sourceforge.net/"
+SRC_URI="mirror://sourceforge/${PN}/${P}.tar.bz2"
+
+LICENSE="BSD"
+SLOT="0"
+KEYWORDS="~hppa ~mips sparc x86"
+
+RDEPEND="dev-libs/popt"
+DEPEND="${RDEPEND}
+    sys-devel/flex
+    sys-devel/bison"
+
+src_configure() {
+    econf --with-popt
+}
+
+src_install() {
+    emake DESTDIR="${D}" install
+    dodoc README CHANGES
+}
+</codesample>
+
+<p>
+你能再次欣赏到 ebuild 专属的header 和传递各种信息的变量. 在变量
+<c>SRC_URI</c>中, 变量<c>${PN}</c> 用来获取<e>没有附加版本后缀</e>的软件包的名称 (诸如此类的变量还有很多 <d/> 详见
+<uri link="::ebuild-writing/variables#Predefined Read-Only Variables"/>).
+</p>
+
+<p>
+看函数 <c>src_configure</c> 和 <c>src_install</c> 简洁依旧.
+</p>
+
+<p>
+变量 <c>DEPEND</c> 和 <c>RDEPEND</c> 向 Portage 提供不同情况的依赖关系. 变量 <c>DEPEND</c> 列出编译时所需依赖, 变量 <c>RDEPEND</c> 列出的是运行是所需依赖. 详见 <uri link="::general-concepts/dependencies"/> 提供的更多实例.
+</p>
+
+</body>
+</section>
+
+<section>
+<title>Ebuild with Patches</title>
+
+<body>
+<p>
+系统经常需要打补丁. 函数 <c>src_prepare</c>
+调用 <c>epatch</c> 可随时供君使用. 使用 <c>epatch</c>
+前 Portage 需要事先载入 <c>eutils</c> eclass (eclass 有点像库文件) <d/>
+这个通过 <c>inherit eutils</c> 实现，inherit 字段通常在 ebuild 文件的顶部. 来咱瞧下这个
+<c>app-misc/detox/detox-1.1.0.ebuild</c>:
+</p>
+
+<codesample lang="ebuild">
+# Copyright 1999-2012 Gentoo Foundation
+# Distributed under the terms of the GNU General Public License v2
+# $Header: $
+
+EAPI=4
+
+inherit eutils
+
+DESCRIPTION="detox safely removes spaces and strange characters from filenames"
+HOMEPAGE="http://detox.sourceforge.net/"
+SRC_URI="mirror://sourceforge/${PN}/${P}.tar.bz2"
+
+LICENSE="BSD"
+SLOT="0"
+KEYWORDS="~hppa ~mips ~sparc ~x86"
+
+RDEPEND="dev-libs/popt"
+DEPEND="${RDEPEND}
+    sys-devel/flex
+    sys-devel/bison"
+
+src_prepare() {
+    epatch "${FILESDIR}"/${P}-destdir.patch \
+        "${FILESDIR}"/${P}-parallel_build.patch
+}
+
+src_configure() {
+    econf --with-popt
+}
+
+src_install() {
+    emake DESTDIR="${D}" install
+    dodoc README CHANGES
+}
+</codesample>
+
+<p>
+注意字段 <c>${FILESDIR}/${P}-destdir.patch</c> <d/> 指向
+<c>detox-1.1.0-destdir.patch</c>, 在Portage 树中相应存放 ebuilds 的子文件夹<c>files/</c>
+里面. 大型的补丁文件需存放在 <c>dev.gentoo.org</c> 的空间内，不能乱丢在 <c>files/</c> 文件夹或镜像空间内 <d/> 详见 <uri link="::general-concepts/mirrors#Gentoo Mirrors"/> 和 <uri
+link="::ebuild-writing/functions/src_prepare/epatch/"/>.
+</p>
+
+</body>
+</section>
+
+<section>
+<title>Ebuild with USE Flags</title>
+
+<body>
+<p>
+终于到 <c>USE</c> 标记这了. 来瞧瞧这个 <c>dev-libs/libiconv/libiconv-1.9.2.ebuild</c>, 为 <c>libc</c> 实现不同字符编码转换的工具.
+</p>
+
+<codesample lang="ebuild">
+# Copyright 1999-2012 Gentoo Foundation
+# Distributed under the terms of the GNU General Public License v2
+# $Header: $
+
+EAPI=4
+
+DESCRIPTION="GNU charset conversion library for libc which doesn't implement it"
+HOMEPAGE="http://www.gnu.org/software/libiconv/"
+SRC_URI="ftp://ftp.gnu.org/pub/gnu/libiconv/${P}.tar.gz"
+
+LICENSE="LGPL-2.1"
+SLOT="0"
+KEYWORDS="~amd64 ~ppc ~sparc ~x86"
+IUSE="nls"
+
+DEPEND="!sys-libs/glibc"
+
+src_configure() {
+    econf $(use_enable nls)
+}
+
+src_install() {
+    emake DESTDIR="${D}" install
+}
+</codesample>
+
+<p>
+注意变量 <c>IUSE</c> . 他列出了该软件包对应的 ebuilds 包含的(非特殊) 全部use 标记. 运行 <c>emerge -pv</c> 所见即所得 .
+</p>
+
+<p>
+通常情况下当软件包做 <c>./configure</c> 时，需要输入 <c>--enable-nls</c> 或
+<c>--disable-nls</c> 参数. 此处仅添加 <c>use_enable</c> 标记即可自动实现相关功能的开闭, 与用户的 <c>USE</c> 标记保持一致 (详见
+<uri link="::function-reference/query-functions/"/>).
+</p>
+
+<p>
+还有更加复杂的实例，下面的例子基于
+<c>mail-client/sylpheed/sylpheed-1.0.4.ebuild</c>:
+</p>
+
+<codesample lang="ebuild">
+# Copyright 1999-2012 Gentoo Foundation
+# Distributed under the terms of the GNU General Public License v2
+# $Header: $
+
+EAPI=4
+
+inherit eutils
+
+DESCRIPTION="A lightweight email client and newsreader"
+HOMEPAGE="http://sylpheed.good-day.net/"
+SRC_URI="mirror://sourceforge/${PN}/${P}.tar.bz2"
+
+LICENSE="GPL-2"
+SLOT="0"
+KEYWORDS="alpha amd64 hppa ia64 ppc ppc64 sparc x86"
+IUSE="crypt imlib ipv6 ldap nls pda ssl xface"
+
+RDEPEND="=x11-libs/gtk+-2*
+    crypt? ( >=app-crypt/gpgme-0.4.5 )
+    imlib? ( media-libs/imlib2 )
+    ldap? ( >=net-nds/openldap-2.0.11 )
+    pda? ( app-pda/jpilot )
+    ssl? ( dev-libs/openssl )
+    xface? ( >=media-libs/compface-1.4 )
+    app-misc/mime-types
+    x11-misc/shared-mime-info"
+DEPEND="${RDEPEND}
+    dev-util/pkgconfig
+    nls? ( >=sys-devel/gettext-0.12.1 )"
+
+src_prepare() {
+    epatch "${FILESDIR}"/${PN}-namespace.diff \
+        "${FILESDIR}"/${PN}-procmime.diff
+}
+
+src_configure() {
+    econf \
+        $(use_enable nls) \
+        $(use_enable ssl) \
+        $(use_enable crypt gpgme) \
+        $(use_enable pda jpilot) \
+        $(use_enable ldap) \
+        $(use_enable ipv6) \
+        $(use_enable imlib) \
+        $(use_enable xface compface)
+}
+
+src_install() {
+    emake DESTDIR="${D}" install
+
+    doicon sylpheed.png
+    domenu sylpheed.desktop
+
+    dodoc [A-Z][A-Z]* ChangeLog*
+}
+</codesample>
+
+<p>
+注意看在可选的依赖关系中，一些 <c>use_enable</c> 行中运用了两种参数版本 <d/> 当系统USE标记名称与 <c>./configure</c> 产生的不完全吻合时，这样做处理会比较妥当.
+</p>
+</body>
+</section>
+
+</chapter>
+</guide>

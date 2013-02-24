@@ -1,0 +1,51 @@
+<?xml version="1.0"?>
+<guide self="ebuild-writing/use-conditional-code/">
+<chapter>
+<title>USE 标识的条件表达式</title>
+
+<body>
+<p>
+某特定USE标识的开启与关闭的背后定会涉及一段相应代码的执行。对于大块的代码， <c>if use foo</c> 的做法是首选，相反的测试使用 <c>if ! use foo</c> 或 <c>if use !foo</c> 也是可以的 (前者在格式上于可读性上都较容易接受)。在单独声明的情况下，<c>use foo &amp;&amp; blah</c> (或 <c>use foo || blah</c> 反之亦然) 的格式，可读性更好.
+</p>
+
+<p>
+诸如 <c>if [ "`use foo`" ]</c> 和 <c>if [ -n "`use foo`" ]</c> 的格式不推荐在此使用。
+</p>
+
+<note>
+<c>die</c> 再次将不能正常如期工作，所以 <c>use foo &amp;&amp; ( blah ; blah )</c> 这种格式应该尽量避免。相见 <uri link="::ebuild-writing/error-handling/#die and Subshells"/>.
+</note>
+
+<codesample lang="ebuild">
+    # USE conditional blocks...
+    if use livecd ; then
+        # remove some extra files for a small livecd install
+        rm -fr "${vimfiles}"/{compiler,doc,ftplugin,indent}
+    fi
+
+    # Inverse USE conditional blocks...
+    if ! use cscope ; then
+        # the --disable-cscope configure arg doesn't quite work properly,
+        # so sed it out of feature.h if we're not USEing cscope.
+        sed -i -e '/# define FEAT_CSCOPE/d' src/feature.h || die "couldn't disable cscope"
+    fi
+
+    # USE conditional statements...
+    use ssl &amp;&amp; epatch "${FILESDIR}/${P}-ssl.patch"
+    use sparc &amp;&amp; filter-flags -fomit-frame-pointer
+
+    # Inverse USE conditional statements...
+    use ncurses || epatch "${FILESDIR}/${P}-no-ncurses.patch"
+</codesample>
+
+<p>
+基于USE标识来回显内容，可以使用一个更好的helper解释函数来完成。
+</p>
+
+<p>
+ <c>use</c> 常不输出结果。如果需要输出结果显示可以使用 <c>usev</c> 函数；必要时它还能显示USE的标识， <c>useq</c> 函数以被 <c>use</c>弃用，所以再次编写代码是不要用它了。
+</p>
+</body>
+
+</chapter>
+</guide>

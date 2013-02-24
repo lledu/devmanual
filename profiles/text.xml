@@ -1,0 +1,29 @@
+<?xml version="1.0"?>
+<guide self="profiles/">
+<chapter>
+<title>Profiles</title>
+
+<body>
+<p>
+本章将对<c>profiles/</c> 文件夹详细说明. 所有的相关文献也都在 <c>man portage</c> 同样版本.
+</p>
+</body>
+
+<section>
+<title>目录</title>
+<body>
+<contentsTree/>
+</body>
+</section>
+</chapter>
+
+<include href="categories/"/>
+<include href="info_files/"/>
+<include href="package.mask/"/>
+<include href="packages/"/>
+<include href="profiles.desc/"/>
+<include href="updates/"/>
+<include href="use.desc/"/>
+<include href="use.mask/"/>
+
+</guide>

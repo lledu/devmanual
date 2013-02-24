@@ -1,0 +1,32 @@
+<?xml version="1.0"?>
+<guide self="ebuild-writing/">
+<chapter>
+<title>编写Ebuild</title>
+
+<body>
+<p>
+本节介绍如何编写 ebuild . 包含 ebuild 的基本格式、变量、内置函数，并辅以相关注意事项和扩展实例。
+</p>
+</body>
+
+<section>
+<title>目录</title>
+<body>
+<contentsTree/>
+</body>
+</section>
+</chapter>
+
+<include href="file-format/"/>
+<include href="eapi/"/>
+<include href="use-conditional-code/"/>
+<include href="error-handling/"/>
+<include href="users-and-groups/"/>
+<include href="messages/"/>
+<include href="variables/"/>
+<include href="using-eclasses/"/>
+<include href="functions/"/>
+<include href="misc-files/"/>
+<include href="common-mistakes/"/>
+<include href="ebuild-maintenance/" />
+</guide>

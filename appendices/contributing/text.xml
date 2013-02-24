@@ -1,0 +1,140 @@
+<?xml version="1.0"?>
+<guide self="appendices/contributing/">
+<chapter>
+<title>Contributing to This Document</title>
+
+<body>
+<p>
+Contributions for this document are very welcome. Whether you've found a typo
+or have written an entire new section, the best way to get in touch is via Bugzilla
+at <uri link="http://bugs.gentoo.org">bugs.gentoo.org</uri>.
+</p>
+
+<p>
+The editors reserve the right to modify submissions as they see fit. Any
+substantial changes will of course be discussed with the submitter first <d/>
+unless explicitly requested, minor typo corrections and formatting fixes will
+not be discussed.
+</p>
+
+<p>
+This document is licensed under the <uri link="http://creativecommons.org/licenses/by-sa/2.0/">
+Creative Commons Attribution-ShareAlike 2.0 License </uri>. If this is a problem,
+don't submit anything.
+</p>
+
+<p>
+This document is produced using the DevBook XML build system. You can download
+a snapshot of the system as well as the relevant XML files from Subversion. You
+can also view the XML of any page by replacing <c>index.html</c> with
+<c>text.xml</c> in the URL. If you'd rather just work with plain text, that's
+fine too <d/> the formatting can be easily done by someone else (meaning, us).
+</p>
+
+<subsection>
+  <title>Where to find the sources</title>
+  <body>
+
+<p>
+  Currently, sources are hosted on git.overlays.gentoo.org. For current Gentoo developers,
+  access is at <c>git+ssh://git@git.overlays.gentoo.org/proj/devmanual.git</c>. Non-developers
+  can clone the respository by typing <c>git clone git://git.overlays.gentoo.org/proj/devmanual.git</c>.
+</p>
+
+<p>
+  To build the devmanual, simply run <c>make</c> in the <c>trunk</c> directory of the repository.
+  You need <c>xsltproc</c> (from <c>dev-libs/libxslt</c>) for the XML to HTML
+  conversion and optionally also <c>ImageMagick</c> for the SVG to PNG conversion
+  used in some of the figures throughout the document.
+</p>
+  </body>
+</subsection>
+
+</body>
+
+<section>
+<title>Quick Introduction to DevBook XML</title>
+<body>
+
+<p>
+DevBook XML is heavily based on <uri link="http://www.gentoo.org/doc/en/xml-guide.xml">
+GuideXML</uri> and many tags are similar, if not the same. The main differences
+occur in layout which are designed to make a large-scale publication easier
+to produce and manage using a hierarchical tree system. Before starting off you
+really should first examine the GuideXML guide in a reasonable amount of depth.
+</p>
+
+<subsection>
+<title>Differences from GuideXML</title>
+<body>
+
+<dl>
+  <dt>
+    Indentation
+  </dt>
+  <dd>
+    <p>
+      Indent when needed <d/> you should not indent any section flow elements such as
+      <c>&lt;subsection&gt;</c> but do indent tables, lists and definition lists.
+      Do <e>not</e> indent text in ordinary paragraph blocks.
+    </p>
+  </dd>
+  <dt>
+    Code Samples
+  </dt>
+  <dd>
+    <p>
+      You can use the normal GuideXML tag <c>&lt;pre&gt;</c> when you need no syntax
+      highlighting. When you need syntax highlighting use the <c>&lt;codesample&gt;</c>
+      tag along with a <c>lang</c> attribute <d/> usually you want this to be set to
+      <c>ebuild</c> to syntax highlight ebuild code snippets.
+    </p>
+  </dd>
+  <dt>
+    Hierarchy
+  </dt>
+  <dd>
+    <p>
+      The whole document is organized as a tree. Each directory can contain one
+      document. Each document can inherit multiple sub-documents using the
+      <c>&lt;include&gt;</c> flag. You <b>must</b> ensure that the <c>self</c> tag
+      in each document correctly points to the relative path of the document from
+      the root node so that the tree-walking algorithms work correctly.
+    </p>
+  </dd>
+</dl>
+
+</body>
+</subsection>
+</body>
+</section>
+
+<section>
+<title>Style Guidelines</title>
+<body>
+
+<ul>
+  <li>
+  This document is in British English. Submissions in other kinds of English are
+  welcome, but they may have their spelling corrected.
+  </li>
+  <li>
+  Third person form should be used rather than first.
+  </li>
+  <li>
+  This is not a formal document. The writing style is intended to be
+  professional but readable.
+  </li>
+  <li>
+  When using in-sentence hyphens as punctuation <d/> like this <d/> use a space,
+  followed by the <c>&lt;d/&gt;</c> tag. The build system will automatically turn
+  this into a proper Unicode long dash.
+  </li>
+</ul>
+
+</body>
+</section>
+</chapter>
+
+</guide>
+

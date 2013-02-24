@@ -1,0 +1,47 @@
+<?xml version="1.0"?>
+<guide self="general-concepts/">
+<chapter>
+<title>基本概念</title>
+
+<body>
+<p>
+本节着重介绍一些基本概念，熟悉这些概念将对您写出规范的 ebuilds 或 维护 Portage 树大有裨益.
+</p>
+</body>
+
+<section>
+<title>目录</title>
+<body>
+<contentsTree/>
+</body>
+</section>
+
+</chapter>
+
+<include href="autotools/"/>
+<include href="config-protect/"/>
+<include href="cvs-to-rsync/"/>
+<include href="dependencies/"/>
+<include href="manifest/"/>
+<include href="distributed-building/"/>
+<include href="ebuild-revisions/"/>
+<include href="emerge-and-ebuild/"/>
+<include href="features/"/>
+<include href="filesystem/"/>
+<include href="herds-and-projects/"/>
+<include href="install-destinations/"/>
+<include href="licenses/"/>
+<include href="linguas/"/>
+<include href="mirrors/"/>
+<include href="news/"/>
+<include href="overlay/"/>
+<include href="pic/"/>
+<include href="portage-cache/"/>
+<include href="privileges/"/>
+<include href="sandbox/"/>
+<include href="slotting/"/>
+<include href="tree/"/>
+<include href="use-flags/"/>
+<include href="user-environment/"/>
+<include href="virtuals/"/>
+</guide>

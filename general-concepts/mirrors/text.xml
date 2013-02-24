@@ -1,0 +1,127 @@
+<?xml version="1.0"?>
+<guide self="general-concepts/mirrors/">
+<chapter>
+<title>Mirrors</title>
+
+<section>
+<title>Automatic Mirroring</title>
+
+<body>
+<p>
+Packages will automatically have their <c>SRC_URI</c> components mirrored onto
+Gentoo mirrors.  When fetching, Portage checks Gentoo mirrors first before
+trying the original upstream location.
+</p>
+
+<p>
+This is generally desired behaviour <d/> upstream mirrors are prone to being
+rearranged, tidied out or having files modified.
+</p>
+</body>
+
+<subsection>
+<title>Restricting Automatic Mirroring</title>
+<body>
+<p>
+Three <c>RESTRICT</c> keywords can be used to control the mirroring process.
+</p>
+
+<p>
+The <c>RESTRICT=&quot;mirror&quot;</c> setting should be used if we cannot legally mirror
+certain files; files will still be downloaded from the original locations.
+</p>
+
+<p>
+The <c>RESTRICT="primaryuri"</c> setting causes Portage to try
+original locations <e>first</e>, and then fall back to mirrors if necessary <d/> this
+is sometimes useful if approximate download counts are needed, or if upstream
+have a reliable mirror setup.
+</p>
+
+<p>
+There is also <c>RESTRICT="fetch"</c>, which prevents Portage from trying to
+fetch anything manually. The <uri link="::ebuild-writing/functions/pkg_nofetch">
+pkg_nofetch</uri> function will be called if any <c>SRC_URI</c> components cannot be
+found. This should only be used if a license requires it.
+</p>
+</body>
+</subsection>
+
+<subsection>
+<title>Replacing Automatically Mirrored Files</title>
+<body>
+<p>
+On rare occasions you may need to replace a file that is already mirrored.  In this case proceed as
+follows:
+<ol>
+  <li>Put a copy of the new distfile on dev.gentoo.org into /space/distfiles-local</li>
+  <li>commit the new manifest to CVS</li>
+  <li>wait</li>
+</ol>
+After a few hours a cron job on dev.gentoo.org will fetch the file and replace the version on the
+mirrors.  The file will be automatically removed from /space/distfiles-local after approximately two
+weeks.
+</p>
+
+<p>
+More general information about the internals of mirroring can be found on <uri
+link="http://www.gentoo.org/proj/en/infrastructure/mirrors/overview-distfile.xml">infrastructure's
+pages</uri>.
+</p>
+</body>
+</subsection>
+
+
+<subsection>
+<title>Suitable Download Hosts</title>
+<body>
+<p>
+If you have to host a source file (patch or tarball) yourself, as long as it is suitable to be
+distributed by Gentoo Foundation (by license and legality), you're suggested to use your developer's
+space at <c>dev.gentoo.org</c>.
+</p>
+
+<p>
+Previous policy was to use <c>mirror://gentoo</c> directly, but this is now deprecated, as that
+wouldn't allow to have long-term availability and traceability of the source files, which might be a
+requirement of the license.
+</p>
+
+<p>
+When you upload the file to <c>dev.gentoo.org:~/public_html</c>, you must ensure that it, and its
+parent directories, are world-readable.
+</p>
+</body>
+</subsection>
+</section>
+
+<section>
+<title>Gentoo Mirrors</title>
+
+<body>
+<p>
+To manually upload a file to <c>mirror://gentoo</c>, <c>scp</c> it to
+<c>dev.gentoo.org:/space/distfiles-local</c>. You must ensure that the permissions
+are set to <c>ug+rw</c> manually. The file should appear on the mirrors within four
+hours (note that this is <e>less frequent</e> than
+<uri link="::general-concepts/cvs-to-rsync"/>).
+
+If the upstream download location for a package uses a non-standard TCP port
+(anything other than 21, 80 or 443), you <e>must</e> manually mirror the files. Not
+doing so can cause all kinds of problems with strict firewalls.
+</p>
+</body>
+</section>
+
+<section>
+<title>Mirroring Process</title>
+
+<body>
+<figure short="Mirroring Process" link="diagram.png">
+Diagram showing the mirroring process.
+</figure>
+</body>
+</section>
+
+</chapter>
+</guide>

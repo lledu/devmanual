@@ -1,0 +1,46 @@
+<?xml version="1.0"?>
+<guide self="general-concepts/virtuals/">
+<chapter>
+<title>Virtuals</title>
+
+<body>
+<p>
+Virtuals are merely packages that are in the category of <c>virtual</c>.  They
+use their dependency string to specify the providers for the virtual and should
+not install any files.  Since they are regular ebuilds, there can be several
+versions of a virtual (which can be helpful when a package may be provided by
+another in some versions, and not others <d/> see the perl virtuals for an
+example of this).  One other difference (besides not installing any files) is
+that a virtual does not define <c>HOMEPAGE</c> and <c>LICENSE</c> variables.
+Since it installs no files, it really does not have a license.
+</p>
+
+<p>
+Before adding a new virtual, it should be discussed on <c>gentoo-dev</c>.
+</p>
+
+<p>
+An example of a virtual:
+
+<codesample lang="ebuild">
+EAPI=4
+
+DESCRIPTION="Virtual for C++ tr1 &lt;type_traits&gt;"
+SLOT="0"
+KEYWORDS="alpha amd64 arm hppa ia64 mips ppc ppc64 s390 sparc x86 ~x86-fbsd"
+
+RDEPEND="|| ( >=sys-devel/gcc-4.1 dev-libs/boost )"
+</codesample>
+
+Looks familar...right?  It should since its going to look just like a regular
+ebuild.
+</p>
+
+<note>
+The so-called <e>old-style</e> or <c>PROVIDE</c> type virtuals have been banned
+from the Portage tree.
+</note>
+</body>
+
+</chapter>
+</guide>

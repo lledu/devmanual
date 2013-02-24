@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<guide self="tasks-reference/">
+<chapter>
+<title>Tasks Reference</title>
+
+<body>
+<p>
+本节讲述针对不同任务时，选用不同风格的ebuilds。
+</p>
+</body>
+
+<section>
+<title>目录</title>
+<body>
+<contentsTree/>
+</body>
+</section>
+</chapter>
+
+<include href="completion/"/>
+<include href="environment/"/>
+<include href="init-scripts/"/>
+<include href="pam/"/>
+<include href="perl-modules/"/>
+</guide>
