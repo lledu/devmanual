@@ -6,30 +6,30 @@
 <body>
 <table>
   <tr>
-    <th>Function</th>
+    <th>函数</th>
     <ti><c>src_unpack</c></ti>
   </tr>
   <tr>
-    <th>Purpose</th>
-    <ti>Extract source packages and do any necessary patching or fixes.</ti>
+    <th>用途</th>
+    <ti>解压源码包，打必要的补丁.</ti>
   </tr>
   <tr>
     <th>Sandbox</th>
-    <ti>Enabled</ti>
+    <ti>启用</ti>
   </tr>
   <tr>
-    <th>Privilege</th>
+    <th>所需权限</th>
     <ti>user</ti>
   </tr>
   <tr>
-    <th>Called for</th>
+    <th>被谁调用</th>
     <ti>ebuild</ti>
   </tr>
 </table>
 </body>
 
 <section>
-<title>Default <c>src_unpack</c></title>
+<title>默认 <c>src_unpack</c></title>
 <body>
 <codesample lang="ebuild">
 src_unpack() {
@@ -42,7 +42,7 @@ src_unpack() {
 </section>
 
 <section>
-<title>Sample <c>src_unpack</c></title>
+<title>实例 <c>src_unpack</c></title>
 <body>
 <codesample lang="ebuild">
 src_unpack() {
@@ -56,35 +56,35 @@ src_unpack() {
 }
 </codesample>
 <note>
-When using EAPI >=2, you should use the <uri link="::ebuild-writing/functions/src_prepare">src_prepare</uri> function to apply patches or alter any of the source files, instead of the src_unpack.
+当使用 EAPI >=2时, 推荐使用 <uri link="::ebuild-writing/functions/src_prepare">src_prepare</uri> 函数打补丁或更改任何源文件，不推荐使用 src_unpack函数.
 </note>
 
 </body>
 </section>
 
 <section>
-<title>Unpacking Tarballs</title>
+<title>解压 Tarballs</title>
 <body>
 <p>
-The <c>unpack</c> function should be used to unpack tarballs, compressed
-files and so on. Do not use <c>tar</c>, <c>gunzip</c> etc. manually.
+<c>unpack</c> 函数用来解压tarballs, 压缩文件等
+。 不要手动使用 <c>tar</c>, <c>gunzip</c> 等，呵呵。
 </p>
 
 <p>
-The <c>${A}</c> variable contains all of the <c>SRC_URI</c> components, except
-for any which are excluded by USE-based conditionals inside <c>SRC_URI</c>
-itself. If multiple archives require unpacking in a particular order it is
-usually simpler to avoid working with <c>${A}</c>.
+	<c>${A}</c> 变量包含 <c>SRC_URI</c> 所有元素， 
+    除外 <c>SRC_URI</c> 中那些基于 USE 标示的条件控制部分。
+ 如果多构架的软件包需要按特定顺序解压
+应尽量避免使用 <c>${A}</c>变量.
 </p>
 </body>
 </section>
 
 <section>
-<title><c>src_unpack</c> Actions</title>
+<title><c>src_unpack</c> 行动</title>
 <body>
 <p>
-The following subsections cover different topics which often occur when writing
-<c>src_unpack</c> functions.
+以下包含不同内容的小节在使用
+<c>src_unpack</c> 函数时会经常遇到，可作参考.
 </p>
 
 <contentsTree/>

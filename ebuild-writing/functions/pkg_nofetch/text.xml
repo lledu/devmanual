@@ -6,30 +6,30 @@
 <body>
 <table>
   <tr>
-    <th>Function</th>
+    <th>函数名</th>
     <ti><c>pkg_nofetch</c></ti>
   </tr>
   <tr>
-    <th>Purpose</th>
-    <ti>Tell the user how to deal with fetch-restricted packages</ti>
+    <th>用途</th>
+    <ti>告知用户如何处理'有取回限制'的软件包</ti>
   </tr>
   <tr>
     <th>Sandbox</th>
-    <ti>Enabled</ti>
+    <ti>启用</ti>
   </tr>
   <tr>
-    <th>Privilege</th>
+    <th>所需权限</th>
     <ti>root</ti>
   </tr>
   <tr>
-    <th>Called for</th>
+    <th>被谁调用</th>
     <ti>ebuild</ti>
   </tr>
 </table>
 </body>
 
 <section>
-<title>Default <c>pkg_nofetch</c></title>
+<title>默认 <c>pkg_nofetch</c></title>
 <body>
 <codesample lang="ebuild">
 pkg_nofetch()
@@ -47,7 +47,7 @@ pkg_nofetch()
 </section>
 
 <section>
-<title>Sample <c>pkg_nofetch</c></title>
+<title>实例 <c>pkg_nofetch</c></title>
 <body>
 <codesample lang="ebuild">
 pkg_nofetch() {
@@ -61,13 +61,11 @@ pkg_nofetch() {
 </section>
 
 <section>
-<title>Notes on <c>pkg_nofetch</c></title>
+<title>备注 <c>pkg_nofetch</c></title>
 <body>
 <p>
-This function is only triggered for packages which
-have <c>RESTRICT="fetch"</c> (see <uri link="::general-concepts/mirrors#Restricting Automatic Mirroring"/>)
-set, and only if one or more components listed in <c>SRC_URI</c> are not
-already available in the <c>distfiles</c> directory.
+只有软件包被 <c>RESTRICT="fetch"</c> 标记后该函数才会被激活。(见 <uri link="::general-concepts/mirrors#Restricting Automatic Mirroring"/>)
+设置, 并且只在 <c>SRC_URI</c> 所列出的元素在 <c>distfiles</c> 目录不可用时(系统才会调用此函数).
 </p>
 </body>
 </section>
