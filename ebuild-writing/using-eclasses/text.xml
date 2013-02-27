@@ -1,32 +1,26 @@
 <?xml version="1.0"?>
 <guide self="ebuild-writing/using-eclasses/">
 <chapter>
-<title>Using Eclasses</title>
+<title>使用 Eclasses</title>
 
 <body>
 <p>
-An eclass is a collection (library) of functions or functionality that is shared
-between packages. See <uri link="::eclass-writing/" /> for the full story on what
-eclasses can do, how they work and how to write them, and <uri link="::eclass-reference/"/>
-for documentation on various commonly used eclasses. This section only explains
-how to use an eclass which has already been written.
+eclass 是软件包之间通用的功能库 (同lib文件类似). 详见 <uri link="::eclass-writing/" />，它涉及 eclasses 的来龙去脉, <uri link="::eclass-reference/"/>
+将介绍几个常用的eclasses. 本节只是捻来别人写好的 eclass 用.
 </p>
 </body>
 
 <section>
-<title>The <c>inherit</c> Function</title>
+<title>函数 <c>inherit</c> </title>
 <body>
 
 <p>
-To use an eclass, it must be 'inherited'. This is done via the <c>inherit</c>
-function, which is provided by <c>ebuild.sh</c>. The <c>inherit</c> statement must
-come at the top of the ebuild, <e>before</e> any functions. Conditional inherits are
-illegal (except where the inheritance criteria are cache-constant <d/> see <uri
+通过在ebuild中添加 'inherited' 函数(由ebuild.sh提供)调用 eclass。The <c>inherit</c> 声明必须在 ebuild文件首部, 在任何函数的<e>最</e>前面。不接受条件判断语句 (除了继承的准则是缓存常数 <d/> 见 <uri
 link="::general-concepts/portage-cache"/>).
 </p>
 
 <p>
-After inheriting an eclass, its provided functions can be used as normal. Here'san example ebuild, <c>foomatic-0.1-r2.ebuild</c>, which uses four eclasses:
+在inherit类的声明之后, 它提供的函数才能被后续者调用。实例如, <c>foomatic-0.1-r2.ebuild</c>, 使用4个 eclass :
 </p>
 
 <codesample lang="ebuild">
@@ -73,15 +67,14 @@ src_install() {
 </codesample>
 
 <p>
-Note the <c>inherit</c> immediately after the header.
+注意 <c>inherit</c> 声明的位置靠前.
 </p>
 
 <p>
-The <c>eutils</c> eclass (see <uri link="::eclass-reference/eutils.eclass/"/>) is needed to get the
-<c>epatch</c> function.  The <c>flag-o-matic</c> eclass (see <uri
-link="::eclass-reference/flag-o-matic.eclass/"/>) is needed for <c>replace-flags</c>, and
-the <c>bash-completion</c> eclass (<uri link="::eclass-reference/bash-completion.eclass/"/>) is used
-to handle the bash completion file via <c>dobashcompletion</c> and <c>bash-completion_pkg_postinst</c>.
+此处 <c>eutils</c> eclass (见 <uri link="::eclass-reference/eutils.eclass/"/>) 用来调用
+<c>epatch</c> 函数. <c>flag-o-matic</c> eclass (见 <uri
+link="::eclass-reference/flag-o-matic.eclass/"/>) 用来 <c>replace-flags</c>, 及 <c>bash-completion</c> eclass (见 <uri link="::eclass-reference/bash-completion.eclass/"/>) 用来
+处理 bash 补全，它主要是通过 <c>dobashcompletion</c> 和 <c>bash-completion_pkg_postinst</c>实现的.
 </p>
 
 </body>

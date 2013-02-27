@@ -1,106 +1,99 @@
 <?xml version="1.0"?>
 <guide self="ebuild-writing/variables/">
 <chapter>
-<title>Variables</title>
+<title>变量</title>
 
 <body>
 <p>
-There are a number of special variables which must be set in ebuilds, and many
-more which can optionally be specified. There are also some predefined variables
-which are of use throughout the ebuild.
+	在ebuilds中有很多特别的变量需要设置，有很多变量的设置是可选的，也有一些需要提前设置，以便在ebuild中引用.
 </p>
 </body>
 
 <section>
-<title>Predefined Read-Only Variables</title>
+<title>预先定义的只读变量</title>
 <body>
 
 <p>
-The following variables are defined for you. You must not attempt to set
-them.
+以下变量名称是默认系统设定好的，请勿试图再次定义类似变量。
 </p>
 
 <table>
   <tr>
-    <th>Variable</th>
-    <th>Purpose</th>
+    <th>变量</th>
+    <th>意义</th>
   </tr>
   <tr>
     <ti><c>P</c></ti>
-    <ti>Package name and version (excluding revision, if any), for example <c>vim-6.3</c>.</ti>
+    <ti>软件包名称和版本 (不含任何再版), 如 <c>vim-6.3</c>.</ti>
   </tr>
   <tr>
     <ti><c>PN</c></ti>
-    <ti>Package name, for example <c>vim</c>.</ti>
+    <ti>软件包名称，如 <c>vim</c>.</ti>
   </tr>
   <tr>
     <ti><c>PV</c></ti>
-    <ti>Package version (excluding revision, if any), for example <c>6.3</c>. It should reflect the upstream versioning scheme.</ti>
+    <ti>软件包版本 (不含任何再版), 如 <c>6.3</c>. 它应反映出上游版本的方案.</ti>
   </tr>
   <tr>
     <ti><c>PR</c></ti>
-    <ti>Package revision, or <c>r0</c> if no revision exists.</ti>
+	<ti>软件包版本, 若不存在再版就用 <c>r0</c> .</ti>
   </tr>
   <tr>
     <ti><c>PVR</c></ti>
-    <ti>Package version and revision (if any), for example <c>6.3</c>, <c>6.3-r1</c>.</ti>
+    <ti>软件包版本和再版 , 如 <c>6.3</c>, <c>6.3-r1</c>.</ti>
   </tr>
   <tr>
     <ti><c>PF</c></ti>
-    <ti>Full package name, <c>${PN}-${PVR}</c>, for example <c>vim-6.3-r1</c>.</ti>
+    <ti>软件包全名, 相当于<c>${PN}-${PVR}</c>, 如 <c>vim-6.3-r1</c>.</ti>
   </tr>
   <tr>
     <ti><c>A</c></ti>
     <ti>
-      All the source files for the package (excluding those
-      which are not available because of <c>USE</c> flags).
+      软件包的所有源文件 (不含因 <c>USE</c> 标记使其不可用的).
     </ti>
   </tr>
   <tr>
     <ti><c>CATEGORY</c></ti>
-    <ti>Package's category, for example <c>app-editors</c>.</ti>
+    <ti>软件包所属目录, 如 <c>app-editors</c>.</ti>
   </tr>
   <tr>
     <ti><c>FILESDIR</c></ti>
     <ti>
-      Path to the ebuild's <c>files/</c> directory, commonly used
-      for small patches and files. Value:
+      ebuild's  <c>files/</c> 文件目录(常放置较小的补丁文件等)的路径. 值为:
       <c>"${PORTDIR}/${CATEGORY}/${PN}/files"</c>.
     </ti>
   </tr>
   <tr>
     <ti><c>WORKDIR</c></ti>
     <ti>
-      Path to the ebuild's root build directory. Value:
+      系统处理 ebuild's 文件时所在的工作目录的路径. 值为:
       <c>"${PORTAGE_BUILDDIR}/work"</c>.
     </ti>
   </tr>
   <tr>
     <ti><c>T</c></ti>
     <ti>
-       Path to a temporary directory which may be used by the
-       ebuild. Value: <c>"${PORTAGE_BUILDDIR}/temp"</c>.
+       ebuild使用的临时文件的路径. 值为: <c>"${PORTAGE_BUILDDIR}/temp"</c>.
     </ti>
   </tr>
   <tr>
     <ti><c>D</c></ti>
     <ti>
-      Path to the temporary install directory. Value:
+      临时的安装目录路径. 值为:
       <c>"${PORTAGE_BUILDDIR}/image"</c>.
     </ti>
   </tr>
   <tr>
     <ti><c>ROOT</c></ti>
     <ti>
-      Path to the root directory. When not using <c>${D}</c>,
-      always prepend <c>${ROOT}</c> to the path.
+      当不使用 <c>${D}</c>,
+      可以把它当成虚拟的 <c>${ROOT}</c> 文件夹.
     </ti>
   </tr>
   <tr>
     <ti><c>DISTDIR</c></ti>
     <ti>
-      Contains the path to the directory where all the files
-      fetched for the package are stored.
+      储存所有抓下来用以产生软件包的文件的 distfiles 目录. 一般来讲就是 /usr/portage/distfiles.
     </ti>
   </tr>
 </table>
@@ -109,116 +102,107 @@ them.
 </section>
 
 <section>
-<title>Ebuild-defined Variables</title>
+<title>定义Ebuild 的变量</title>
 <body>
 
 <p>
-The following variables may or must be defined by every ebuild.
+以下变量必须在每一个ebuild中设置.
 </p>
 
 <table>
   <tr>
-    <th>Variable</th>
-    <th>Purpose</th>
+    <th>变量</th>
+    <th>意义</th>
   </tr>
   <tr>
     <ti><c>EAPI</c></ti>
     <ti>
-    The EAPI. See <uri link="::ebuild-writing/eapi"/>.
+    关于 EAPI规约. 相见 <uri link="::ebuild-writing/eapi"/>.
     </ti>
   </tr>
   <tr>
     <ti><c>DESCRIPTION</c></ti>
     <ti>
-    A short (less than 80 characters) description of the package's
-    purpose. Mandatory.
+    简短(少于 80 字符) 描述软件包的作用等.
     </ti>
   </tr>
   <tr>
     <ti><c>HOMEPAGE</c></ti>
     <ti>
-    Package's homepage. Mandatory (except for virtuals). If you are
-    unable to locate an official one, try to provide a link to
-    <uri link="http://freshmeat.net">freshmeat.net</uri> or a similar
-    package tracking site. Never refer to a variable name in the
-    string; include only raw text.
+    软件包的主页，如果没有办法找到官方网站，可以尝试去 <uri link="http://freshmeat.net">freshmeat.net</uri> 或类似的软件追踪网站来查找连接。其中不要包含变量，只能是原始文字。
     </ti>
   </tr>
   <tr>
     <ti><c>SRC_URI</c></ti>
     <ti>
-    A list of source URIs for the package. Can contain
-    <c>USE</c>-conditional parts, see
+    软件包所用的原始安装包文件的URL. 可以包含
+    <c>USE</c>-条件部分, 相见
     <uri link="::ebuild-writing/variables#SRC_URI"/>.
     </ti>
   </tr>
   <tr>
     <ti><c>LICENSE</c></ti>
     <ti>
-    The package's license, corresponding exactly (including case)
-    to a file in <c>licenses/</c>. Mandatory (except for virtuals).
-    See <uri link="::ebuild-writing/variables#LICENSE"/>.
+    软件包的授权许可， 此栏必须设置成一个可用的授权，授权许可
+	通常存储在 <c>"/usr/portage/licenses/"</c>文件夹中. 强制性的(虚拟的例外).
+    详见 <uri link="::ebuild-writing/variables#LICENSE"/>.
     </ti>
   </tr>
   <tr>
     <ti><c>SLOT</c></ti>
     <ti>
-    The package's <c>SLOT</c>. Mandatory.
-    See <uri link="::ebuild-writing/variables#SLOT"/>.
+    软件包的 <c>SLOT</c>. 强制性的.
+    详见 <uri link="::ebuild-writing/variables#SLOT"/>.
     </ti>
   </tr>
   <tr>
     <ti><c>KEYWORDS</c></ti>
     <ti>
-    See <uri link="::ebuild-writing/variables#KEYWORDS"/> and
+    详见 <uri link="::ebuild-writing/variables#KEYWORDS"/> and
     <uri link="::keywording/"/>.
     </ti>
   </tr>
   <tr>
     <ti><c>IUSE</c></ti>
     <ti>
-    A list of all <c>USE</c> flags (excluding arch flags, but
-    including <c>USE_EXPAND</c> flags) used within the ebuild. See
+		设定成任何所有你的套件所用到的 USE 标示(不包括构架标示，但是包括 <c>USE_EXPAND</c> 标示) ，但是属于<c>KEYWORDS<c>的东西不应该列在此处. 详见
     <uri link="::ebuild-writing/variables#IUSE"/>.
     </ti>
   </tr>
   <tr>
     <ti><c>RESTRICT</c></ti>
     <ti>
-    A space-delimited list of portage features to restrict.
-    Valid values are <c>fetch</c>, <c>mirror</c>, <c>strip</c>, <c>test</c> and
-    <c>userpriv</c>. See <c>man 5 ebuild</c> for details.
+		和Portage FEATURESA相关，用来限制或去除ebuild中的某项特性.
+    可用的值有 <c>fetch</c>, <c>mirror</c>, <c>strip</c>, <c>test</c> 和
+    <c>userpriv</c>等. 详见 <c>man 5 ebuild</c>.
     </ti>
   </tr>
   <tr>
     <ti><c>DEPEND</c></ti>
     <ti>
-    A list of the package's build dependencies.  See
+    软件包构建时所需依赖.  见
     <uri link="::general-concepts/dependencies"/>.
     </ti>
   </tr>
   <tr>
     <ti><c>RDEPEND</c></ti>
     <ti>
-    A list of the package's runtime dependencies. See
+    软件包运行时所需要的依赖. 见
     <uri link="::general-concepts/dependencies"/>.
     </ti>
   </tr>
   <tr>
     <ti><c>PDEPEND</c></ti>
     <ti>
-    A list of packages to be installed after the package
-    is merged. Should only be used where <c>RDEPEND</c> is not
-    possible. See <uri link="::general-concepts/dependencies"/>.
+    在软件包正常安装后继续安装的软件包列表。只能在 <c>RDEPEND</c> 不能使用的情况下使用. 见 <uri link="::general-concepts/dependencies"/>.
     </ti>
   </tr>
   <tr>
     <ti><c>S</c></ti>
     <ti>
-    Path to the temporary build directory, used by
-    <c>src_compile</c> and <c>src_install</c>. Default:
-    <c>"${WORKDIR}/${P}"</c>. Ebuilds should <b>not</b> provide a
-    value for this variable if it is the same as the default value.
+    构建软件包的临时目录的路径，
+    供<c>src_compile</c> 和 <c>src_install</c>使用. 默认在:
+    <c>"${WORKDIR}/${P}"</c>. Portage默认为您设置成这个值，所以您大可不用改动它.
     </ti>
   </tr>
 </table>
@@ -227,16 +211,15 @@ The following variables may or must be defined by every ebuild.
 </section>
 
 <section>
-<title>SLOT</title>
+<title>SLOT 插槽</title>
 <body>
 
 <p>
-When slots are not needed, use <c>SLOT="0"</c>. Do <b>not</b> use <c>SLOT=""</c>, as
-this will disable slotting for this package.
+不需要slots时, 将其设为 <c>SLOT="0"</c>.  <b>不要</b> 搞成 <c>SLOT=""</c>, 这样等于放弃使用软件包的slot功能.
 </p>
 
 <p>
-See <uri link="::general-concepts/slotting/" /> for more information on this variable.
+	详见 <uri link="::general-concepts/slotting/" /> .
 </p>
 
 </body>
@@ -247,12 +230,11 @@ See <uri link="::general-concepts/slotting/" /> for more information on this var
 <body>
 
 <p>
-The only valid construct involving a <c>*</c> inside <c>KEYWORDS</c> is a <c>-*</c>. Do
-<b>not</b> use <c>KEYWORDS="*"</c> or <c>KEYWORDS="~*"</c>.
+	在<c>KEYWORDS</c> 中唯一一个包含 <c>*</c>指代所有构架的结构是 <c>-*</c>.    <b>不要</b> 搞成 <c>KEYWORDS="*"</c> 或 <c>KEYWORDS="~*"</c>.
 </p>
 
 <p>
-See <uri link="::keywording/"/> for how to handle this variable.
+详见 <uri link="::keywording/"/> .
 </p>
 
 </body>
@@ -262,13 +244,11 @@ See <uri link="::keywording/"/> for how to handle this variable.
 <title>SRC_URI</title>
 
 <subsection>
-<title>Conditional Sources</title>
+<title>条件判断的URL地址</title>
 <body>
 
 <p>
-Conditional source files based upon USE flags are allowed using the usual
-<c>flag? ( )</c> syntax. This is often useful for arch-specific code or for binary
-packages <d/> downloading sparc binaries on ppc would be a waste of bandwidth.
+条件判断的URL地址基于 USE 标示，使用 use <c>flag? ( )</c> 格式的语句. 基于不同构架的软件包常常这样设置 <d/> 可以节省带宽.
 </p>
 
 <codesample lang="ebuild">
@@ -280,10 +260,8 @@ SRC_URI="http://example.com/files/${P}-core.tar.bz2
 </codesample>
 
 <p>
-If a <c>USE_EXPAND</c> variable is used to control whether certain optional
-components are installed, the correct thing to do if the variable is unset is
-generally to install <e>all</e> available components.
-</p>
+	若用<c>USE_EXPAND</c> 变量判断与软件包相关的某个可选组件是否安装，最好就是安装完成所有可用的组件。
+<p>
 
 <codesample lang="ebuild">
 SRC_URI="http://example.com/files/${P}-core.tar.bz2
@@ -305,47 +283,38 @@ SRC_URI="http://example.com/files/${P}-core.tar.bz2
 <body>
 
 <p>
-Note that the <c>IUSE</c> variable is cumulative, so there is no need to specify
+注意 <c>IUSE</c> 变量是交互式， so there is no need to specify
 USE flags used only within inherited eclasses within the ebuild's IUSE.
 </p>
 <note>
-You need not assign the IUSE variable in your ebuild if it is empty.
+如果软件包不需要IUSE 变量可以将其设置为空。
 </note>
 
 <p>
-Arch USE flags (<c>sparc</c>, <c>mips</c>, <c>x86-fbsd</c> and so on) should not be
-listed.
+关于构架的USE 标示 (<c>sparc</c>, <c>mips</c>, <c>x86-fbsd</c> 等等) 不应该再次列出.
 </p>
 
 </body>
 </section>
 
 <section>
-<title>LICENSE</title>
+<title>LICENSE授权文件</title>
 <body>
 
 <p>
-It is possible to specify multiple <c>LICENSE</c> entries, and entries which only
-apply if a particular <c>USE</c> flag is set. The format is the same as for
-<c>DEPEND</c>. See <uri link="http://www.gentoo.org/proj/en/glep/glep-0023.html">
-GLEP 23</uri> for details.
+	可以使用多个 <c>LICENSE</c> ，只有 <c>USE</c> 标示开启的时候相应的授权许可生效. 它的格式如同 <c>DEPEND</c>变量. 详见 <uri link="http://www.gentoo.org/proj/en/glep/glep-0023.html">
+GLEP 23</uri> .
 </p>
 
 </body>
 </section>
 
 <section>
-<title>Version and Name Formatting Issues</title>
+<title>版本和命名格式</title>
 <body>
 
 <p>
-Often upstream's tarball versioning or naming format doesn't quite follow Gentoo
-conventions. Using capital letters in names or differences in how underscores and hyphens
-are used in versions are particularly common. For example, what Gentoo calls <c>foo-1.2.3b</c> may be
-expecting a tarball named <c>Foo-1.2-3b.tar.bz2</c>. Rather than hard coding the package string,
-it is preferable to make <c>MY_PN</c>, <c>MY_PV</c> and <c>MY_P</c> variables and use those to define the
-upstream naming. The easy way of redefining the version, which should be used unless you are sure
-you know what you are doing, is to use the <c>versionator</c> eclass:
+通常上游软件包的版本及命名格式和 Gentoo 所期望的会有不一致。字母大小写及下划线和连字符等在命名中的不一致是非常常见的。如, gentoo更希望叫 <c>foo-1.2.3b</c> 为 <c>Foo-1.2-3b.tar.bz2</c>. 与硬生生修改其软件包名称相比,Portage系统更推荐使用 <c>MY_PN</c>, <c>MY_PV</c> 和 <c>MY_P</c> 变量来定义上游软件包的名称。最简单的重命名版本的方法是调用 <c>versionator</c> eclass，否则后果自负哦:
 </p>
 
 <codesample lang="ebuild">
@@ -356,70 +325,61 @@ MY_P="${MY_PN}-${MY_PV}"
 </codesample>
 
 <p>
-This code has the advantage that it will carry on working even if upstream
-switches to a format like <c>Foo-1.3-4.5.tar.bz2</c> (yes, this really happens).
+使用这段代码的优势在于即使是上游软件包的名字格式变为 <c>Foo-1.3-4.5.tar.bz2</c> 标准的格式，软件的构建工作依然能顺利进行(牛掰吧，这就是gentoo).
 </p>
 
 <p>
-It is also possible to use bash substitution to achieve the same effect (this is
-how versionator works internally), but this is complicated, error prone and hard
-to read.
+	当然也可以用 bash 脚本替代以达同样的目的 (这就是versionator eclassh内部工作机制), 但这实现起来可能复杂而且更容易出错，可读性差。
 </p>
 
 <p>
-Some ebuilds use calls to <c>sed</c>, <c>awk</c> and / or <c>cut</c> to do this. This
-must <e>not</e> be done for any new code, and should be fixed to use either
-versionator or bash substitution where possible. Global scope non-bash code is
-highly discouraged.
+一些ebuilds 试图调用 <c>sed</c>, <c>awk</c> 和/或 <c>cut</c> . 我们在此 <e>绝不</e> 推荐和允许这样做, 要么用 versionator ，要么必要时用bash。 全局中不用bash代码也是不现实的。
 </p>
 
 <p>
-The <c>versionator</c> eclass can also be used to extract particular components
-from a version string. See <c>man versionator.eclass</c> and the eclass source code
-for further documentation and examples. A brief summary of the functions
-follows.
+ <c>versionator</c> eclass 也可以用来从文件名称中解出某个特定值（或者说是参数）. 详见 <c>man versionator.eclass</c> 和其相关源代码及相关示例。。函数的大概功能如下。
 </p>
 
 <table>
   <tr>
-    <th>Function</th>
-    <th>Purpose</th>
+    <th>函数</th>
+    <th>意义</th>
   </tr>
   <tr>
     <ti><c>get_all_version_components</c></ti>
-    <ti>Split up a version string into its component parts.</ti>
+    <ti>将版本字串划分为各自的小单元.</ti>
   </tr>
   <tr>
     <ti><c>get_version_components</c></ti>
-    <ti>Get important version components, excluding '.', '-' and '_'.</ti>
+    <ti>获取主要的版本单元, 除外 '.', '-' 和 '_'.</ti>
   </tr>
   <tr>
     <ti><c>get_major_version</c></ti>
-    <ti>Get the major version.</ti>
+    <ti>获取主版本.</ti>
   </tr>
   <tr>
     <ti><c>get_version_component_range</c></ti>
-    <ti>Extract a range of subparts from a version string.</ti>
+    <ti>从版本字串中解出一系列亚单元.</ti>
   </tr>
   <tr>
     <ti><c>get_after_major_version</c></ti>
-    <ti>Get everything after the major version.</ti>
+    <ti>获取主版本后的所有部分.</ti>
   </tr>
   <tr>
     <ti><c>replace_version_separator</c></ti>
-    <ti>Replace a particular version separator.</ti>
+    <ti>替换某个分割符.</ti>
   </tr>
   <tr>
     <ti><c>replace_all_version_separators</c></ti>
-    <ti>Replace all version separators.</ti>
+    <ti>替换所有的版本分割符.</ti>
   </tr>
   <tr>
     <ti><c>delete_version_separator</c></ti>
-    <ti>Delete a version separator.</ti>
+    <ti>删除一个版本分割符.</ti>
   </tr>
   <tr>
     <ti><c>delete_all_version_separators</c></ti>
-    <ti>Delete all version separators.</ti>
+    <ti>删除所有的版本分割符.</ti>
   </tr>
 </table>
 
