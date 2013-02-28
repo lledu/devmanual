@@ -6,30 +6,30 @@
 <body>
 <table>
   <tr>
-    <th>函数</th>
+    <th>Function</th>
     <ti><c>pkg_setup</c></ti>
   </tr>
   <tr>
-    <th>用途</th>
-    <ti>软件包构建前的环境设置和检测</ti>
+    <th>Purpose</th>
+    <ti>Pre-build environment configuration and checks</ti>
   </tr>
   <tr>
     <th>Sandbox</th>
-    <ti>关闭</ti>
+    <ti>Disabled</ti>
   </tr>
   <tr>
-    <th>所需权限</th>
+    <th>Privilege</th>
     <ti>root</ti>
   </tr>
   <tr>
-    <th>被谁调用</th>
+    <th>Called for</th>
     <ti>ebuild, binary</ti>
   </tr>
 </table>
 </body>
 
 <section>
-<title>默认 <c>pkg_setup</c></title>
+<title>Default <c>pkg_setup</c></title>
 <body>
 <codesample lang="ebuild">
 pkg_setup()
@@ -41,7 +41,7 @@ pkg_setup()
 </section>
 
 <section>
-<title>实例 <c>pkg_setup</c></title>
+<title>Sample <c>pkg_setup</c></title>
 <body>
 <codesample lang="ebuild">
 pkg_setup() {
