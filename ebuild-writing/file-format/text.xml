@@ -5,7 +5,7 @@
 
 <body>
 <p>
-ebuild文件是在特定环境执行的 <c>bash</c> 脚本，以 <c>.ebuild</c> 后缀明加以辨别.
+ebuild文件是在特定环境执行的 <c>bash</c> 脚本，以 <c>.ebuild</c> 后缀名加以辨别.
 </p>
 </body>
 
