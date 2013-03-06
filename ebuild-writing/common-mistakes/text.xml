@@ -16,24 +16,21 @@
 <subsection>
 <title>无效的 <c>static</c> use 标记</title>
 <body>
-The <c>static</c> use-flag should only be used to make a binary use static
-linking instead of dynamic linking. It should not be used to make a library
-install static libraries. Instead, the <c>static-libs</c> use-flag is used for this.
+<c>static</c> use 标记在生成二进制文件的时候只能使用静态链接而不能使用动态链接。
+它不能使一个库安装成为一个静态库，如果想这样做，请使用<c>static-libs</c> use 标记。
 </body>
 </subsection>
 
 <subsection>
-<title>Invalid use of <c>ROOT</c></title>
+<title><c>ROOT</c>的无效使用</title> 
 <body>
 <p>
-The usage of <c>ROOT</c> is only designed to influence the way the package is
-installed (ie. into <c>ROOT</c>) - building and compiling should not depend on
-<c>ROOT</c>. As a consequence of this the usage of <c>ROOT</c> in <c>src_*</c>
-functions is not allowed.
+<c>ROOT</c> 仅仅只是用来影响包的安装路径的（例如 into <c>ROOT</c>），构建和编译却不应该依靠 <c>ROOT</c>。
+所以 <c>ROOT</c> 不能够在 <c>src_*</c> 函数中使用。
 </p>
 
 <p>
-See also <uri link="::ebuild-writing/variables#ROOT"/>.
+参见 <uri link="::ebuild-writing/variables#ROOT"/>.
 </p>
 </body>
 </subsection>

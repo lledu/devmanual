@@ -1,16 +1,16 @@
 <?xml version="1.0"?>
 <guide self="ebuild-writing/misc-files/">
 <chapter>
-<title>Miscellaneous Files</title>
+<title>杂项</title>
 
 <body>
 <p>
-This section contains some notes on various miscellaneous files.
+本节包含对一些杂项文件的注释.
 </p>
 </body>
 
 <section>
-<title>Contents</title>
+<title>内容</title>
 <body>
 <contentsTree/>
 </body>
