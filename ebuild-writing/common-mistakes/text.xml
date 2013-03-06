@@ -25,7 +25,7 @@
 <title><c>ROOT</c>的无效使用</title> 
 <body>
 <p>
-<c>ROOT</c> 仅仅只是用来影响包的安装方式的（例如 into <c>ROOT</c>），构建和编译却不应该依靠 <c>ROOT</c>。
+<c>ROOT</c> 仅仅只是用来影响包的安装路径的（例如 into <c>ROOT</c>），构建和编译却不应该依靠 <c>ROOT</c>。
 所以 <c>ROOT</c> 不能够在 <c>src_*</c> 函数中使用。
 </p>
 
