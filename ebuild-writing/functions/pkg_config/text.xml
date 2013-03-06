@@ -44,7 +44,7 @@ pkg_config()
 <title>例 <c>pkg_config</c></title>
 <body>
 <p>
-来自于 <c>mysql</c> 的ebuilds. 注意 <c>${ROOT}</c>的使用.
+取自于 <c>mysql</c> 的ebuilds. 注意 <c>${ROOT}</c>的使用.
 </p>
 
 <codesample lang="ebuild">
