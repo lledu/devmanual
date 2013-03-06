@@ -6,30 +6,30 @@
 <body>
 <table>
   <tr>
-    <th>Function</th>
+    <th>函数</th>
     <ti><c>pkg_config</c></ti>
   </tr>
   <tr>
-    <th>Purpose</th>
-    <ti>Run any special post-install configuration</ti>
+    <th>目标</th>
+    <ti>运行任意重要的安装后的配置</ti>
   </tr>
   <tr>
-    <th>Sandbox</th>
-    <ti>Disabled</ti>
+    <th>沙箱</th>
+    <ti>禁用</ti>
   </tr>
   <tr>
-    <th>Privilege</th>
+    <th>权限</th>
     <ti>root</ti>
   </tr>
   <tr>
-    <th>Called for</th>
+    <th>要求</th>
     <ti>manual</ti>
   </tr>
 </table>
 </body>
 
 <section>
-<title>Default <c>pkg_config</c></title>
+<title>默认的 <c>pkg_config</c></title>
 <body>
 <codesample lang="ebuild">
 pkg_config()
@@ -41,10 +41,10 @@ pkg_config()
 </section>
 
 <section>
-<title>Example <c>pkg_config</c></title>
+<title>例 <c>pkg_config</c></title>
 <body>
 <p>
-Taken from the <c>mysql</c> ebuilds. Note the use of <c>${ROOT}</c>.
+取自于 <c>mysql</c> 的ebuilds. 注意 <c>${ROOT}</c>的使用.
 </p>
 
 <codesample lang="ebuild">
