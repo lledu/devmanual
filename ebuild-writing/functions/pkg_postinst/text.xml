@@ -6,30 +6,30 @@
 <body>
 <table>
   <tr>
-    <th>Function</th>
+    <th>函数</th>
     <ti><c>pkg_postinst</c></ti>
   </tr>
   <tr>
-    <th>Purpose</th>
-    <ti>Called after image is installed to <c>${ROOT}</c></ti>
+    <th>意义</th>
+    <ti>软件包安装到<c>${ROOT}</c>目录之后调用</ti>
   </tr>
   <tr>
     <th>Sandbox</th>
-    <ti>Disabled</ti>
+    <ti>关闭</ti>
   </tr>
   <tr>
-    <th>Privilege</th>
+    <th>所需权限</th>
     <ti>root</ti>
   </tr>
   <tr>
-    <th>Called for</th>
+    <th>被谁调用</th>
     <ti>ebuild, binary</ti>
   </tr>
 </table>
 </body>
 
 <section>
-<title>Default <c>pkg_postinst</c></title>
+<title>默认的 <c>pkg_postinst</c></title>
 <body>
 <codesample lang="ebuild">
 pkg_postinst()
@@ -41,7 +41,7 @@ pkg_postinst()
 </section>
 
 <section>
-<title>Sample <c>pkg_postinst</c></title>
+<title>实例 <c>pkg_postinst</c></title>
 <body>
 <codesample lang="ebuild">
 pkg_postinst() {
@@ -59,14 +59,12 @@ pkg_postinst() {
 </section>
 
 <section>
-<title>Common <c>pkg_postinst</c> Tasks</title>
+<title>函数<c>pkg_postinst</c> 常见用途/title>
 <body>
 <p>
-The most common use for <c>pkg_postinst</c> is to display post-install
-informational messages or warnings.  If you want to display selective
-upgrade messages, you should do the call to <c>has_version</c> in an
-earlier phase, like <c>pkg_preinst</c>, and store the result in a global
-variable.</p>
+函数<c>pkg_postinst</c>最常用于显示安装之后的信息说明或警告提示.  如果您想要显示某些升级有关的讯息
+，你可以在较靠前的位置调用<c>has_version</c>， 如常常在声明<c>pkg_preinst</c>的位置, 并且要把他们保存为全局变量
+。</p>
 </body>
 </section>
 
