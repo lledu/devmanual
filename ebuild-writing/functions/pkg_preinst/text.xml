@@ -6,11 +6,11 @@
 <body>
 <table>
   <tr>
-    <th>Function</th>
+    <th>函数名</th>
     <ti><c>pkg_preinst</c></ti>
   </tr>
   <tr>
-    <th>Purpose</th>
+    <th>意义</th>
     <ti>Called before image is installed to <c>${ROOT}</c></ti>
   </tr>
   <tr>
