@@ -1,22 +1,22 @@
 <?xml version="1.0"?>
 <guide self="appendices/editor-configuration/">
 <chapter>
-<title>Editor Configuration</title>
+<title>工欲善其功，必先利其器</title>
 <body>
 
 <p>
-This section provides hints as to how to configue your text editor for working with ebuilds.
+给你一点提示，有关编辑ebuilds文档所用的text editor的提示.
 </p>
 
 <todo>
-from vapier:  add a section for nano ... users just have to copy
-/etc/nanorc to ~/.nanorc and uncomment the sections for ebuilds
+据vapier所言:你用nano么?...哥们你只用复制
+/etc/nanorc到~/.nanorc并去除ebuilds段的相关注释就行.
 </todo>
 
 </body>
 
 <section>
-<title>Contents</title>
+<title>看看有没有你想要的</title>
 <body>
 <contentsTree/>
 </body>
