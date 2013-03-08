@@ -1,11 +1,20 @@
 <?xml version="1.0"?>
 <guide self="ebuild-writing/functions/src_unpack/deb-sources/">
 <chapter>
-<title>Debian Sources</title>
+<title>Debian源</title>
 
 <body>
 <todo>
-from vapier: we dont have to 'handle' these because all debian packages have a source tarball ... the .deb format is pretty simple though, it's managed by the 'ar' utility from binutils. you can unpack a .deb by simply doing ar x blah.deb ... this will give you three files: debian-binary: plain text file which just contains version number of the .deb format control.tar.gz: a few files which control installing/verifying of package data.tar.gz: all the compiled files ... you could just extract it to /
+据vapier(一位gentoo的开发维护的大牛吧)所言:
+我们没有必要专门对debian源的软件包进行<c>特殊</c>处理...
+因为.deb格式的包有点咋说呢，忒简单喽, 
+它们统一由'ar'命令管理，ar在每个发行版的binutils都会有. 
+一条命令就可加压.deb的包:ar x blah.deb ... 
+它包含3个文件: 
+<c>debian-binary</c>:text文档仅包含.deb格式文件的版本号.  
+<c>control.tar.gz</c>:控制安装/确认软件的的一些文件. 
+<c>data.tar.gz</c>:所有编译好的软件成品... 
+你要做的就是把它加压到 /
 </todo>
 </body>
 </chapter>
