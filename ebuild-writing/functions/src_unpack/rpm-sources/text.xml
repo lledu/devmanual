@@ -1,11 +1,11 @@
 <?xml version="1.0"?>
 <guide self="ebuild-writing/functions/src_unpack/rpm-sources/">
 <chapter>
-<title>RPM Sources</title>
+<title>RPM包</title>
 
 <body>
 <p>
-If a package is supplied as an .rpm file, you should:
+若软件包是rpm格式的, 应如下操作:
 </p>
 
 <codesample lang="ebuild">
@@ -13,14 +13,13 @@ inherit rpm
 </codesample>
 
 <p>
-If you don't need to do anything in the unpack phase, then you are
-finished as the <c>rpm.eclass</c> exports a default <c>src_unpack</c>
-that will unpack the RPM files.
+如果在这个阶段您只是要解压软件包而无做其他的事情的意向,
+仅使用<c>rpm.eclass</c>就能解决问题，因为它默认会调用<c>src_unpack</c>
+来解压RPM文件.
 </p>
 
 <p>
-If you do need to apply patches then override <c>src_unpack</c> in a
-manner such as:
+另外也不需要在<c>src_unpack</c>函数中像下面那样，另外声明处理添加的补丁:
 </p>
 
 <codesample lang="ebuild">
@@ -33,22 +32,21 @@ src_unpack () {
 </codesample>
 
 <note>
-<c>${A}</c> can contain non-rpm files since the rpm eclass will call
-the normal <c>unpack</c> function for files that are not in the RPM
-format.
+变量<c>${A}</c>可以包含一些非rpm格式文件，rpm eclass会自动判断，
+加载<c>unpack</c>处理非rpm格式的文件.
 </note>
 </body>
 
 <section>
-<title>Example RPM Handling</title>
+<title>安装RPM类型包的实例</title>
 <body>
 
 <p>
-Here is an ebuild snippet that is based upon the fetchmail source RPM
-from SuSE 9.2. The ebuild snippet is complete enough to work with the
-<c>ebuild unpack</c> command. The ebuild will download the source file from
-the OSU SuSE mirror, unpack the file and apply the included
-patches. The filename should be <c>suse-fetchmail-6.2.5.54.1.ebuild</c>.
+以下ebuild代码片段是基于fetchmail源于SuSE 9.2的RPM包
+.该片段完全能被<c>ebuild的unpack</c>函数正确识别执行.
+他能从OSU SuSE的镜像源中下载RPM软件包,
+解压相关文件并打上对应的内置补丁.
+ebuilds的文件名格式应该是<c>suse-fetchmail-6.2.5.54.1.ebuild</c>.
 </p>
 
 <codesample lang="ebuild">
