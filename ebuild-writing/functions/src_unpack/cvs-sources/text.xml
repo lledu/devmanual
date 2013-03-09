@@ -166,7 +166,7 @@ ECVS_USER="anoncvs"
 ECVS_PASS=""
 ECVS_CVS_OPTIONS="-dP"
 
-# ...and so on. No src_unpack() is specified.
+# ...等等. No src_unpack() is specified.
 </codesample>
 
 </body>
