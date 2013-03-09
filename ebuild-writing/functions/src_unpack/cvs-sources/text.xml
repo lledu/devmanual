@@ -1,40 +1,40 @@
 <?xml version="1.0"?>
 <guide self="ebuild-writing/functions/src_unpack/cvs-sources/">
 <chapter>
-<title>CVSÔ´</title>
+<title>CVSæº</title>
 
 <body>
 <p>
-²»Ê¹ÓÃÔ´Âë°ü£¬ÔÚGentooÖÐÒ²¿ÉÒÔÖ±½ÓÊ¹ÓÃÉÏÓÎµÄCVS·þÎñ
-. µ±ÎÒÃÇÐèÒªÔÚÕý³£»ù´¡ÉÏ²âÊÔÎ´·¢ÐÐµÄÈí¼þ°ü¿ìÕÕÊ±£¬
-Ê¹ÓÃCVS»áÎªÄúÌá¹©ºÜ¶à·½±ã.
+ä¸ä½¿ç”¨æºç åŒ…ï¼Œåœ¨Gentooä¸­ä¹Ÿå¯ä»¥ç›´æŽ¥ä½¿ç”¨ä¸Šæ¸¸çš„CVSæœåŠ¡
+. å½“æˆ‘ä»¬éœ€è¦åœ¨æ­£å¸¸åŸºç¡€ä¸Šæµ‹è¯•æœªå‘è¡Œçš„è½¯ä»¶åŒ…å¿«ç…§æ—¶ï¼Œ
+ä½¿ç”¨CVSä¼šä¸ºæ‚¨æä¾›å¾ˆå¤šæ–¹ä¾¿.
 </p>
 </body>
 
 <section>
-<title>²ÉÓÃCVSÔ´µÄÁÓÊÆ</title>
+<title>é‡‡ç”¨CVSæºçš„åŠ£åŠ¿</title>
 <body>
 
 <p>
-×¢ÒâÊ¹ÓÃCVSµÄebuildsÍ¨³£<b>n²»±»</b>Ìí¼Óµ½PortageÊ÷
-(³ý·ÇÊÇÐ´ÔÚ<c>package.mask</c>), ÀíÓÉÈçÏÂ:
+æ³¨æ„ä½¿ç”¨CVSçš„ebuildsé€šå¸¸<b>nä¸è¢«</b>æ·»åŠ åˆ°Portageæ ‘
+(é™¤éžæ˜¯å†™åœ¨<c>package.mask</c>), ç†ç”±å¦‚ä¸‹:
 </p>
 
 <ul>
   <li>
-  ÉÏÓÎµÄCVS·þÎñ¿ÉÄÜÔ¶Ã»ÓÐÎÒÃÇµÄ¾µÏñÏµÍ³¸üÖµµÃÐÅÀµ.
+  ä¸Šæ¸¸çš„CVSæœåŠ¡å¯èƒ½è¿œæ²¡æœ‰æˆ‘ä»¬çš„é•œåƒç³»ç»Ÿæ›´å€¼å¾—ä¿¡èµ–.
   </li>
   <li>
-  Ê¹ÓÃCVSµÄebuilds¶Ô·þÎñÆ÷»á²úÉúºÜÖØµÄ¸ºÔØ<d/>²»ÊÇÒòÎªCVSÃ»ÓÐ¾µÏñ»¯,
-  ¶øÊÇÌá¹©CVS¼ì³öµÄ¹ý³ÌÖÐ·þÎñÆ÷µÄ¸ºÔØ£¬Í¨³£»á±È¼òµ¥µÄÊ¹ÓÃHTTP»òFTPÒªÖØµÃ¶à.
+  ä½¿ç”¨CVSçš„ebuildså¯¹æœåŠ¡å™¨ä¼šäº§ç”Ÿå¾ˆé‡çš„è´Ÿè½½<d/>ä¸æ˜¯å› ä¸ºCVSæ²¡æœ‰é•œåƒåŒ–,
+  è€Œæ˜¯æä¾›CVSæ£€å‡ºçš„è¿‡ç¨‹ä¸­æœåŠ¡å™¨çš„è´Ÿè½½ï¼Œé€šå¸¸ä¼šæ¯”ç®€å•çš„ä½¿ç”¨HTTPæˆ–FTPè¦é‡å¾—å¤š.
   </li>
   <li>
-  ×°ÓÐÇ¿×³·À»ðÇ½µÄÓÃ»§Ó¦¸ÃÒ²²»ÄÜÓÃCVS.
+  è£…æœ‰å¼ºå£®é˜²ç«å¢™çš„ç”¨æˆ·åº”è¯¥ä¹Ÿä¸èƒ½ç”¨CVS.
   </li>
 </ul>
 
 <p>
-¿ÉÒÔÍ¨¹ý´´½¨¿ìÕÕµÄ·½Ê½Ê¹ÓÃCVS£¬ÊÂÊµÉÏÕâÑùÒ²»á¸ü°²È«.ÀýÈç,¿ÉÒÔÈçÏÂ´´½¨vimµÄsnapshots:
+å¯ä»¥é€šè¿‡åˆ›å»ºå¿«ç…§çš„æ–¹å¼ä½¿ç”¨CVSï¼Œäº‹å®žä¸Šè¿™æ ·ä¹Ÿä¼šæ›´å®‰å…¨.ä¾‹å¦‚,å¯ä»¥å¦‚ä¸‹åˆ›å»ºvimçš„snapshots:
 </p>
 
 <pre>
@@ -44,23 +44,23 @@ $ cvs -z3 -d :pserver:anonymous@cvs.sourceforge.net:/cvsroot/vim export -r HEAD 
 </section>
 
 <section>
-<title>²ÉÓÃCVS»î¶¯Ô´µÄÁÓÊÆ</title>
+<title>é‡‡ç”¨CVSæ´»åŠ¨æºçš„åŠ£åŠ¿</title>
 <body>
 
 <p>
-(Õâ¸öµØ·½Ó¦¸ÃÖØÐÂ¿¼ÂÇ)CVS ebuilds which work against CVS <c>HEAD</c> rather than a specific
+(è¿™ä¸ªåœ°æ–¹åº”è¯¥é‡æ–°è€ƒè™‘)CVS ebuilds which work against CVS <c>HEAD</c> rather than a specific
 date or revision are even worse candidates for tree inclusion:
 </p>
 
 <ul>
   <li>
-  ºÜÄÑ±£Ö¤ÉÏÓÎµÄCVSÈ·Êµ¾ÍÊÇ°´ÕÕ¸øµÄ·½°¸¹¹½¨µÄ;ËüÃÇÖÐºÜ¶à¿ÉÄÜ»áµ¼ÖÂQAÎÊÌâ.
+  å¾ˆéš¾ä¿è¯ä¸Šæ¸¸çš„CVSç¡®å®žå°±æ˜¯æŒ‰ç…§ç»™çš„æ–¹æ¡ˆæž„å»ºçš„;å®ƒä»¬ä¸­å¾ˆå¤šå¯èƒ½ä¼šå¯¼è‡´QAé—®é¢˜.
   </li>
   <li>
-   µ±ÄãÌá½»±¨¸æ£¬×¢Ã÷Äã×Ô¼º°²×°µÄ´íÎóÊ±£¬²»·½±ãÏòÏÂ¸ú×Ùbugs.
+   å½“ä½ æäº¤æŠ¥å‘Šï¼Œæ³¨æ˜Žä½ è‡ªå·±å®‰è£…çš„é”™è¯¯æ—¶ï¼Œä¸æ–¹ä¾¿å‘ä¸‹è·Ÿè¸ªbugs.
   </li>
   <li>
-  ºÜ¶àÉÏÓÎµÄ°üÎ¬»¤ÕßÃÇ»á²»ÀÖÒâÄÇÐ©²»Ô¸ÒâÊ¹ÓÃËûÃÇÄ³¸ö·¢ÐÐ°æµÄÈËÃÇ.
+  å¾ˆå¤šä¸Šæ¸¸çš„åŒ…ç»´æŠ¤è€…ä»¬ä¼šä¸ä¹æ„é‚£äº›ä¸æ„¿æ„ä½¿ç”¨ä»–ä»¬æŸä¸ªå‘è¡Œç‰ˆçš„äººä»¬.
   </li>
 </ul>
 
@@ -68,64 +68,64 @@ date or revision are even worse candidates for tree inclusion:
 </section>
 
 <section>
-<title>Ê¹ÓÃCVSÔ´</title>
+<title>ä½¿ç”¨CVSæº</title>
 <body>
 
 <p>
-±ØÐëÏÈÔÚinheritÇøÉùÃ÷¼Ì³Ð<c>cvs.eclass</c>ºó²ÅÄÜÊ¹ÓÃCVS,²¢ÐèÒªÉèÖÃÏà¹ØµÄ±äÁ¿.
-ÒÔÏÂµÄ±äÁ¿»á·Ç³£ÓÐÓÃ:
+å¿…é¡»å…ˆåœ¨inheritåŒºå£°æ˜Žç»§æ‰¿<c>cvs.eclass</c>åŽæ‰èƒ½ä½¿ç”¨CVS,å¹¶éœ€è¦è®¾ç½®ç›¸å…³çš„å˜é‡.
+ä»¥ä¸‹çš„å˜é‡ä¼šéžå¸¸æœ‰ç”¨:
 </p>
 
 <table>
   <tr>
-    <th>±äÁ¿Ãû</th>
-    <th>ÒâÒå</th>
-    <th>ÊµÀý</th>
+    <th>å˜é‡å</th>
+    <th>æ„ä¹‰</th>
+    <th>å®žä¾‹</th>
   </tr>
   <tr>
     <ti><c>ECVS_SERVER</c></ti>
-    <ti>CVS·þÎñÆ÷µØÖ·¼°Â·¾¶</ti>
+    <ti>CVSæœåŠ¡å™¨åœ°å€åŠè·¯å¾„</ti>
     <ti><c>"cvs.sourceforge.net:/cvsroot/vim"</c></ti>
   </tr>
   <tr>
     <ti><c>ECVS_MODULE</c></ti>
-    <ti>Ä£¿é</ti>
+    <ti>æ¨¡å—</ti>
     <ti><c>"vim"</c></ti>
   </tr>
   <tr>
     <ti><c>ECVS_BRANCH</c></ti>
-    <ti>·ÖÖ§</ti>
+    <ti>åˆ†æ”¯</ti>
     <ti><c>"HEAD"</c></ti>
   </tr>
   <tr>
     <ti><c>ECVS_AUTH</c></ti>
-    <ti>ÊÚÈ¨·½·¨</ti>
+    <ti>æŽˆæƒæ–¹æ³•</ti>
     <ti><c>"ext"</c></ti>
   </tr>
   <tr>
     <ti><c>ECVS_USER</c></ti>
-    <ti>ÓÃ»§Ãû</ti>
+    <ti>ç”¨æˆ·å</ti>
     <ti><c>"anoncvs"</c></ti>
   </tr>
   <tr>
     <ti><c>ECVS_PASS</c></ti>
-    <ti>ÃÜÂë</ti>
+    <ti>å¯†ç </ti>
     <ti><c>""</c></ti>
   </tr>
   <tr>
     <ti><c>ECVS_TOPDIR</c></ti>
-    <ti>Óû½âÑ¹Â·¾¶</ti>
+    <ti>æ¬²è§£åŽ‹è·¯å¾„</ti>
     <ti><c>"${DISTDIR}/cvs-src/${ECVS_MODULE}"</c></ti>
   </tr>
 </table>
 
 <p>
-ÓûÖª¸üÏêÏ¸µÄÑ¡Ïî£¬Çë²Î¿¼ÏàÓ¦µÄeclassÎÄ¼þ.
-ÏëÒªÖ´ÐÐÕæÕýµÄ¼ì³ö,¿Éµ÷ÓÃ<c>cvs_src_unpack</c>º¯Êý.
+æ¬²çŸ¥æ›´è¯¦ç»†çš„é€‰é¡¹ï¼Œè¯·å‚è€ƒç›¸åº”çš„eclassæ–‡ä»¶.
+æƒ³è¦æ‰§è¡ŒçœŸæ­£çš„æ£€å‡º,å¯è°ƒç”¨<c>cvs_src_unpack</c>å‡½æ•°.
 </p>
 
 <p>
-Çë¿´´ËÀý,»ùÓÚvim.eclassÖÐµÄCVS options:
+è¯·çœ‹æ­¤ä¾‹,åŸºäºŽvim.eclassä¸­çš„CVS options:
 </p>
 
 <codesample lang="ebuild">
@@ -149,9 +149,9 @@ src_unpack() {
 </codesample>
 
 <p>
-ÔÙÀ´Ò»Àý, »ùÓÚ<c>emacs-cvs</c>µÄebuild,
-ËüÒÀÀµeclassÄ¬ÈÏÌá¹©µÄ<c>src_unpack</c>; 
-Õâ¸ö¸ü¼òµ¥µ«²»ÈçÉÏÃæµÄÁé»î:
+å†æ¥ä¸€ä¾‹, åŸºäºŽ<c>emacs-cvs</c>çš„ebuild,
+å®ƒä¾èµ–eclassé»˜è®¤æä¾›çš„<c>src_unpack</c>; 
+è¿™ä¸ªæ›´ç®€å•ä½†ä¸å¦‚ä¸Šé¢çš„çµæ´»:
 </p>
 
 <codesample lang="ebuild">
