@@ -40,7 +40,7 @@ $ svn export svn://svn.berlios.de/svnroot/repos/gentoo-syntax -r HEAD gentoo-syn
 <body>
 
 <p>
-必须先在inherit区声明继承<c>subversion.eclass</c>>后才能使用SVN,
+必须先在inherit区，声明继承<c>subversion.eclass</c>>后才能使用SVN,
 并需要设置相关的变量.至少至少要设置<c>ESVN_REPO_URI</c>变量.
 以下的变量也应值得注意:
 </p>
