@@ -1,38 +1,38 @@
 <?xml version="1.0"?>
 <guide self="ebuild-writing/functions/src_compile/">
 <chapter>
-<title>src_compile</title>
+<title>函数src_compile</title>
 
 <body>
 <table>
   <tr>
-    <th>Function</th>
+    <th>函数名称</th>
     <ti><c>src_compile</c></ti>
   </tr>
   <tr>
-    <th>Purpose</th>
-    <ti>Configure and build the package.<important>the configure parts of <c>src_compile</c> have been splitted out in EAPI=2 to <c>src_configure</c>. see <uri link="::ebuild-writing/functions/src_configure"/></important></ti>
+    <th>意义</th>
+    <ti>(配置)编译函数.<important>函数<c>src_compile</c>中的配置部分功能在EAPI=2的规约中已经分离给函数<c>src_configure</c>.详见<uri link="::ebuild-writing/functions/src_configure"/></important></ti>
   </tr>
   <tr>
     <th>Sandbox</th>
-    <ti>Enabled</ti>
+    <ti>开启</ti>
   </tr>
   <tr>
-    <th>Privilege</th>
+    <th>所需权限</th>
     <ti>user</ti>
   </tr>
   <tr>
-    <th>Called for</th>
+    <th>被谁调用</th>
     <ti>ebuild</ti>
   </tr>
 </table>
 </body>
 
 <section>
-<title>Default <c>src_compile</c></title>
+<title>默认<c>src_compile</c></title>
 <body>
 <subsection>
-<title>with EAPI=0,1</title>
+<title>配合EAPI=0,1</title>
 <body>
 <codesample lang="ebuild">
 src_compile() {
@@ -47,7 +47,7 @@ src_compile() {
 </body>
 </subsection>
 <subsection>
-<title>with EAPI=2</title>
+<title>配合EAPI=2</title>
 <body>
 <codesample lang="ebuild">
 src_compile() {
@@ -62,10 +62,10 @@ src_compile() {
 </section>
 
 <section>
-<title>Sample <c>src_compile</c></title>
+<title>实例<c>src_compile</c></title>
 <body>
 <subsection>
-<title>with EAPI=0</title>
+<title>配合EAPI=0</title>
 <body>
 <codesample lang="ebuild">
 src_compile() {
@@ -80,17 +80,17 @@ src_compile() {
 }
 </codesample>
 <note>
-You also need to inherit the <uri link="::eclass-reference/flag-o-matic.eclass/">flag-o-matic</uri> eclass in order to use the <c>append-ldflags</c> function.
+您也需要声明inherit该<uri link="::eclass-reference/flag-o-matic.eclass/">flag-o-matic</uri> eclass,为了使用<c>append-ldflags</c>函数.
 </note>
 </body>
 </subsection>
 <subsection>
-<title>with EAPI=2</title>
+<title>配合EAPI=2</title>
 <body>
 <p>
-porting the above example to EAPI=2, you won't need to define an extra
-<c>src_compile</c>, as it only calls <c>emake</c> (which is the default
-<c>src_compile</c> function).
+将上例换在EAPI=2规约中,将不需要再定义额外的
+<c>src_compile</c>,因为它只调用<c>emake</c> (它是
+<c>src_compile</c>函数中默认的).
 </p>
 </body>
 </subsection>
@@ -98,11 +98,10 @@ porting the above example to EAPI=2, you won't need to define an extra
 </section>
 
 <section>
-<title><c>src_compile</c> Processes</title>
+<title><c>src_compile</c>进程</title>
 <body>
 <p>
-The following subsections cover different topics which often occur when writing
-<c>src_compile</c> functions.
+接下来的小节将讲述使用<c>src_compile</c>函数时可能遇到的问题.
 </p>
 
 <contentsTree/>
