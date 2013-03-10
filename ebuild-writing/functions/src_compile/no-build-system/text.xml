@@ -1,15 +1,14 @@
 <?xml version="1.0"?>
 <guide self="ebuild-writing/functions/src_compile/no-build-system/">
 <chapter>
-<title>No Build System</title>
+<title>不用构建也行</title>
 
 <body>
 <p>
-Occasionally some really small packages are shipped simply as a single
-<c>.c</c> file. In these circumstances, you can either write your own
-<c>Makefile</c> and ship it with the source tarball, or just manually
-compile the thing from within the ebuild, preferebly explaining why.
-Here's an example, from <c>app-misc/hilite</c>:
+偶尔会有一些非常小的软件包,也许只是有单个的<c>.c</c>后缀的文件.
+这时候就没有必要大费周章了,
+源文件旁附带一个<c>Makefile</c>足矣,当然也可以用ebuild,述说简短.
+见实例<c>app-misc/hilite</c>:
 </p>
 
 <codesample lang="ebuild">
@@ -19,8 +18,7 @@ src_compile() {
 </codesample>
 
 <p>
-Here's an example from <c>x11-plugins/asclock</c>, which ships with a
-broken build system that doesn't actually work:
+再附一例，基于<c>x11-plugins/asclock</c>,这里面build系统实际上是不工作的，哈哈:
 </p>
 
 <codesample lang="ebuild">
@@ -52,8 +50,7 @@ src_compile() {
 </codesample>
 
 <p>
-A possibly better alternative would be to patch the build system
-and send it upstream.
+当然你要是没事想写上一个补丁(是它含有build系统)通知一下上游的维护者也可以.
 </p>
 
 </body>
