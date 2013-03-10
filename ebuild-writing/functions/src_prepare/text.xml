@@ -1,39 +1,38 @@
 <?xml version="1.0"?>
 <guide self="ebuild-writing/functions/src_prepare/">
 <chapter>
-<title>src_prepare</title>
+<title>src_prepare函数</title>
 
 <body>
 <table>
   <tr>
-    <th>Function</th>
+    <th>函数名</th>
     <ti><c>src_prepare</c></ti>
   </tr>
   <tr>
-    <th>Purpose</th>
-    <ti>Prepare source packages and do any necessary patching or fixes.</ti>
+    <th>意义</th>
+    <ti>准备源码包并做必要的修改或补丁.</ti>
   </tr>
   <tr>
     <th>Sandbox</th>
-    <ti>Enabled</ti>
+    <ti>开启</ti>
   </tr>
   <tr>
-    <th>Privilege</th>
+    <th>所需权限</th>
     <ti>user</ti>
   </tr>
   <tr>
-    <th>Called for</th>
+    <th>被谁调用</th>
     <ti>ebuild</ti>
   </tr>
 </table>
 </body>
 
 <section>
-<title>Default <c>src_prepare</c></title>
+<title>默认的<c>src_prepare</c></title>
 <body>
 <p>
-Starting from EAPI="2", the src_prepare function is the appropriate area to perform
-any kind of patching and source code manipulation, instead of src_unpack.
+自EAPI="2"开始,在src_prepare函数区域内执行任何补丁操作及源码的修改工作,在这方面它基本上替代了src_unpack.
 </p>
 <codesample lang="ebuild">
 src_prepare() {
@@ -44,7 +43,7 @@ src_prepare() {
 </section>
 
 <section>
-<title>Sample <c>src_prepare</c></title>
+<title>实例<c>src_prepare</c></title>
 <body>
 <codesample lang="ebuild">
 src_prepare() {
