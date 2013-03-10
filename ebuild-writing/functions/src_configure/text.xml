@@ -1,39 +1,39 @@
 <?xml version="1.0"?>
 <guide self="ebuild-writing/functions/src_configure/">
 <chapter>
-<title>src_configure</title>
+<title>函数src_configure</title>
 
 <body>
 <table>
   <tr>
-    <th>Function</th>
+    <th>函数名</th>
     <ti><c>src_configure</c></ti>
   </tr>
   <tr>
-    <th>Purpose</th>
-    <ti>Configure the package.</ti>
+    <th>意义</th>
+    <ti>配置软件包.</ti>
   </tr>
   <tr>
     <th>Sandbox</th>
-    <ti>Enabled</ti>
+    <ti>开启</ti>
   </tr>
   <tr>
-    <th>Privilege</th>
+    <th>所需权限</th>
     <ti>user</ti>
   </tr>
   <tr>
-    <th>Called for</th>
+    <th>被谁调用</th>
     <ti>ebuild</ti>
   </tr>
   <tr>
-    <th>EAPI</th>
+    <th>EAPI规约</th>
     <ti>2</ti>
   </tr>
 </table>
 </body>
 
 <section>
-<title>Default <c>src_configure</c></title>
+<title>默认的<c>src_configure</c></title>
 <body>
 <codesample lang="ebuild">
 src_configure() {
@@ -46,7 +46,7 @@ src_configure() {
 </section>
 
 <section>
-<title>Sample <c>src_configure</c></title>
+<title>实例<c>src_configure</c></title>
 <body>
 <codesample lang="ebuild">
 src_configure() {
@@ -65,8 +65,7 @@ src_configure() {
 <title><c>src_configure</c> Processes</title>
 <body>
 <p>
-The following subsections cover different topics which often occur when writing
-<c>src_configure</c> functions.
+接下来的小节将讲述使用<c>src_configure</c>函数时可能遇到的问题.
 </p>
 
 <contentsTree/>
