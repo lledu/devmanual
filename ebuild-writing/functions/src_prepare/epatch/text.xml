@@ -1,30 +1,30 @@
 <?xml version="1.0"?>
 <guide self="ebuild-writing/functions/src_prepare/epatch/">
 <chapter>
-<title>Patching with epatch</title>
+<title>使用epatch打补丁</title>
 
 <body>
 <p>
-The canonical way of applying patches in ebuilds is to
-use <c>epatch</c> (from <c>eutils.eclass</c>, which you must make sure
-to import!) inside <c>src_prepare</c>. This function automatically
-handles <c>-p</c> levels, <c>gunzip</c> and so on as necessary. Also note that olds ebuild may still use src_unpack to apply patches. This is because those ebuilds are based in EAPI="1". You are advised to use EAPI="2" and apply your patches in src_prepare function instead.
+最常用的给软件打补丁用方法
+在<c>src_prepare</c>区域中使用<c>epatch</c>(必须在inhert声明中添加<c>eutils.eclass</c>，这点很重要). 该函数会在必要时自动添加<c>-p</c>处理补丁文件,及<c>gunzip</c>等常见压缩包格式的修补文件. 
+也请注意在旧的ebuilds文件中可能仍然在用src_unpack函数处理补丁. 
+这是因为那些ebuilds文档是基于EAPI="1"的. 
+建议在您将来的编写ebuilds文件是使用EAPI>="2"并且使用src_prepare函数处理相关补丁和修补.
 </p>
 
 <p>
-Note that distributing modified tarballs rather than a vanilla tarball
-and patches is <e>highly</e> discouraged.
+注意<c>非常建议</c>您在撰写采用最原始的归档文件+相应的各个补丁文件，而不是使用默认发型版本+后续的补丁文件.
 </p>
 </body>
 
 <section>
-<title>Basic <c>epatch</c></title>
+<title><c>epatch</c>的基本应用</title>
 <body>
 
 <p>
-In its simplest form, <c>epatch</c> takes a single filename and
-applies that patch. It will automatically <c>die</c> if the apply
-fails. The following is taken from <c>app-misc/detox</c>:
+在最简单的应用形式中,在<c>epatch</c>后可以直接跟单个的文件名或
+补丁文件.如果在打补丁的过程中出错它将调用<c>die</c>.
+下例摘自<c>app-misc/detox</c>:
 </p>
 
 <codesample lang="ebuild">
@@ -37,11 +37,9 @@ src_unpack() {
 </codesample>
 
 <p>
-For larger patches, using <c>mirror://gentoo/</c> rather
-than <c>files/</c> is more appropriate. In these situations, it is
-usually best to <c>bzip2</c> the patch in question (as opposed to
-<c>files/</c> patches, which must not be compressed). For example,
-from <c>app-admin/showconsole</c>:
+对于较大型的补丁文件,使用<c>mirror://gentoo/</c>比只用
+<c>files/</c>显得更合适.这时补丁的格式通常用<c>bzip2</c>压缩格式(相反
+<c>files/</c>中的补丁,是不支持压缩格式的).见下例<c>app-admin/showconsole</c>:
 </p>
 
 <codesample lang="ebuild">
@@ -52,7 +50,7 @@ src_unpack() {
     epatch "${FILESDIR}/${PV}-no-TIOCGDEV.patch"
 }
 </codesample>
-<p>As stated before, if you are using EAPI >=2, you should apply the patches in the <uri link="::ebuild-writing/functions/src_prepare">src_prepare</uri> function</p>
+<p>如之前所言,如果您采用的EAPI规约>=2,使用<uri link="::ebuild-writing/functions/src_prepare">src_prepare</uri>函数替代</p>
 <codesample lang="ebuild">
 src_prepare() {
 	epatch "${WORKDIR}/${P}-suse-update.patch.bz2"
@@ -61,19 +59,18 @@ src_prepare() {
 </codesample>
 
 <p>
-Remember to add the patch to <c>SRC_URI</c>.
+谨记在<c>SRC_URI</c>地址中添加补丁文件的路径.
 </p>
 </body>
 
 <subsection>
-<title>CVS Keyword Lines and Patches</title>
+<title>CVS关键行中的补丁修改</title>
 <body>
 <p>
-If your patch includes any changes to CVS <c>$Id: $</c>
-(or <c>$Header: $</c>, or <c>$Date: $</c>) lines, it cannot be
-distributed under <c>files/</c>, since CVS will clobber the patch when
-you commit. In these situations, either remove this hunk of the patch
-manually, or mirror the file.
+如果您的补丁文件里任何CVS<c>$Id: $</c>
+(或<c>$Header: $</c>,或<c>$Date: $</c>)行中有变化,它不能配置在<c>files/</c>中,
+因为您一旦提交，CVS将破坏掉.
+在这样的情况下，要么手动删除掉该补丁,要么重新镜像这个文件.
 </p>
 </body>
 </subsection>
@@ -81,17 +78,15 @@ manually, or mirror the file.
 </section>
 
 <section>
-<title>Multiple Patches with <c>epatch</c></title>
+<title>使用<c>epatch</c>添加多有补丁</title>
 <body>
 
 <p>
-epatch can also apply multiple patches (which can be selectively based
-upon arch) from a single directory. This can be useful if upstream
-have releases that need more patches.
+<c>epatch</c>函数也能在一个目录中应用个补丁(也能基于不同构架选择不同补丁).这在上游软件发布多个补丁时能用的着.
 </p>
 
 <p>
-A simple example:
+例如:
 </p>
 
 <codesample lang="ebuild">
@@ -104,49 +99,45 @@ src_unpack() {
 </codesample>
 
 <p>
-Here, one of the <c>SRC_URI</c> components is a tarball containing
-many patches with file extension <c>.patch</c>.
+在这个例子中,<c>SRC_URI</c>的元素是一个归档文件，它是一系列以<c>.patch</c>为后缀明的补丁文件.
 </p>
 
 <p>
-Variables which may be defined include:
+定义的变量如下:
 </p>
 
 <table>
   <tr>
-    <th>Variable</th>
-    <th>Purpose</th>
+    <th>变量名</th>
+    <th>意义</th>
   </tr>
   <tr>
     <ti><c>EPATCH_SOURCE</c></ti>
-    <ti>Specifies the directory in which epatch looks for patches.</ti>
+    <ti>供epatch搜索补丁的具体的文件夹.</ti>
   </tr>
   <tr>
     <ti><c>EPATCH_SUFFIX</c></ti>
-    <ti>File extension for patches.</ti>
+    <ti>补丁文件的扩展名.</ti>
   </tr>
   <tr>
     <ti><c>EPATCH_OPTS</c></ti>
-    <ti>Default options to <c>patch</c>.</ti>
+    <ti><c>patch</c>的默认选项.</ti>
   </tr>
   <tr>
     <ti><c>EPATCH_EXCLUDE</c></ti>
-    <ti>List of patches to exclude.</ti>
+    <ti>除外的不定的列表.</ti>
   </tr>
   <tr>
     <ti><c>EPATCH_FORCE</c></ti>
     <ti>
-    Force epatch to apply patches even if they do not follow the
-    canonical naming form (set to <c>yes</c>).
+    强制epatch应用补丁即使是与常规的补丁名称格式不符(设成<c>yes</c>).
     </ti>
   </tr>
 </table>
 
 <p>
-Bulk patches should be named in the form
-<c>??_${ARCH}_foo.${EPATCH_SUFFIX}</c>. If they are
-not, <c>EPATCH_FORCE="yes"</c> must be set. To apply a patch on <c>all</c>
-archs, use all for the <c>${ARCH}</c> part.
+大部分的补丁文件应该采用
+如<c>??_${ARCH}_foo.${EPATCH_SUFFIX}</c>这样的形式命名.如果名称不符合时,必须要设置<c>EPATCH_FORCE="yes"</c>.为<c>所有</c>的构架应用补丁时,注意设置<c>${ARCH}</c>部分.
 </p>
 
 </body>
