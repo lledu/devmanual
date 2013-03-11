@@ -59,7 +59,7 @@ pkg_postinst() {
 </section>
 
 <section>
-<title>函数<c>pkg_postinst</c> 常见用途/title>
+<title>函数<c>pkg_postinst</c>常见用途</title>
 <body>
 <p>
 函数<c>pkg_postinst</c>最常用于显示安装之后的信息说明或警告提示.  如果您想要显示某些升级有关的讯息
