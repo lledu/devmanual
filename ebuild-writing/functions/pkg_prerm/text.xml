@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <guide self="ebuild-writing/functions/pkg_prerm/">
 <chapter>
-<title>pkg_prerm</title>
+<title>函数pkg_prerm</title>
 
 <body>
 <table>

@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <guide self="ebuild-writing/functions/pkg_pretend/">
 <chapter>
-<title>pkg_pretend</title>
+<title>函数pkg_pretend</title>
 
 <body>
 <table>

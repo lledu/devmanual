@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <guide self="ebuild-writing/functions/pkg_info/">
 <chapter>
-<title>pkg_info</title>
+<title>函数pkg_info</title>
 
 <body>
 <table>

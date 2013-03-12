@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <guide self="ebuild-writing/functions/src_test/">
 <chapter>
-<title>src_test</title>
+<title>函数src_test</title>
 
 <body>
 <table>

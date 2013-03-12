@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <guide self="ebuild-writing/functions/pkg_nofetch/">
 <chapter>
-<title>pkg_nofetch</title>
+<title>函数pkg_nofetch</title>
 
 <body>
 <table>

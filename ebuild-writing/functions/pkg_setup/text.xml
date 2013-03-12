@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <guide self="ebuild-writing/functions/pkg_setup/">
 <chapter>
-<title>pkg_setup</title>
+<title>函数pkg_setup</title>
 
 <body>
 <table>

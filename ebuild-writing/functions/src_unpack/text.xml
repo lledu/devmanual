@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <guide self="ebuild-writing/functions/src_unpack/">
 <chapter>
-<title>src_unpack</title>
+<title>函数src_unpack</title>
 
 <body>
 <table>

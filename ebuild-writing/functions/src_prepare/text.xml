@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <guide self="ebuild-writing/functions/src_prepare/">
 <chapter>
-<title>src_prepare函数</title>
+<title>函数src_prepare</title>
 
 <body>
 <table>
