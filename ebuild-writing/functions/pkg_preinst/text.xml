@@ -1,35 +1,35 @@
 <?xml version="1.0"?>
 <guide self="ebuild-writing/functions/pkg_preinst/">
 <chapter>
-<title>pkg_preinst</title>
+<title>函数pkg_preinst</title>
 
 <body>
 <table>
   <tr>
-    <th>Function</th>
+    <th>函数名</th>
     <ti><c>pkg_preinst</c></ti>
   </tr>
   <tr>
-    <th>Purpose</th>
-    <ti>Called before image is installed to <c>${ROOT}</c></ti>
+    <th>意义</th>
+    <ti>在软件包的被安装到<c>${ROOT}</c>之前被调用</ti>
   </tr>
   <tr>
     <th>Sandbox</th>
-    <ti>Disabled</ti>
+    <ti>关闭</ti>
   </tr>
   <tr>
-    <th>Privilege</th>
+    <th>所需权限</th>
     <ti>root</ti>
   </tr>
   <tr>
-    <th>Called for</th>
+    <th>被谁调用</th>
     <ti>ebuild, binary</ti>
   </tr>
 </table>
 </body>
 
 <section>
-<title>Default <c>pkg_preinst</c></title>
+<title>默认的 <c>pkg_preinst</c></title>
 <body>
 <codesample lang="ebuild">
 pkg_preinst()
@@ -41,7 +41,7 @@ pkg_preinst()
 </section>
 
 <section>
-<title>Sample <c>pkg_preinst</c></title>
+<title>实例 <c>pkg_preinst</c></title>
 <body>
 <codesample lang="ebuild">
 pkg_preinst() {
@@ -53,28 +53,26 @@ pkg_preinst() {
 </section>
 
 <section>
-<title>Common <c>pkg_preinst</c> Tasks</title>
+<title>函数<c>pkg_preinst</c> 通常用途</title>
 <body>
 <p>
-There are a few things that are often done in <c>pkg_preinst</c>:
+有相当一些事情常常在函数<c>pkg_preinst</c>中来做:
 </p>
 
 <ul>
   <li>
-  Adding users and groups. However, since <c>pkg_preinst</c> may be called 
-  after <c>src_compile</c>, <c>pkg_setup</c> is the more suitable location for
-  user creation <d/> see <uri link="::ebuild-writing/users-and-groups"/>.
+  添加用户和用户组。但因为函数<c>pkg_preinst</c>有可能在 
+  <c>src_compile</c>之后调用, 在函数<c>pkg_setup</c>处似乎是更适合用来添加用户的位置
+  <d/> 详见 <uri link="::ebuild-writing/users-and-groups"/>.
   </li>
   <li>
-  Modifying the install image for a particular system. This function
-  allows system-specific customisation to be done even when installing
-  from a binary. The most useful example is probably smart
-  configuration file updating <d/> a <c>pkg_preinst</c> could check a
-  configuration file in <c>${ROOT}/etc/</c> and create a smart updated
-  version in <c>${D}/etc/</c> (see
-  <uri link="::general-concepts/install-destinations"/>) rather than
-  always trying to install the default configuration file (remember
-  <uri link="::general-concepts/config-protect"/>).
+  针对某一系统而调整相关安装文件. 它
+  允许为系统做出一些自定义的调整，同样二进制包在被安装时也可以。
+  最常用的一招就是灵活地调整一些配置文件<d/>函数<c>pkg_preinst</c>能检测
+  存在于<c>${ROOT}/etc/</c>的配置文件，并在<c>${D}/etc/</c>目录中创建一些更新的版本 (详见
+  <uri link="::general-concepts/install-destinations"/>) 而不是
+  每次都安装默认的配置文件 (记得看
+  <uri link="::general-concepts/config-protect"/>这篇文章哦).
   </li>
 </ul>
 </body>

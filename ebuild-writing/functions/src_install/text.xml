@@ -1,38 +1,38 @@
 <?xml version="1.0"?>
 <guide self="ebuild-writing/functions/src_install/">
 <chapter>
-<title>src_install</title>
+<title>函数src_install</title>
 
 <body>
 <table>
   <tr>
-    <th>Function</th>
+    <th>函数名</th>
     <ti><c>src_install</c></ti>
   </tr>
   <tr>
-    <th>Purpose</th>
-    <ti>Install a package to <c>${D}</c></ti>
+    <th>意义</th>
+    <ti>安装软件包到指定的<c>${D}</c></ti>
   </tr>
   <tr>
     <th>Sandbox</th>
-    <ti>Enabled</ti>
+    <ti>开启Enabled</ti>
   </tr>
   <tr>
-    <th>Privilege</th>
+    <th>所需权限</th>
     <ti>root</ti>
   </tr>
   <tr>
-    <th>Called for</th>
+    <th>被谁调用</th>
     <ti>ebuild</ti>
   </tr>
 </table>
 </body>
 
 <section>
-<title>Default <c>src_install</c></title>
+<title>默认的<c>src_install</c></title>
 <body>
 <p>
-For EAPI &lt; 4, the default <c>src_install</c> function is the following:
+在EAPI &lt; 4规约中,默认的<c>src_install</c>函数如下:
 </p>
 <codesample lang="ebuild">
 src_install()
@@ -41,7 +41,7 @@ src_install()
 }
 </codesample>
 <p>
-For EAPI &#8805; 4, the default <c>src_install</c> function is the following:
+在EAPI &#8805; 4规约中,默认的 the default <c>src_install</c> 函数如下:
 </p>
 <codesample lang="ebuild">
 src_install() {
@@ -66,7 +66,7 @@ src_install() {
 </section>
 
 <section>
-<title>Sample <c>src_install</c></title>
+<title>实例<c>src_install</c></title>
 <body>
 <codesample lang="ebuild">
 src_install() {
@@ -78,12 +78,11 @@ src_install() {
 </section>
 
 <section>
-<title>Easy Installs</title>
+<title>简单安装</title>
 <body>
 <p>
-Often, especially with autotools-powered packages, there is a <c>Makefile</c>
-<c>install</c> target which will honour the <c>DESTDIR</c> variable to tell it to
-install to a non-root location. If possible, this should be used:
+通常尤其是支持autotools的软件包, 都会有<c>Makefile</c>
+<c>install</c>安装软件包到指定的地方,<c>DESTDIR</c>变量会交代具体的安装位置.一般都建议使用这个变量:
 </p>
 
 <codesample lang="ebuild">
@@ -91,15 +90,11 @@ install to a non-root location. If possible, this should be used:
 </codesample>
 
 <note>
-<c>emake</c> should be used to parallelise here. Some installs are
-not designed to be parallelised, use <c>emake -j1</c> or <c>make</c>
-if you hit an error.
+<c>emake</c>在次出应该支持并行运算.但有些软件包不支持并行运算,如果出错的话可以使用<c>emake -j1</c>或<c>make</c>.
 </note>
 
 <p>
-Sometimes this will end up installing a few things into strange
-places. If and only if this is the case, the <c>einstall</c> function
-can be used:
+有时候安装过程会终止在在一些莫名其妙的地方.在这种情况下,请使用<c>einstall</c>:
 </p>
 
 <codesample lang="ebuild">
@@ -107,14 +102,12 @@ can be used:
 </codesample>
 
 <p>
-It is usually necessary to include additional <c>dodoc</c> statements for the
-<c>README</c>, <c>ChangeLog</c>, etc in these cases.
+通常也需要使用<c>dodoc</c>函数安装必要的
+<c>README</c>, <c>ChangeLog</c>, 等等.
 </p>
 
 <note>
-There is no need to <c>dodoc</c> <c>COPYING</c>! The license belongs
-to <c>${PORTDIR}/licenses</c>. Sometimes though, you might want to
-install <c>COPYING</c> regardless, if it explains how different
+请注意没有<c>dodoc</c> <c>COPYING</c>!发行许可被存放在<c>${PORTDIR}/licenses</c>. 有时候您可能无论如何都需要安装<c>COPYING</c>, if it explains how different
 licenses are applied to different parts of the application, for
 example.
 </note>
@@ -122,7 +115,7 @@ example.
 </section>
 
 <section>
-<title>Trivial Installs</title>
+<title>较繁琐的安装</title>
 <body>
 <p>
 For some packages with no <c>Makefile</c> that only install a small
@@ -194,14 +187,13 @@ src_install() {
 </codesample>
 
 <p>
-This is, of course, considerably harder to handle than a
-simple <c>Makefile</c> driven install.
+这个,必须的,要比一个简单的<c>Makefile</c>更难掌握.
 </p>
 </body>
 </section>
 
 <section>
-<title>Other Installs</title>
+<title>其他的安装</title>
 <body>
 <p>
 Sometimes, there will be a <c>Makefile</c> that does not

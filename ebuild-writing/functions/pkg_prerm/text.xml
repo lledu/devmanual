@@ -1,35 +1,35 @@
 <?xml version="1.0"?>
 <guide self="ebuild-writing/functions/pkg_prerm/">
 <chapter>
-<title>pkg_prerm</title>
+<title>函数pkg_prerm</title>
 
 <body>
 <table>
   <tr>
-    <th>Function</th>
+    <th>函数名</th>
     <ti><c>pkg_prerm</c></ti>
   </tr>
   <tr>
-    <th>Purpose</th>
-    <ti>Called before a package is unmerged</ti>
+    <th>意义</th>
+    <ti>在软件包被卸载之前调用</ti>
   </tr>
   <tr>
     <th>Sandbox</th>
-    <ti>Disabled</ti>
+    <ti>关闭</ti>
   </tr>
   <tr>
-    <th>Privilege</th>
+    <th>所需权限</th>
     <ti>root</ti>
   </tr>
   <tr>
-    <th>Called for</th>
+    <th>被谁调用</th>
     <ti>ebuild, binary</ti>
   </tr>
 </table>
 </body>
 
 <section>
-<title>Default <c>pkg_prerm</c></title>
+<title>默认的 <c>pkg_prerm</c></title>
 <body>
 <codesample lang="ebuild">
 pkg_prerm()
@@ -41,7 +41,7 @@ pkg_prerm()
 </section>
 
 <section>
-<title>Sample <c>pkg_prerm</c></title>
+<title>实例 <c>pkg_prerm</c></title>
 <body>
 <codesample lang="ebuild">
 pkg_prerm() {
@@ -53,11 +53,10 @@ pkg_prerm() {
 </section>
 
 <section>
-<title>Common <c>pkg_prerm</c> Tasks</title>
+<title>函数<c>pkg_prerm</c>通常运用</title>
 <body>
 <p>
-<c>pkg_prerm</c> is used to clean up any files that would otherwise prevent
-a clean unmerge.
+函数<c>pkg_prerm</c>用来在卸载软件包之前为系统做一些清理工作。
 </p>
 </body>
 </section>

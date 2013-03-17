@@ -1,35 +1,35 @@
 <?xml version="1.0"?>
 <guide self="ebuild-writing/functions/pkg_info/">
 <chapter>
-<title>pkg_info</title>
+<title>函数pkg_info</title>
 
 <body>
 <table>
   <tr>
-    <th>Function</th>
+    <th>函数</th>
     <ti><c>pkg_info</c></ti>
   </tr>
   <tr>
-    <th>Purpose</th>
-    <ti>display information about a package</ti>
+    <th>目标</th>
+    <ti>显示安装包的信息</ti>
   </tr>
   <tr>
-    <th>Sandbox</th>
+    <th>沙箱</th>
     <ti>?</ti>
   </tr>
   <tr>
-    <th>Privilege</th>
+    <th>权限</th>
     <ti>root</ti>
   </tr>
   <tr>
-    <th>Called for</th>
+    <th>要求</th>
     <ti>ebuild</ti>
   </tr>
 </table>
 </body>
 
 <section>
-<title>Default <c>pkg_info</c></title>
+<title>默认的 <c>pkg_info</c></title>
 <body>
 <codesample lang="ebuild">
 pkg_info()
@@ -41,7 +41,7 @@ pkg_info()
 </section>
 
 <section>
-<title>Sample <c>pkg_info</c></title>
+<title>例 <c>pkg_info</c></title>
 <body>
 <codesample lang="ebuild">
 pkg_info() {
@@ -52,13 +52,11 @@ pkg_info() {
 </section>
 
 <section>
-<title>Notes on <c>pkg_info</c></title>
+<title>注释 <c>pkg_info</c></title>
 <body>
 <p>
-this phase will be called when a package manager displays
-information about a package.
-within EAPI=4, this phase can also be called for non-installed
-packages.
+包管理器要显示一个软件包的信息时便会调用此函数。
+当EAPI=4时, 此函数也可以被未安装的包调用。
 </p>
 </body>
 </section>
