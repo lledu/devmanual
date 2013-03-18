@@ -1,26 +1,26 @@
 <?xml version="1.0"?>
 <guide self="appendices/further-reading/">
 <chapter>
-<title>ÑÓÉìÔÄ¶Á</title>
+<title>å»¶ä¼¸é˜…è¯»</title>
 <body>
 
 <p>
-Ç¿ÁÒÍÆ¼öÔÄ¶Á±¾ÕÂÁĞ³öµÄÎÄÕÂ¡¢Êé¼®. ´Î¾ù·Î¸­Ö®ÑÔ,·Ç½õÉÏÌí»¨´ÕÊıÖ®Îï.
+å¼ºçƒˆæ¨èé˜…è¯»æœ¬ç« åˆ—å‡ºçš„æ–‡ç« ã€ä¹¦ç±. æ¬¡å‡è‚ºè…‘ä¹‹è¨€,éé”¦ä¸Šæ·»èŠ±å‡‘æ•°ä¹‹ç‰©.
 </p>
 
 <section>
-<title>Êé¼®ÊÇÈËÀàÏòÉÏµÄ½×Ìİ</title>
+<title>ä¹¦ç±æ˜¯äººç±»å‘ä¸Šçš„é˜¶æ¢¯</title>
 <body>
 
 <dl>
   <dt>
-    Mastering Regular Expressions(ÕÆÎÕÕıÔò±í´ïÊ½)
+    Mastering Regular Expressions(æŒæ¡æ­£åˆ™è¡¨è¾¾å¼)
   </dt>
   <dd>
     <p>
     "Mastering Regular Expressions" Jeffrey E. F. Friedl (O'Reilly,
-    ISBN 0-596-00289-0)Öø£¬ÊÇ<b>×¨ÃÅ</b>½éÉÜRegular Expressions. ¿É¶ÁĞÔÇ¿¡¢ÉîÈëÇ³³ö
-    ¹æ±ÜÒÔÍù´ËÀàÊé¼®ÖĞ³£ÓÃµÄ·±ÔÓÈß³¤Ö®ÊıÑ§ÊõÓï. <uri link="http://www.oreilly.com/catalog/regex2/">ìéÒ³</uri>
+    ISBN 0-596-00289-0)è‘—ï¼Œæ˜¯<b>ä¸“é—¨</b>ä»‹ç»Regular Expressions. å¯è¯»æ€§å¼ºã€æ·±å…¥æµ…å‡º
+    è§„é¿ä»¥å¾€æ­¤ç±»ä¹¦ç±ä¸­å¸¸ç”¨çš„ç¹æ‚å†—é•¿ä¹‹æ•°å­¦æœ¯è¯­. <uri link="http://www.oreilly.com/catalog/regex2/">æ‰‰é¡µ</uri>
     </p>
   </dd>
 </dl>
@@ -29,7 +29,7 @@
 </section>
 
 <section>
-<title>ÎÄÕÂ</title>
+<title>æ–‡ç« </title>
 <body>
 
 <dl>
@@ -39,7 +39,7 @@
   <dd>
     <p>
     <uri link="http://www.onlamp.com/pub/a/onlamp/2005/03/31/packaging.html">Making
-    Packager-Friendly Software</uri> ÓÉJulio M. Merino Vidal±àÖø£¬Ö¸³öÁËºÜ¶àupstream software providers¿É×öµÄÊÂÇé£¬Ëü»á¸ü¼Ó·½±ãÓÚÊ¹ÓÃËüµÄÈË.
+    Packager-Friendly Software</uri> ç”±Julio M. Merino Vidalç¼–è‘—ï¼ŒæŒ‡å‡ºäº†å¾ˆå¤šupstream software providerså¯åšçš„äº‹æƒ…ï¼Œå®ƒä¼šæ›´åŠ æ–¹ä¾¿äºä½¿ç”¨å®ƒçš„äºº.
     </p>
   </dd>
   <dt>
@@ -48,7 +48,7 @@
   <dd>
     <p>
     <uri link="http://freshmeat.net/articles/view/149">How to Report Bugs
-    Effectively</uri>ÓÉSimon Tatham×«Ğ´£¬Ïë¸ü¼ÓÓĞĞ§µÄÌá½»BugsÃ´£¬ÏĞÏ¾Ê±ÏÈ¶ÁÒ»ÏÂËü°É.
+    Effectively</uri>ç”±Simon Tathamæ’°å†™ï¼Œæƒ³æ›´åŠ æœ‰æ•ˆçš„æäº¤Bugsä¹ˆï¼Œé—²æš‡æ—¶å…ˆè¯»ä¸€ä¸‹å®ƒå§.
     </p>
   </dd>
 </dl>

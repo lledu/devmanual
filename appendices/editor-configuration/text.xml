@@ -1,22 +1,22 @@
 <?xml version="1.0"?>
 <guide self="appendices/editor-configuration/">
 <chapter>
-<title>¹¤ÓûÉÆÆä¹¦£¬±ØÏÈÀûÆäÆ÷</title>
+<title>å·¥æ¬²å–„å…¶åŠŸï¼Œå¿…å…ˆåˆ©å…¶å™¨</title>
 <body>
 
 <p>
-¸øÄãÒ»µãÌáÊ¾£¬ÓÐ¹Ø±à¼­ebuildsÎÄµµËùÓÃµÄtext editorµÄÌáÊ¾.
+ç»™ä½ ä¸€ç‚¹æç¤ºï¼Œæœ‰å…³ç¼–è¾‘ebuildsæ–‡æ¡£æ‰€ç”¨çš„text editorçš„æç¤º.
 </p>
 
 <todo>
-¾ÝvapierËùÑÔ:ÄãÓÃnanoÃ´?...¸çÃÇÄãÖ»ÓÃ¸´ÖÆ
-/etc/nanorcµ½~/.nanorc²¢È¥³ýebuilds¶ÎµÄÏà¹Ø×¢ÊÍ¾ÍÐÐ.
+æ®vapieræ‰€è¨€:ä½ ç”¨nanoä¹ˆ?...å“¥ä»¬ä½ åªç”¨å¤åˆ¶
+/etc/nanorcåˆ°~/.nanorcå¹¶åŽ»é™¤ebuildsæ®µçš„ç›¸å…³æ³¨é‡Šå°±è¡Œ.
 </todo>
 
 </body>
 
 <section>
-<title>¿´¿´ÓÐÃ»ÓÐÄãÏëÒªµÄ</title>
+<title>çœ‹çœ‹æœ‰æ²¡æœ‰ä½ æƒ³è¦çš„</title>
 <body>
 <contentsTree/>
 </body>

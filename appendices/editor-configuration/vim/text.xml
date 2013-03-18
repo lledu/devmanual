@@ -1,12 +1,12 @@
 <?xml version="1.0"?>
 <guide self="appendices/editor-configuration/vim/">
 <chapter>
-<title>Éñ¼¶±à¼­Æ÷<c>vim</c>ºÍ<c>gvim</c></title>
+<title>ç¥çº§ç¼–è¾‘å™¨<c>vim</c>å’Œ<c>gvim</c></title>
 <body>
 
 <p>
-ËùÓĞgentooÎÄµµÖĞµÄwhitespace, character set, syntax¸ßÁÁºÍËõ½øÉèÖÃ
-<c>vim</c>Óë<c>gvim</c>ÀàËÆ, emergeÕâ¸ö<c>app-vim/gentoo-syntax</c>Èí¼ş°ü.
+æ‰€æœ‰gentooæ–‡æ¡£ä¸­çš„whitespace, character set, syntaxé«˜äº®å’Œç¼©è¿›è®¾ç½®
+<c>vim</c>ä¸<c>gvim</c>ç±»ä¼¼, emergeè¿™ä¸ª<c>app-vim/gentoo-syntax</c>è½¯ä»¶åŒ….
 </p>
 
 <p>
