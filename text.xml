@@ -20,14 +20,8 @@
     </dd>
 </dl>
 <p>
-<<<<<<< HEAD
-欢迎完善该文档.具体操作详见<uri link="::appendices/contributing"/>
-章节. 如您有对本文有任何的建议和意见，错误的修改等请参照<uri link="https://bugs.gentoo.org/buglist.cgi?product=Doc%20Other;component=Devmanual;resolution=---">bug list</uri>和提交一<uri link="https://bugs.gentoo.org/enter_bug.cgi?product=Doc%20Other;component=Devmanual;format=guided">新的Bug</uri>.
-这部分 <uri link="::appendices/contributors"/>
-=======
 欢迎完善该文档.具体操作详见<uri link="::appendices/contributing"/>章节.如您有对本文有任何的建议和意见,错误的修改等请参照<uri link="https://bugs.gentoo.org/buglist.cgi?product=Doc%20Other;component=Devmanual;resolution=---">buglist</uri>和提交一<uri link="https://bugs.gentoo.org/enter_bug.cgi?product=Doc%20Other;component=Devmanual;format=guided">新的bug</uri>.
 这部分<uri link="::appendices/contributors"/>
->>>>>>> ebuilds
 列举了各个编委为本文所做的具体工作.
 </p>
 </body>
