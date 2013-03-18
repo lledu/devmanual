@@ -36,19 +36,16 @@
 </subsection>
 
 <subsection>
-<title>Referencing the full path to documentation files that could be
-compressed</title>
-<body>
-When printing out to the users where to find files like INSTALL, do not specify
-the full path since <c>PORTAGE_COMPRESS</c> comes into play.  The file could be
-compressed with gzip, bzip2, or some other random compression tool.  So,
-instead of doing this:
+<title>引用可能被压缩的文件全路径</title>
+<body>当给用户指出在哪找文件（例如INSTALL文件）时不要用确定的全路径名，因为 <c>PORTAGE_COMPRESS</c> 在起作用。
+文件可能被gzip，bzip2或者其他的压缩工具压缩。所以，不要像这样做：
+
 
 <codesample lang="ebuild">
 elog "They are listed in /usr/share/doc/${PF}/INSTALL.gz"
 </codesample>
 
-Do something like:
+要这样做:
 
 <codesample lang="ebuild">
 elog "They are listed in the INSTALL file in /usr/share/doc/${PF}"
@@ -57,14 +54,12 @@ elog "They are listed in the INSTALL file in /usr/share/doc/${PF}"
 </subsection>
 
 <subsection>
-<title>Build log not verbose</title>
+<title>编译日志不详细</title>
 <body>
-When writing ebuilds, you should always check the build log, because the build
-system might ignore CC/CXX/LD/CFLAGS/LDFLAGS and such or add undesired flags
-by default. In order to analyze this and have complete information, in case
-someone reports a bug for your package, the <b>build log must always be verbose.</b>
+写ebuild文件时，你应该时常检查编译日志，因为编译系统有可能会忽略CC/CXX/LD/CFLAGS/LDFLAGS，
+或者会默认增加不需要的标志。为了有完整的信息分析这种情况，以便别人为你的包报告漏洞，<b>编译日志必须详细</b>
 <p>
-There are several ways to fix non-verbose build logs depending on the build system:
+有许多方法修改不详细的编译日志，这要看用的什么编译系统：
 </p>
 <p>
 For <c>cmake</c> based build systems it should be sufficient that the ebuild calls
