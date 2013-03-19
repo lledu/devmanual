@@ -1,11 +1,11 @@
 <?xml version="1.0"?>
 <guide self="general-concepts/distributed-building/">
 <chapter>
-<title>Distributed and Parallel Building</title>
+<title>分布式及并行编译</title>
 
 <body>
 
-<todo>Write this.</todo>
+<todo>gentoo的文档中都有.</todo>
 
 </body>
 </chapter>

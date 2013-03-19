@@ -1,17 +1,17 @@
 <?xml version="1.0"?>
 <guide self="general-concepts/cvs-to-rsync/">
 <chapter>
-<title>CVS to RSYNC</title>
+<title>CVS到RSYNC</title>
 
 <body>
 
 <p>
-  Changes made to the tree are propagated to the users in stages:
+  Portage树的更改被传递到用户的stages:
 </p>
 
 <ul>
   <li>
-    Developer commits to CVS.
+    开发者不断向CVS提交.
   </li>
   <li>
     Staging box syncs from CVS and generates the metadata cache.
