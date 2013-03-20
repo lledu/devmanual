@@ -5,13 +5,12 @@
 
 <body>
 <p>
-The <c>FEATURES</c> variable specifies options which affect how Portage operates
-and how packages are compiled. It is <b>not</b> used for settings which have a
-substantial effect upon the resulting generated package.
+设置变量<c>FEATURES</c>能实时的干预到Portage的工作和软件包的编译.
+但是对于已经被安装在系统中的软件包是<b>没有</b>效果的.
 </p>
 
 <p>
-Relevant <c>FEATURES</c> for developers include:
+一些相关的<c>FEATURES</c>:
 </p>
 
 <table>
