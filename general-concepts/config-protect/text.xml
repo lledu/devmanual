@@ -5,16 +5,12 @@
 
 <body>
 <p>
-  Portage includes a system for configuration file protection which means ebuilds
-  don't have to worry about accidentally clobbering files in <c>/etc</c>. This is
-  known as 'protection', and it is controlled by the <c>CONFIG_PROTECT</c> and
-  <c>CONFIG_PROTECT_MASK</c> variables.
+  Portage包管理机制包含配置文件保护机制，这意味着您大可放心安装软件包，不用担心<c>/etc</c>目录下的配置文件被直接覆盖.这就是传说中的'保护',主要是通过变量<c>CONFIG_PROTECT</c>和
+  <c>CONFIG_PROTECT_MASK</c>实现的.
 </p>
 
 <p>
-  Any directory which is listed in <c>CONFIG_PROTECT</c> (and any subdirectories
-  thereof), except for any which are listed in <c>CONFIG_PROTECT_MASK</c> (and
-  subdirectories) are automatically 'protected' by Portage when copying an image
+  在<c>CONFIG_PROTECT</c>中列出的任意目录(包含其子目录)都是Portage的保护对象,当然应该除外掉在<c>CONFIG_PROTECT_MASK</c>中列出的目录(及其子目录) are automatically 'protected' by Portage when copying an image
   from <c>DESTDIR</c> to <c>ROOT</c>. Rather than installing protected files directly,
   Portage will install them as <c>._cfg0000_filename</c>. These can then be processed
   by the <c>etc-update</c> or <c>dispatch-conf</c> files at the user's discretion.
