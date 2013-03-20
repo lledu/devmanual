@@ -5,21 +5,22 @@
 
 <body>
 <p>
-  Portage包管理机制包含配置文件保护机制，这意味着您大可放心安装软件包，不用担心<c>/etc</c>目录下的配置文件被直接覆盖.这就是传说中的'保护',主要是通过变量<c>CONFIG_PROTECT</c>和
+  Portage包管理机制包含配置文件保护机制，这意味着您大可放心安装软件包，
+  不用担心<c>/etc</c>目录下的配置文件被直接覆盖.这就是传说中的'保护',主要是通过变量<c>CONFIG_PROTECT</c>和
   <c>CONFIG_PROTECT_MASK</c>实现的.
 </p>
 
 <p>
-  在<c>CONFIG_PROTECT</c>中列出的任意目录(包含其子目录)都是Portage的保护对象,当然应该除外掉在<c>CONFIG_PROTECT_MASK</c>中列出的目录(及其子目录) are automatically 'protected' by Portage when copying an image
-  from <c>DESTDIR</c> to <c>ROOT</c>. Rather than installing protected files directly,
-  Portage will install them as <c>._cfg0000_filename</c>. These can then be processed
-  by the <c>etc-update</c> or <c>dispatch-conf</c> files at the user's discretion.
+  在<c>CONFIG_PROTECT</c>中列出的任意目录(包含其子目录)都是Portage的'保护'对象,当然应该除外掉在
+  <c>CONFIG_PROTECT_MASK</c>中列出的目录(及其子目录),就是说我们把软件包由<c>DESTDIR</c>安装到<c>ROOT</c>时. 
+  Portage将会把他们以<c>._cfg0000_filename</c>的形式安装,而不是直接的安装到系统中.
+  最后的决定权还要靠用户使用<c>etc-update</c>或<c>dispatch-conf</c>比较判断.
 </p>
 
 <p>
-  Packages must <b>not</b> attempt to override this system via <c>pkg_postinst</c> or
-  similar. If you need a file renamed, removed or changed in a particular way, you
-  should display a message informing the user.
+  软件包<b>不应该</b>使用<c>pkg_postinst</c>或其他诸如此类的指令，尝试覆盖系统用已存在的文件.
+  如果您在特殊情况下需要重命名，删除或改变文件,
+  应该给用户显示相关的信息.
 </p>
 </body>
 </chapter>
