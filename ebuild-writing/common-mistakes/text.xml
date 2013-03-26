@@ -66,17 +66,13 @@ elog "They are listed in the INSTALL file in /usr/share/doc/${PF}"
 它默认设置变量'CMAKE_VERBOSE=1'。如果你由于某些原因直接调用了emake，你可以设置'emake VERBOSE=1'
 （注意cmake-utils_src_compile在make中也是可以带参数的）
 </p>
-
 <p>
 对于基于 <c>autotools</c> 的编译系统，你可以给econf传递选项'--disable-silent-rules'。
 或者用EAPI 5让参数自动传递，设置'emake V=1'也是可以的。
 </p>
-
 <p>
-For custom Makefiles you often have to write a patch. Try to get upstream to include an
-option like 'V=1' to enable full verbosity.
-</p>
 对于自定义的Makefiles，你必须经常写补丁。回溯上游的时候尝试使用例如'V=1'这样的可以记录详细情况的选项。
+</p>
 <note>In case you encounter an affected package which uses a build system not
 controllable by portage or eclasses you should file a bug (preferably with a patch)
 and make it block the tracker bug #429308. Solutions above ebuild level are
