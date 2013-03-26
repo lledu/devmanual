@@ -1,28 +1,26 @@
 <?xml version="1.0"?>
 <guide self="appendices/further-reading/">
 <chapter>
-<title>Further Reading</title>
+<title>延伸阅读</title>
 <body>
 
 <p>
-This section lists some recommended further reading. These are real
-recommendations, not padding designed to make this document look important.
+强烈推荐阅读本章列出的文章、书籍. 次均肺腑之言,非锦上添花凑数之物.
 </p>
 
 <section>
-<title>Books</title>
+<title>书籍是人类向上的阶梯</title>
 <body>
 
 <dl>
   <dt>
-    Mastering Regular Expressions
+    Mastering Regular Expressions(掌握正则表达式)
   </dt>
   <dd>
     <p>
-    "Mastering Regular Expressions" by Jeffrey E. F. Friedl (O'Reilly,
-    ISBN 0-596-00289-0) is <b>the</b> book on regular expressions. Very readable and
-    devoid of the usual mathematical jargon that tends to fill up these kinds of
-    books. <uri link="http://www.oreilly.com/catalog/regex2/">Publisher's page</uri>
+    "Mastering Regular Expressions" Jeffrey E. F. Friedl (O'Reilly,
+    ISBN 0-596-00289-0)著，是<b>专门</b>介绍Regular Expressions. 可读性强、深入浅出
+    规避以往此类书籍中常用的繁杂冗长之数学术语. <uri link="http://www.oreilly.com/catalog/regex2/">扉页</uri>
     </p>
   </dd>
 </dl>
@@ -31,7 +29,7 @@ recommendations, not padding designed to make this document look important.
 </section>
 
 <section>
-<title>Articles</title>
+<title>文章</title>
 <body>
 
 <dl>
@@ -41,9 +39,7 @@ recommendations, not padding designed to make this document look important.
   <dd>
     <p>
     <uri link="http://www.onlamp.com/pub/a/onlamp/2005/03/31/packaging.html">Making
-    Packager-Friendly Software</uri> by Julio M. Merino Vidal describes various things
-    that can be done by upstream software providers to make life easy for the
-    distribution people (that means you).
+    Packager-Friendly Software</uri> 由Julio M. Merino Vidal编著，指出了很多upstream software providers可做的事情，它会更加方便于使用它的人.
     </p>
   </dd>
   <dt>
@@ -52,7 +48,7 @@ recommendations, not padding designed to make this document look important.
   <dd>
     <p>
     <uri link="http://freshmeat.net/articles/view/149">How to Report Bugs
-    Effectively</uri> by Simon Tatham is a good overview of effective bug reporting.
+    Effectively</uri>由Simon Tatham撰写，想更加有效的提交Bugs么，闲暇时先读一下它吧.
     </p>
   </dd>
 </dl>

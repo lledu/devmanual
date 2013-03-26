@@ -1,42 +1,40 @@
 <?xml version="1.0"?>
 <guide self="ebuild-writing/functions/src_unpack/cvs-sources/">
 <chapter>
-<title>CVS Sources</title>
+<title>CVS源</title>
 
 <body>
 <p>
-Rather than working with a source tarball, it is possible to use
-upstream's CVS server directly. This can be useful when there is a
-need to test unreleased snapshots on a regular basis.
+不使用源码包，在Gentoo中也可以直接使用上游的CVS服务
+. 当我们需要在正常基础上测试未发行的软件包快照时，
+使用CVS会为您提供很多方便.
 </p>
 </body>
 
 <section>
-<title>Disadvantages of CVS Sources</title>
+<title>采用CVS源的劣势</title>
 <body>
 
 <p>
-Note that CVS ebuilds should <b>not</b> generally be added to the tree
-(except under <c>package.mask</c>) for the following reasons:
+注意使用CVS的ebuilds通常<b>n不被</b>添加到Portage树
+(除非是写在<c>package.mask</c>), 理由如下:
 </p>
 
 <ul>
   <li>
-  Upstream CVS servers tend to be far less reliable than our mirroring
-  system.
+  上游的CVS服务可能远没有我们的镜像系统更值得信赖.
   </li>
   <li>
-  CVS ebuilds create a very heavy server load <d/> not only is CVS not
-  mirrored, but allowing a CVS checkout is considerably more work for
-  a server than simply serving up a file via HTTP or FTP.
+  使用CVS的ebuilds对服务器会产生很重的负载<d/>不是因为CVS没有镜像化,
+  而是提供CVS检出的过程中服务器的负载，通常会比简单的使用HTTP或FTP要重得多.
   </li>
   <li>
-  Many users who are behind strict firewalls cannot use CVS.
+  装有强壮防火墙的用户应该也不能用CVS.
   </li>
 </ul>
 
 <p>
-It is safer to make a snapshot instead. For example, vim snapshots are made using:
+可以通过创建快照的方式使用CVS，事实上这样也会更安全.例如,可以如下创建vim的snapshots:
 </p>
 
 <pre>
@@ -46,26 +44,23 @@ $ cvs -z3 -d :pserver:anonymous@cvs.sourceforge.net:/cvsroot/vim export -r HEAD 
 </section>
 
 <section>
-<title>Disadvantages of CVS Live Sources</title>
+<title>采用CVS活动源的劣势</title>
 <body>
 
 <p>
-CVS ebuilds which work against CVS <c>HEAD</c> rather than a specific
+(这个地方应该重新考虑)CVS ebuilds which work against CVS <c>HEAD</c> rather than a specific
 date or revision are even worse candidates for tree inclusion:
 </p>
 
 <ul>
   <li>
-  You can never be sure whether upstream's CVS will actually
-  build at any given point; which will most likely cause QA issues.
+  很难保证上游的CVS确实就是按照给的方案构建的;它们中很多可能会导致QA问题.
   </li>
   <li>
-  It is extremely difficult to track down bugs when you cannot install
-  the same version of a package as the reporter.
+   当你提交报告，注明你自己安装的错误时，不方便向下跟踪bugs.
   </li>
   <li>
-  Many upstream package maintainers tend to get upset if people aren't
-  using a specific released version.
+  很多上游的包维护者们会不乐意那些不愿意使用他们某个发行版的人们.
   </li>
 </ul>
 
@@ -73,65 +68,64 @@ date or revision are even worse candidates for tree inclusion:
 </section>
 
 <section>
-<title>Using CVS Sources</title>
+<title>使用CVS源</title>
 <body>
 
 <p>
-To use a CVS source, <c>cvs.eclass</c> must be inherited, and then a
-number of variables must be set. The following variables are often
-useful:
+必须先在inherit区声明继承<c>cvs.eclass</c>后才能使用CVS,并需要设置相关的变量.
+以下的变量会非常有用:
 </p>
 
 <table>
   <tr>
-    <th>Variable</th>
-    <th>Purpose</th>
-    <th>Example</th>
+    <th>变量名</th>
+    <th>意义</th>
+    <th>实例</th>
   </tr>
   <tr>
     <ti><c>ECVS_SERVER</c></ti>
-    <ti>Server and path</ti>
+    <ti>CVS服务器地址及路径</ti>
     <ti><c>"cvs.sourceforge.net:/cvsroot/vim"</c></ti>
   </tr>
   <tr>
     <ti><c>ECVS_MODULE</c></ti>
-    <ti>Module</ti>
+    <ti>模块</ti>
     <ti><c>"vim"</c></ti>
   </tr>
   <tr>
     <ti><c>ECVS_BRANCH</c></ti>
-    <ti>Branch</ti>
+    <ti>分支</ti>
     <ti><c>"HEAD"</c></ti>
   </tr>
   <tr>
     <ti><c>ECVS_AUTH</c></ti>
-    <ti>Auth method</ti>
+    <ti>授权方法</ti>
     <ti><c>"ext"</c></ti>
   </tr>
   <tr>
     <ti><c>ECVS_USER</c></ti>
-    <ti>Username</ti>
+    <ti>用户名</ti>
     <ti><c>"anoncvs"</c></ti>
   </tr>
   <tr>
     <ti><c>ECVS_PASS</c></ti>
-    <ti>Password</ti>
+    <ti>密码</ti>
     <ti><c>""</c></ti>
   </tr>
   <tr>
     <ti><c>ECVS_TOPDIR</c></ti>
-    <ti>Unpack location</ti>
+    <ti>欲解压路径</ti>
     <ti><c>"${DISTDIR}/cvs-src/${ECVS_MODULE}"</c></ti>
   </tr>
 </table>
 
 <p>
-See the eclass itself for the full range of options. To perform the
-actual checkout, use the <c>cvs_src_unpack</c> function.
+欲知更详细的选项，请参考相应的eclass文件.
+想要执行真正的检出,可调用<c>cvs_src_unpack</c>函数.
 </p>
 
 <p>
-Here's a simple example, based upon the CVS options in vim.eclass:
+请看此例,基于vim.eclass中的CVS options:
 </p>
 
 <codesample lang="ebuild">
@@ -155,9 +149,9 @@ src_unpack() {
 </codesample>
 
 <p>
-Here's another approach, based upon the <c>emacs-cvs</c> ebuild, which
-relies upon the default <c>src_unpack</c> provided in the eclass; this
-approach is simpler but less flexible:
+再来一例, 基于<c>emacs-cvs</c>的ebuild,
+它依赖eclass默认提供的<c>src_unpack</c>; 
+这个更简单但不如上面的灵活:
 </p>
 
 <codesample lang="ebuild">
@@ -172,7 +166,7 @@ ECVS_USER="anoncvs"
 ECVS_PASS=""
 ECVS_CVS_OPTIONS="-dP"
 
-# ...and so on. No src_unpack() is specified.
+# ...等等. No src_unpack() is specified.
 </codesample>
 
 </body>

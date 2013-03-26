@@ -1,35 +1,32 @@
 <?xml version="1.0"?>
 <guide self="ebuild-writing/functions/src_unpack/svn-sources/">
 <chapter>
-<title>Subversion Sources</title>
+<title>Subversion源</title>
 
 <body>
 <p>
-As with CVS, an eclass exists for working directly with upstream
-Subversion repositories. See <uri link="eclass-reference/subversion.eclass/"/>
-for a full list of functions and variables. Also see
-the <uri link="::ebuild-writing/functions/src_unpack/cvs-sources"/> 
-ection.
+和CVS的(eclass)一样,SVN的eclass也是实现直接同上游的
+Subversion仓库协同工作功能的脚本.详见<uri link="eclass-reference/subversion.eclass/"/>
+那里有整套的函数及变量列表.顺便阅读下
+该章节<uri link="::ebuild-writing/functions/src_unpack/cvs-sources"/> 
+也不错.
 </p>
 </body>
 
 <section>
-<title>Disadvantages of Subversion Sources</title>
+<title>使用Subversion源的劣势</title>
 <body>
 
 <p>
-Note that Subversion ebuilds should <b>not</b> generally be added to
-the tree (except under <c>package.mask</c>) for much the same reasons
-that live CVS ebuilds should not (see
+注意使用Subversion的ebuilds通常<b>n不被</b>添加到Portage树
+(除非是写在<c>package.mask</c>), 理由基本和使用CVS的ebuilds一样(参见
 <uri link="::ebuild-writing/functions/src_unpack/cvs-sources#Disadvantages of CVS Sources"/>).
-Indeed, there should be even less impetus to add a live Subversion ebuild than a live CVS ebuild, as
-Subversion checkouts are roughly a factor of five larger than an
-equivalent CVS checkout.
+事实上,与使用CVS的ebuilds相比，我们更不建议使用Subversion的ebuilds, 因为
+软件包的Subversion检出的结果基本上是相同软件包CVS检出结果的5被.
 </p>
 
 <p>
-It is safer (and better for the user) to make a snapshot instead. For
-example, <c>gentoo-syntax</c> snapshots could be made using:
+可以通过创建快照的方式使用CVS，事实上这样也会更安全. 例如,可以如下创建<c>gentoo-syntax</c>快照:
 </p>
 
 <pre>
@@ -39,60 +36,56 @@ $ svn export svn://svn.berlios.de/svnroot/repos/gentoo-syntax -r HEAD gentoo-syn
 </section>
 
 <section>
-<title>Using Subversion Sources</title>
+<title>使用Subversion源</title>
 <body>
 
 <p>
-To use a Subversion source, <c>subversion.eclass</c> must be
-inherited, and then at least <c>ESVN_REPO_URI</c> must be set. The
-following variables are also noteworthy:
+必须先在inherit区，声明继承<c>subversion.eclass</c>>后才能使用SVN,
+并需要设置相关的变量.至少至少要设置<c>ESVN_REPO_URI</c>变量.
+以下的变量也应值得注意:
 </p>
 
 <table>
   <tr>
-    <th>Variable</th>
-    <th>Purpose</th>
-    <th>Example</th>
+    <th>变量名</th>
+    <th>意义</th>
+    <th>实例</th>
   </tr>
   <tr>
     <ti><c>ESVN_REPO_URI</c></ti>
-    <ti>Server and path (http, https, svn)</ti>
+    <ti>服务器地址及路径(http, https, svn)</ti>
     <ti><c>"svn://svn.example.com/foobar/trunk"</c></ti>
   </tr>
   <tr>
     <ti><c>ESVN_STORE_DIR</c></ti>
-    <ti>Unpack location</ti>
+    <ti>欲解压的路径</ti>
     <ti><c>ESVN_STORE_DIR="${DISTDIR}/svn-src"</c></ti>
   </tr>
   <tr>
     <ti><c>ESVN_PROJECT</c></ti>
-    <ti>Project name of ebuild</ti>
+    <ti>ebuild项目名称</ti>
     <ti><c>ESVN_PROJECT="${PN/-svn}"</c></ti>
   </tr>
   <tr>
     <ti><c>ESVN_BOOTSTRAP</c></ti>
-    <ti>Bootstrap command or script</ti>
+    <ti>引导命令脚本</ti>
     <ti><c>ESVN_BOOTSTRAP="autogen.sh"</c></ti>
   </tr>
   <tr>
     <ti><c>ESVN_PATCHES</c></ti>
-    <ti>Patches to apply during bootstrap</ti>
+    <ti>引导期间要打的补丁</ti>
     <ti><c>ESVN_PATCHES="${FILESDIR}/*.patch"</c></ti>
   </tr>
 </table>
 
 <p>
-See the eclass itself and <uri link="eclass-reference/subversion.eclass/"/>
-for the full range of options. To perform the actual checkout, use
-the <c>subversion_src_unpack</c> function, which calls
-both <c>subversion_svn_fetch</c> and <c>subversion_bootstrap</c>
-itself.
+欲知更详细的选项，请参考本<uri link="eclass-reference/subversion.eclass/">subversion.eclass</uri>文件.
+想要执行真正的检出,可调用<c>cvs_src_unpack</c>函数, 它将调用<c>subversion_svn_fetch</c>和<c>subversion_bootstrap</c>.
 </p>
 
 <p>
-Here is a simple example, based upon the Subversion options in
-<c>litu-svn-20040902.ebuild</c>; this approach is sufficient for most
-Subversion ebuilds:
+再多举一列,是基于<c>litu-svn-20040902.ebuild</c>有关的Subversion选项的例子;
+大部分的Subversion ebuilds都可以采用以下形式:
 </p>
 
 <codesample lang="ebuild">

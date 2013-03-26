@@ -1,35 +1,35 @@
 <?xml version="1.0"?>
 <guide self="ebuild-writing/functions/src_test/">
 <chapter>
-<title>src_test</title>
+<title>函数src_test</title>
 
 <body>
 <table>
   <tr>
-    <th>Function</th>
+    <th>函数名</th>
     <ti><c>src_test</c></ti>
   </tr>
   <tr>
-    <th>Purpose</th>
-    <ti>Run pre-install test scripts</ti>
+    <th>意义</th>
+    <ti>在安装之前运行test脚本</ti>
   </tr>
   <tr>
     <th>Sandbox</th>
-    <ti>Enabled</ti>
+    <ti>开启</ti>
   </tr>
   <tr>
-    <th>Privilege</th>
+    <th>所需权限</th>
     <ti>user</ti>
   </tr>
   <tr>
-    <th>Called for</th>
+    <th>被谁调用</th>
     <ti>ebuild</ti>
   </tr>
 </table>
 </body>
 
 <section>
-<title>Default <c>src_test</c></title>
+<title>默认的 <c>src_test</c></title>
 <body>
 <p> From sys-apps/portage-2.1.2.9 </p>
 <codesample lang="ebuild">
@@ -55,7 +55,7 @@ src_test() {
 </section>
 
 <section>
-<title>Sample <c>src_test</c></title>
+<title>实例<c>src_test</c></title>
 <body>
 <codesample lang="ebuild">
 src_test() {
@@ -73,49 +73,48 @@ src_test() {
 </section>
 
 <section>
-<title>Common <c>src_test</c> Tasks</title>
+<title>函数<c>src_test</c>通常运用</title>
 <body>
 <p>
-Often the default <c>src_test</c> is fine. Sometimes it is necessary
-to remove certain tests from the list if they cannot be used with a
-portage environment. Reasons for such a failure could include:
+一般而言，默认的<c>src_test</c>没有什么问题. 但有时
+某些软件不能够在Portage的环境下运行时，就有必要略去相应的tests
+. 具体要去除test的原因如下:
 </p>
 
 <ul>
-  <li>Needing to use X.</li>
+  <li>需要X支持.</li>
   <li>
-    Needing to work with files which are disallowed by the sandbox.
+    需要运行被sandbox限制的相关文件.
   </li>
-  <li>Requiring user input (src_test must not be interactive).</li>
-  <li>Requiring root privileges.</li>
+  <li>需要与用户的一些输入(src_test是不能够交互的).</li>
+  <li>需要root权限.</li>
 </ul>
 
 <p>
-Usually, removing the relevant test from the <c>Makefile</c>
-using <c>sed</c> or skipping a particular <c>make</c> target is
-sufficient.
+通常,在<c>Makefile</c>中使用
+<c>sed</c>命令去除相关的test就行，也可以直接跳过某个<c>make</c>目标.
 </p>
 
 <note>
-<c>emake</c> should not be used for <c>src_test</c> <d/> trying to
-parallelise tests unless the <c>Makefile</c> was specifically designed
-for this can cause all sorts of strange problems.
+注意不应该在函数<c>src_test</c>中使用<c>emake</c><d/>
+并行的tests会导致各种各样奇怪的问题，除非<c>Makefile</c>
+这样写是有其特殊的目的.
 </note>
 
 <p>
-Try to ensure that tests work properly for your ebuild. A good test
-suite is extremely helpful for arch maintainers.
+尽量保证您撰写的ebuilds能在正常的通过tests. 
+一个好的测试单元对ebuilds的维护者而言极其重要.
 </p>
 
 </body>
 </section>
 
 <section>
-<title>Skipping Tests</title>
+<title>跳出Tests</title>
 <body>
 <p>
-Sometimes it is necessary to skip tests entirely. This can be done
-using a dummy <c>src_test</c> function:
+有时候完全跳出tests是有必要的，
+可以如下简单的操纵<c>src_test</c>函数:
 </p>
 
 <codesample lang="ebuild">
@@ -126,14 +125,13 @@ src_test() {
 </codesample>
 
 <p>
-Another option would be to set <c>RESTRICT="test"</c> in the ebuild.
+另外的可行途径是在ebuild中开启<c>RESTRICT="test"</c> .
 </p>
 
 <note>
-If upstream provide a test suite which doesn't work, consider talking
-to them about getting it fixed. A broken test suite is worse than no
-test suite at all, since we are unable to tell whether a test failure
-indicates a genuine fault.
+如果上游提供的test单元不能正常运行，请务必
+向他们说明更正错误.包含谬误的测试比不测试更恐怖, 
+因为我们不能从中分辨出是否是软件运行的错误.
 </note>
 </body>
 </section>

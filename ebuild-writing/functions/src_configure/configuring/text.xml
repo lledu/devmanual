@@ -1,31 +1,22 @@
 <?xml version="1.0"?>
 <guide self="ebuild-writing/functions/src_configure/configuring/">
 <chapter>
-<title>Configuring a Package</title>
+<title>配置软件包</title>
 
 <body>
 <p>
-Many packages come with an autoconf-generated <c>./configure</c>
-script for checking the build environment and configuring optional
-support for libraries. The <c>econf</c> function should be used where
-possible <d/> this will provide correct build and path specifications for
-a Gentoo environment.
+很多软件包都是通过执行<c>./configure</c>脚本自动配置检测构建环境,可选的功能库支持.
+Gentoo中<c>econf</c>函数也用异曲同工之妙<d/>Gentoo环境中它也能提供给软件正确的构建环境和自定义选项.
 </p>
 
 <p>
-Often the configure script will try to automatically enable support
-for optional components based upon installed packages. This
-must <b>not</b> be allowed to happen. For example, if a user has Perl
-installed but has <c>USE="-perl"</c>, packages with <e>optional</e>
-Perl support must not link against Perl. This automatic detection can
-usually be overridden using <c>--enable-</c> and <c>--disable</c>
-or <c>--with-</c> and <c>--without-</c> switches (but note that these
-don't always work <d/> make sure these are tested properly!).
+通常配置脚本将试图根据已经安装的软件自行开启某个可选功能的相关支持.这
+是<b>不能</b>允许发生的.例如,如果用户安装了Perl但是默认USE标识为设置<c>USE="-perl"</c>,
+那些拥有<e>Perl</e>可选项的软件包不应该链接到Perl.这些自动检测的结果会被<c>--enable-</c>和<c>--disable</c>或<c>--with-</c>和<c>--without-</c>开关重写(但请注意他们也许不能总能如您所愿<d/>请保证他们能正常测试!).
 </p>
 
 <p>
-The <c>use_enable</c> and <c>use_with</c> utility functions should,
-where appropriate, be used to generate these switches.
+<c>use_enable</c>和<c>use_with</c>这些实用函数是用来开关软件包相关功能的,应当合理利用.
 </p>
 
 <codesample lang="ebuild">
@@ -46,10 +37,7 @@ src_configure() {
 </codesample>
 
 <p>
-Sometimes the package's choice of name for the option will not exactly
-match the name or case of the <c>USE</c> flag. This is very often the
-case with the <c>X</c> flag. For these situations, there are two
-argument forms:
+有时候软件包可选功能的名称与<c>USE</c>标示的名称会有出入.这就是<c>X</c>标示最常见应用的情景.此时,两种方式可供选择:
 </p>
 
 <codesample lang="ebuild">
@@ -69,8 +57,7 @@ src_compile() {
 </codesample>
 
 <p>
-To check for an unset <c>USE</c> flag, the <c>use_enable !flag</c>
-form can be used.
+如想要摒弃某项<c>USE</c>标示,可以采用<c>use_enable !flag</c>这样的形式.
 </p>
 </body>
 

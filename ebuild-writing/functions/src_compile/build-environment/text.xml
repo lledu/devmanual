@@ -1,71 +1,55 @@
 <?xml version="1.0"?>
 <guide self="ebuild-writing/functions/src_compile/build-environment/">
 <chapter>
-<title>Configuring Build Environment</title>
+<title>配置编译环境</title>
 
 <body>
 <p>
-Sometimes it is necessary to manipulate certain aspects of the user's
-build environment before running <c>./configure</c>. The <c>flag-o-matic</c>
-eclass is the best choice for manipulating <c>CFLAGS</c>, <c>LDFLAGS</c>
-and suchlike.
+有时需要在运行<c>./configure</c>之前,对用户编译环境中的某个方面更改. <c>flag-o-matic</c>
+eclass这货是修改<c>CFLAGS</c>, <c>LDFLAGS</c>等等的不二之选.
 </p>
 
 <note>
-Except where otherwise specified, any function which operates on
-<c>CFLAGS</c> also operates on <c>CXXFLAGS</c>.
+除非特别的指明,一般情况下能使用
+<c>CFLAGS</c>应该也能使用<c>CXXFLAGS</c>.
 </note>
 
 <p>
-Ebuilds must not simply ignore user CFLAGS, CXXFLAGS or LDFLAGS<d/> see
+Ebuilds必须不能简单的忽略用户设定的CFLAGS, CXXFLAGS或LDFLAGS<d/>详见
 <uri link="::general-concepts/user-environment#Not Filtering Variables"/>.
 </p>
 </body>
 
 <section>
-<title>Guidelines for Flag Filtering</title>
+<title>标示过滤的简介</title>
 <body>
 
 <p>
-If a package breaks with any reasonable <c>CFLAGS</c>, it is best to filter the
-problematic flag if a bug report is received. Reasonable <c>CFLAGS</c> are
-<c>-march=</c>, <c>-mcpu=</c>, <c>-mtune=</c> (depending upon
-arch), <c>-O2</c>, <c>-Os</c> and <c>-fomit-frame-pointer</c>. Note that
-<c>-Os</c> should usually be replaced with <c>-O2</c> rather than being
-stripped entirely. The <c>-fstack-protector</c> flag should probably be
-in this group too, although our hardened team claim that this flag
-never ever breaks anything...
+如果软件包与任何合理的<c>CFLAGS</c>有冲突, 如果接受到bug报告,最好过滤出有问题的标示. 合理的<c>CFLAGS</c>是<c>-march=</c>, <c>-mcpu=</c>, <c>-mtune=</c> (依赖于系统构架), <c>-O2</c>, <c>-Os</c>和<c>-fomit-frame-pointer</c>. 注意最好使用<c>-O2</c>替代<c>-Os</c>，而不是完全启用-Os. 这个<c>-fstack-protector</c>标示应该也是这样的,尽管我们的团队中的强硬派声称这个标识不会引起冲突...
 </p>
 
 <p>
-The <c>-pipe</c> flag doesn't affect the generated code, so it's not really
-relevant here, but it's a sensible flag to have set globally.
+<c>-pipe</c>标示不会影响已经编译好的代码,所以在此它的关系并不大,但把它搞成全局设置不失为明智之举.
 </p>
 
 <p>
-If a package breaks with other (insane) <c>CFLAGS</c>, it is perfectly
-OK to close the bug with a <b>WONTFIX</b> suggesting that the user
-picks more sensible global <c>CFLAGS</c>. Similarly, if you suspect
-that a bug is caused by insane <c>CFLAGS</c>, an <b>INVALID</b> resolution is
-suitable.
+如果一个软件包与与其他(某个疯狂的)<c>CFLAGS</c>冲突,完全可以用标记<b>WONTFIX</b>的bug报告,并建议用户使用更多比较理性的全局<c>CFLAGS</c>.同样,如果你怀疑是某个较疯狂<c>CFLAGS</c>导致的bug,使用<b>INVALID</b>来解决问题也是可以的.
 </p>
 
 <p>
-All of the following assumes that the ebuild has an <c>inherit flag-o-matic</c>
-line in the correct place.
+以下例子均假定在ebuild文档中<c>inherit flag-o-matic</c>已经合适的位置声明.
 </p>
 
 </body>
 </section>
 
 <section>
-<title>Simple Flag Stripping</title>
+<title>简单标示剖析</title>
 <body>
 
 <p>
-The <c>filter-flags</c> function can be used to remove a particular flag from
-<c>CFLAGS</c>. Multiple arguments can be supplied; each is the name of a flag to
-remove.
+<c>filter-flags</c>函数用来从<c>CFLAGS</c>去除某个特定标示
+.其后可以添加多个参数;每一个都是一个要被去除的标示.
 </p>
 
 <codesample lang="ebuild">
@@ -75,14 +59,11 @@ remove.
 </codesample>
 
 <p>
-There is a <c>filter-ldflags</c> function available which does the equivalent
-for <c>LDFLAGS</c>.
+<c>filter-ldflags</c>基本等同于<c>LDFLAGS</c>.
 </p>
 
 <p>
-If a package is known to be very <c>CFLAGS</c> sensitive, the
-<c>strip-flags</c> function will remove most flags, leaving only a minimal
-conservative set of flags.
+如果软件对<c>CFLAGS</c>设置很敏感,<c>strip-flags</c>函数将会略去大部分的flags, 仅留下最少的最保守的flags.
 </p>
 
 <codesample lang="ebuild">
@@ -94,13 +75,12 @@ conservative set of flags.
 </section>
 
 <section>
-<title>Flag Replacement</title>
+<title>标示替换</title>
 <body>
 
 <p>
-To replace a flag with a different one, use <c>replace-flags</c>. This
-is most commonly used to replace <c>-Os</c> with <c>-O2</c>
-(or <c>-O3</c> with <c>-O2</c> if you are feeling kind).
+替换标示可使用<c>replace-flags</c>.最常用的就是使用<c>-O2</c>替换<c>-Os</c>
+(或替换<c>-O3</c>如果您喜欢的话).
 </p>
 
 <codesample lang="ebuild">
@@ -109,10 +89,7 @@ is most commonly used to replace <c>-Os</c> with <c>-O2</c>
 </codesample>
 
 <p>
-There is also a special function named <c>replace-cpu-flags</c> for
-replacing CPU (<c>-mtune</c>, <c>-mcpu</c>, <c>-march</c>) designation
-flags. The last argument is the flag to use; previous arguments are
-the flags to be replaced.
+也有一个特别的函数叫<c>replace-cpu-flags</c>,它能替换CPU (<c>-mtune</c>, <c>-mcpu</c>, <c>-march</c>)的标示.函数的最后一个参数代表要使用的flag;在它之前的前的参数代表要替代的.
 </p>
 
 <codesample lang="ebuild">
@@ -124,12 +101,12 @@ the flags to be replaced.
 </section>
 
 <section>
-<title>Adding Additional Flags</title>
+<title>添加额外的标示</title>
 <body>
 <p>
-Sometimes it is necessary to add in additional <c>CFLAGS</c>
-or <c>LDFLAGS</c>. The <c>append-flags</c> and <c>append-ldflags</c>
-functions can be used here.
+有事需要添加额外的<c>CFLAGS</c>
+或<c>LDFLAGS</c>.可以通过<c>append-flags</c>和<c>append-ldflags</c>
+函数实现.
 </p>
 
 <codesample lang="ebuild">
@@ -141,7 +118,7 @@ functions can be used here.
 </codesample>
 
 <p>
-See <uri link="::eclass-reference/flag-o-matic.eclass/"/> for a full reference.
+详见<uri link="::eclass-reference/flag-o-matic.eclass/">flag-o-matic.eclass</uri>.
 </p>
 </body>
 </section>

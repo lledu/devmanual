@@ -1,52 +1,42 @@
 <?xml version="1.0"?>
 <guide self="ebuild-writing/functions/src_compile/building/">
 <chapter>
-<title>Building a Package</title>
+<title>编译软件包</title>
 
 <body>
 <p>
-The <c>emake</c> function should be used to call <c>make</c>. This will ensure that
-the user's <c>MAKEOPTS</c> are used correctly. The <c>emake</c> function passes on
-any arguments provided, so it can be used to make non-default targets (<c>emake
-extras</c>), for example. Occasionally you might encounter a screwy non-autotools
-<c>Makefile</c> that explodes with <c>emake</c>, but this is rare.
+<c>emake</c>函数用来调用系统中的<c>make</c>命令.当然用户正确设置<c>MAKEOPTS</c>很重要.该<c>emake</c> 函数将传递任意后续提供的参数,所以可以用来产生非默认的目标文件(<c>emake
+extras</c>),例如.偶尔您可能遇到让人纠结的非自动处理(non-autotools)的
+<c>Makefile</c>文件,让<c>emake</c>也一筹莫展,但这种情况应该很少见.
 </p>
 
 <p>
-Builds should be tested with various <c>-j</c> settings in <c>MAKEOPTS</c> to ensure
-that the build parallelises properly. If a package does <e>not</e> parallelise
-cleanly, it should be patched.
+在编译时适当的在<c>MAKEOPTS</c>(make.conf文件中)设置<c>-j</c>并发进程数,这样可以保证多个进程编译.如果软件包<e>不支持</e>并行,应当给他打补丁.
 </p>
 
 <p>
-If patching <e>really</e> isn't an option, <c>emake -j1</c> should be
-used. However, when doing this please remember that you are seriously
-hurting build times for many non-x86 users in particular. Forcing
-a <c>-j1</c> can increase build times from a few minutes to an hour on
-some MIPS and SPARC systems.
+如果<e>确定</e>不能够打这样的补丁,默认启用<c>emake -j1</c>.
+然而这样做,特别是对于在很多非-x86的用户来说,编译软件可能真是会要命的<d/>强制在<c>-j1</c>的情况下,在MIPS和SPARC系统上编译时间可能增加几分钟到一个小时也说不定.
 </p>
 </body>
 
 <section>
-<title>Fixing Compiler Usage</title>
+<title>微调编译选项</title>
 <body>
 
 <p>
-Sometimes a package will try to use a bizarre compiler, or will need to be told
-which compiler to use. In these situations, the <c>tc-getCC()</c> function from
-<c>toolchain-funcs.eclass</c> should be used. Other similar functions are available
-<d/> these are documented in <c>man toolchain-funcs.eclass</c>.
+有时软件包会用奇怪的编译器，或者需要用户指定一个需求的编译器.在这种情况下,应该使用<c>toolchain-funcs.eclass</c> 中的<c>tc-getCC()</c>函数.还有其他类似的函数可以用
+<d/>更详细的内容可以<c>man toolchain-funcs.eclass</c>这样了解.
 </p>
 
 <note>
-It is <e>not</e> correct to use the <c>${CC}</c> variable for this purpose.
+这个时候就<e>不应该</e>使用<c>${CC}</c>变量了.
 </note>
 
 <p>
-Sometimes a package will not use the user's <c>${CFLAGS}</c> or <c>${LDFLAGS}</c>.
-This must be worked around, as sometimes these variables are used for specifying
-critical ABI options. In these cases, the build scripts should be modified (for
-example, with <c>sed</c>) to use <c>${CFLAGS}</c> or <c>${LDFLAGS}</c> correctly.
+有时软件包不遵循用户定义的<c>${CFLAGS}</c>或<c>${LDFLAGS}</c>.
+这样的问题必须提前妥善处理,因为有时这些变量会被特定关键的ABI选项使用. 
+这时编译的scripts应该适当修改(例如,使用<c>sed</c>)以便正确使用<c>${CFLAGS}</c>或<c>${LDFLAGS}</c>.
 </p>
 
 <codesample lang="ebuild">
@@ -65,15 +55,12 @@ src_compile() {
 </codesample>
 
 <note>
-When using <c>sed</c> with <c>CFLAGS</c> or <c>LDFLAGS</c>, it is not safe to use
-a comma or a slash as a delimiter. The recommended character is a colon.
+当使用<c>sed</c>处理<c>CFLAGS</c>或<c>LDFLAGS</c>时,使用都好或斜线作为分隔符.推荐使用冒号.
 </note>
 
 <p>
-Portage performs a QA check which verifies if LDFLAGS are respected. This QA check
-is enabled only when <c>LDFLAGS</c> variable contains <c>-Wl,--hash-style=gnu</c>.
-(This flag can be used only on systems which use <c>sys-libs/glibc</c> except for
-machines with a MIPS CPU.)
+Portage将执行QA检测,通过它来确认LDFLAGS是否.也只有当 <c>LDFLAGS</c>变量中包含<c>-Wl,--hash-style=gnu</c> 时,QA检测才会执行.
+(这个标示只能用在使用<c>sys-libs/glibc</c>的系统上,MIPS的CPU也除外.)
 </p>
 
 </body>

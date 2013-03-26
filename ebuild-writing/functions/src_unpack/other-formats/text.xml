@@ -1,49 +1,49 @@
 <?xml version="1.0"?>
 <guide self="ebuild-writing/functions/src_unpack/other-formats/">
 <chapter>
-<title>Other Archive Formats</title>
+<title>其他类型的归档文件</title>
 
 <body>
 <p>
-There are a variety of other archive formats which you may encounter.
-Instructions for some of them are detailed below:
+你可能遇到各种不同类型的归档文件.
+以下是针对其的相关说明:
 </p>
 </body>
 
 <section>
-<title>Zip Files</title>
+<title>Zip文件</title>
 <body>
 
 <p>
-If a package is supplied as a .zip file, you should:
+针对.zip格式的文件,常做如下处理:
 </p>
 
 <ul>
-   <li><c>DEPEND</c> upon <c>app-arch/unzip</c></li>
-   <li>Use <c>unpack</c> as normal</li>
+   <li><c>DEPEND</c>变量中加入<c>app-arch/unzip</c></li>
+   <li>一个词搞定<c>unpack</c></li>
 </ul>
 
 </body>
 </section>
 
 <section>
-<title>Shar Files</title>
+<title>Shar格式文档</title>
 <body>
 <p>
-If a package is supplied as a <c>.shar</c> file, you should repackage it locally
-into a <c>.tar.bz2</c>. It may also be useful to ask upstream to use a friendlier
-package format <d/> however, if they ship <c>.shar</c>, chances are they haven't
-done a release in at least ten years.
+针对与<c>.shar</c>格式的文档,啥也别说了，直接本地重新打包为
+<c>.tar.bz2</c>.当然你也能请求上游的相关人员使用一些比较人性化的归档格式
+<d/>,然而如果他们只有<c>.shar</c>的老古董,说明很可能
+10年前至今他们都无所作为.
 </p>
 </body>
 </section>
 
 <section>
-<title>RAR Files</title>
+<title>RAR文档</title>
 <body>
 
 <p>
-<c>.rar</c> files must be repackaged locally into a <c>.tar.bz2</c> file.
+<c>.rar</c>格式的文件必须与本地重新打包成<c>.tar.bz2</c>的文件，元芳，你怎么看?.
 </p>
 
 </body>

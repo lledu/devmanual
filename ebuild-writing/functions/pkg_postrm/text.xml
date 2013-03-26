@@ -1,35 +1,35 @@
 <?xml version="1.0"?>
 <guide self="ebuild-writing/functions/pkg_postrm/">
 <chapter>
-<title>pkg_postrm</title>
+<title>函数pkg_postrm</title>
 
 <body>
 <table>
   <tr>
-    <th>Function</th>
+    <th>函数名</th>
     <ti><c>pkg_postrm</c></ti>
   </tr>
   <tr>
-    <th>Purpose</th>
-    <ti>Called after a package is unmerged</ti>
+    <th>意义</th>
+    <ti>软件包卸载之后调用</ti>
   </tr>
   <tr>
     <th>Sandbox</th>
-    <ti>Disabled</ti>
+    <ti>关闭</ti>
   </tr>
   <tr>
-    <th>Privilege</th>
+    <th>所需权限</th>
     <ti>root</ti>
   </tr>
   <tr>
-    <th>Called for</th>
+    <th>被谁调用</th>
     <ti>ebuild, binary</ti>
   </tr>
 </table>
 </body>
 
 <section>
-<title>Default <c>pkg_postrm</c></title>
+<title>默认的<c>pkg_postrm</c></title>
 <body>
 <codesample lang="ebuild">
 pkg_postrm()
@@ -41,7 +41,7 @@ pkg_postrm()
 </section>
 
 <section>
-<title>Sample <c>pkg_postrm</c></title>
+<title>实例<c>pkg_postrm</c></title>
 <body>
 <codesample lang="ebuild">
 pkg_postrm() {
@@ -52,11 +52,11 @@ pkg_postrm() {
 </section>
 
 <section>
-<title>Common <c>pkg_postrm</c> Tasks</title>
+<title>函数<c>pkg_postrm</c>通常用途</title>
 <body>
 <p>
-<c>pkg_postrm</c> is is used to update symlinks, cache files and other
-generated content after a package has been uninstalled.
+函数<c>pkg_postrm</c> 主要用来更新系统链接，更新缓存文件，
+和软件包被卸载后产生的一些相关讯息提示。
 </p>
 </body>
 </section>

@@ -1,17 +1,16 @@
 <?xml version="1.0"?>
 <guide self="general-concepts/autotools/">
 <chapter>
-<title>The Basics of Autotools</title>
+<title>Autotools的基础</title>
 
 <body>
 <todo>
-This is too long for <uri link="::general-concepts"/>. It needs to be split up and
-moved somewhere, either to a top-level of its own or into <uri link="::appendices/"/>.
+相对于<uri link="::general-concepts"/>的整体而言,这一章节的内容显得有些长.根据情况适当调整吧，重要的内容需要着重阐明，次重要的会将其发配到<uri link="::appendices/"/>中.
 </todo>
 
 <p>
-An understanding of GNU autotools (<c>automake</c>, <c>autoconf</c> etc.) can be useful
-when working with ebuilds:
+适当的了解GNU的autotools(<c>automake</c>, <c>autoconf</c>等)是非常有用的，
+尤其是每天处理ebuilds时:
 </p>
 
 <ul>
@@ -32,7 +31,7 @@ when working with ebuilds:
 </body>
 
 <section>
-<title>Major Autotools Components</title>
+<title>Autotools的主要元素</title>
 
 <body>
 <p>

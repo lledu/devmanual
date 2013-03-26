@@ -6,7 +6,7 @@
 <body>
 
 <section>
-<title>Generating the Manifest</title>
+<title>产生Manifest</title>
 <body>
 <p>
 In the tree, every package has a <c>Manifest</c> file. This file lives in the same

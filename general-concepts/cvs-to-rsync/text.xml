@@ -1,29 +1,29 @@
 <?xml version="1.0"?>
 <guide self="general-concepts/cvs-to-rsync/">
 <chapter>
-<title>CVS to RSYNC</title>
+<title>CVS到RSYNC</title>
 
 <body>
 
 <p>
-  Changes made to the tree are propagated to the users in stages:
+  Portage树的更改被传递到用户的stages:
 </p>
 
 <ul>
   <li>
-    Developer commits to CVS.
+    开发者不断向CVS提交.
   </li>
   <li>
-    Staging box syncs from CVS and generates the metadata cache.
+    Staging box从CVS同步更新并产生metadata缓存.
   </li>
   <li>
-    <c>rsync1</c> syncs from the staging box.
+    <c>rsync1</c>从staging box同步更新.
   </li>
   <li>
-    Public rsync servers sync from <c>rsync1</c>.
+    公众的rsync服务器从<c>rsync1</c>同步更新.
   </li>
   <li>
-    Users sync from the public rsync servers.
+    普通用户从公众服务器同步更新.
   </li>
 </ul>
 
@@ -32,7 +32,7 @@
 </figure>
 
 <p>
-  The <c>emerge-websync</c> snapshot is made daily from the staging box.
+  <c>emerge-websync</c>的快照每日从staging box更新.
 </p>
 
 </body>

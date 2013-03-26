@@ -16,42 +16,36 @@
 <subsection>
 <title>无效的 <c>static</c> use 标记</title>
 <body>
-The <c>static</c> use-flag should only be used to make a binary use static
-linking instead of dynamic linking. It should not be used to make a library
-install static libraries. Instead, the <c>static-libs</c> use-flag is used for this.
+<c>static</c> use 标记在生成二进制文件的时候只能使用静态链接而不能使用动态链接。
+它不能使一个库安装成为一个静态库，如果想这样做，请使用<c>static-libs</c> use 标记。
 </body>
 </subsection>
 
 <subsection>
-<title>Invalid use of <c>ROOT</c></title>
+<title><c>ROOT</c>的无效使用</title> 
 <body>
 <p>
-The usage of <c>ROOT</c> is only designed to influence the way the package is
-installed (ie. into <c>ROOT</c>) - building and compiling should not depend on
-<c>ROOT</c>. As a consequence of this the usage of <c>ROOT</c> in <c>src_*</c>
-functions is not allowed.
+<c>ROOT</c> 仅仅只是用来影响包的安装路径的（例如 into <c>ROOT</c>），构建和编译却不应该依靠 <c>ROOT</c>。
+所以 <c>ROOT</c> 不能够在 <c>src_*</c> 函数中使用。
 </p>
 
 <p>
-See also <uri link="::ebuild-writing/variables#ROOT"/>.
+参见 <uri link="::ebuild-writing/variables#ROOT"/>.
 </p>
 </body>
 </subsection>
 
 <subsection>
-<title>Referencing the full path to documentation files that could be
-compressed</title>
-<body>
-When printing out to the users where to find files like INSTALL, do not specify
-the full path since <c>PORTAGE_COMPRESS</c> comes into play.  The file could be
-compressed with gzip, bzip2, or some other random compression tool.  So,
-instead of doing this:
+<title>引用可能被压缩的文件全路径</title>
+<body>当给用户指出在哪找文件（例如INSTALL文件）时不要用确定的全路径名，因为 <c>PORTAGE_COMPRESS</c> 在起作用。
+文件可能被gzip，bzip2或者其他的压缩工具压缩。所以，不要像这样做：
+
 
 <codesample lang="ebuild">
 elog "They are listed in /usr/share/doc/${PF}/INSTALL.gz"
 </codesample>
 
-Do something like:
+要这样做:
 
 <codesample lang="ebuild">
 elog "They are listed in the INSTALL file in /usr/share/doc/${PF}"
@@ -60,30 +54,24 @@ elog "They are listed in the INSTALL file in /usr/share/doc/${PF}"
 </subsection>
 
 <subsection>
-<title>Build log not verbose</title>
+<title>编译日志不详细</title>
 <body>
-When writing ebuilds, you should always check the build log, because the build
-system might ignore CC/CXX/LD/CFLAGS/LDFLAGS and such or add undesired flags
-by default. In order to analyze this and have complete information, in case
-someone reports a bug for your package, the <b>build log must always be verbose.</b>
+写ebuild文件时，你应该时常检查编译日志，因为编译系统有可能会忽略CC/CXX/LD/CFLAGS/LDFLAGS，
+或者会默认增加不需要的标志。为了有完整的信息分析这种情况，以便别人为你的包报告漏洞，<b>编译日志必须详细</b>
 <p>
-There are several ways to fix non-verbose build logs depending on the build system:
+有许多方法修改不详细的编译日志，这要看用的什么编译系统：
 </p>
 <p>
-For <c>cmake</c> based build systems it should be sufficient that the ebuild calls
-cmake-utils_src_compile which picks up the cmake-utils.eclass variable 'CMAKE_VERBOSE=1'
-by default. If you call emake directly for whatever reason, you can do 'emake VERBOSE=1'
-(note that cmake-utils_src_compile takes arguments as well which are passed to make).
+对于基于 <c>cmake</c> 的编译系统，这样做就行了：ebuild会调用cmake-utils_src_compile，
+它默认设置变量'CMAKE_VERBOSE=1'。如果你由于某些原因直接调用了emake，你可以设置'emake VERBOSE=1'
+（注意cmake-utils_src_compile在make中也是可以带参数的）
 </p>
-
 <p>
-For <c>autotools</c> based build systems you can pass '--disable-silent-rules' to econf,
-or use EAPI 5 where that argument is passed automatically. 'emake V=1' should also work.
+对于基于 <c>autotools</c> 的编译系统，你可以给econf传递选项'--disable-silent-rules'。
+或者用EAPI 5让参数自动传递，设置'emake V=1'也是可以的。
 </p>
-
 <p>
-For custom Makefiles you often have to write a patch. Try to get upstream to include an
-option like 'V=1' to enable full verbosity.
+对于自定义的Makefiles，你必须经常写补丁。回溯上游的时候尝试使用例如'V=1'这样的可以记录详细情况的选项。
 </p>
 <note>In case you encounter an affected package which uses a build system not
 controllable by portage or eclasses you should file a bug (preferably with a patch)

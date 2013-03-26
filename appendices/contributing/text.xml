@@ -1,13 +1,11 @@
 <?xml version="1.0"?>
 <guide self="appendices/contributing/">
 <chapter>
-<title>Contributing to This Document</title>
+<title>为本文档贡献自己的力量</title>
 
 <body>
 <p>
-Contributions for this document are very welcome. Whether you've found a typo
-or have written an entire new section, the best way to get in touch is via Bugzilla
-at <uri link="http://bugs.gentoo.org">bugs.gentoo.org</uri>.
+非常欢迎为本文档添砖加瓦，哪怕是印刷错误或一段新的内容，您都可以通过登录Bugzilla<uri link="http://bugs.gentoo.org">bugs.gentoo.org</uri>来提交.
 </p>
 
 <p>

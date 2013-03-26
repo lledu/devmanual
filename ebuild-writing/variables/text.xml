@@ -129,14 +129,14 @@
   <tr>
     <ti><c>HOMEPAGE</c></ti>
     <ti>
-    软件包的主页，如果没有办法找到官方网站，可以尝试去 <uri link="http://freshmeat.net">freshmeat.net</uri> 或类似的软件追踪网站来查找连接。其中不要包含变量，只能是原始文字。
+		软件包的主页，如果没有办法找到官方网站，可以尝试去 <uri link="http://freshmeat.net">freshmeat.net </uri> 或类似的软件追踪网站来查找连接。其中不要包含变量，只能是原始文字。
     </ti>
   </tr>
   <tr>
     <ti><c>SRC_URI</c></ti>
     <ti>
     软件包所用的原始安装包文件的URL. 可以包含
-    <c>USE</c>-条件部分, 相见
+    <c>USE</c>-条件部分, 详见
     <uri link="::ebuild-writing/variables#SRC_URI"/>.
     </ti>
   </tr>
@@ -165,7 +165,8 @@
   <tr>
     <ti><c>IUSE</c></ti>
     <ti>
-		设定成任何所有你的套件所用到的 USE 标示(不包括构架标示，但是包括 <c>USE_EXPAND</c> 标示) ，但是属于<c>KEYWORDS<c>的东西不应该列在此处. 详见
+		设定成任何所有你的套件所用到的 USE 标示(不包括构架标示，但是包括 
+		<c>USE_EXPAND </c> 标示) ，但是属于<c>KEYWORDS</c>的东西不应该列在此处. 详见
     <uri link="::ebuild-writing/variables#IUSE"/>.
     </ti>
   </tr>
@@ -261,7 +262,7 @@ SRC_URI="http://example.com/files/${P}-core.tar.bz2
 
 <p>
 	若用<c>USE_EXPAND</c> 变量判断与软件包相关的某个可选组件是否安装，最好就是安装完成所有可用的组件。
-<p>
+</p>
 
 <codesample lang="ebuild">
 SRC_URI="http://example.com/files/${P}-core.tar.bz2

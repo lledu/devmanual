@@ -1,11 +1,11 @@
 <?xml version="1.0"?>
 <guide self="ebuild-writing/functions/src_unpack/tla-sources/">
 <chapter>
-<title>Arch Sources</title>
+<title>Arch 源的软件包</title>
 
 <body>
 <todo>
-Anyone want to write this? You can probably mostly copy the CVS Sources and Subversion Sources chapters.
+这种类型的软件包和cvs的及svn的大部分都是一致的，不必赘述.
 </todo>
 </body>
 </chapter>

@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <guide self="general-concepts/emerge-and-ebuild/">
 <chapter>
-<title>Emerge and Ebuild Relationships</title>
+<title>Emerge和Ebuild的暧昧关系</title>
 
 <body>
 
@@ -9,13 +9,13 @@
 </figure>
 
 <p>
-The <c>emerge</c> program is a high level wrapper for <c>ebuild.sh</c> that handles
-dependency tracking, safe installs and uninstalls and so on. <c>emerge</c> calls
-<c>ebuild.sh</c> during the build process, which in turn handles the ebuild file
-and any eclasses. The <c>${D}</c> to <c>${ROOT}</c> install is handled by <c>emerge</c>.
+神奇的<c>emerge</c>命令是一个<c>ebuild.sh</c>的更高级的包装程序,它能处理
+依赖追踪,安全安装和删除等等.使用<c>emerge</c>命令时它将调用
+<c>ebuild.sh</c>,而ebuild.sh将轮流处理
+ebuilds文件eclasses. 软件包从<c>${D}</c>安装到<c>${ROOT}</c>也是由<c>emerge</c>处理的.
 </p>
 
-<todo>http://dev.gentoo.org/~g2boojum/portage.html</todo>
+<todo>这个还是比较容易理解的吧</todo>
 
 </body>
 </chapter>

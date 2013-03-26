@@ -1,41 +1,37 @@
 <?xml version="1.0"?>
 <guide self="ebuild-writing/functions/src_prepare/autopackage/">
 <chapter>
-<title>Autopackage</title>
+<title>Autopackage包</title>
 
 <body>
 <p>
-If a package is only supplied in autopackage format, you must not add
-it to the tree. If a package is supplied in autopackage format and
-some other sane standard format (for example a source tarball), use
-the other format only.
+如果一个软件包只有<URI link="http://en.wikipedia.org/wiki/Autopackage">autopackage</URI>格式的,更不应将这种软件包加入Portage树中.若能提供autopackage格式的软件包和其他的健全的标准格式
+(例如源码包),请用标准的格式.
 </p>
 
 <p>
-Autopackage packages are totally unsuitable for Gentoo systems for a
-large number of reasons:
+Autopackage软件包完全不适应于Gentoo系统，以下是其中的一些原因:
 </p>
 
 <ul>
   <li>
-  To even unpack the package, you must run arbitrary code supplied by an untrusted source.
+  即使是解压这种文件,你都必须使用有它提供的二进制代码工具，而你却不能确定软件包是否可信.
   </li>
-  <li>They install directly to the live filesystem.</li>
-  <li>Their intrinsic dependency resolver is broken.</li>
-  <li>They do not support the filesystem layout used by Gentoo.</li>
-  <li>They do not support configuration protection.</li>
-  <li>They can clobber arbitrary files on uninstall.</li>
-  <li>The linking mechanism used is insufficiently flexible.</li>
+  <li>直接就安装到了现行的系统，不安全.</li>
+  <li>内部固有的依赖解析器是坏掉的.</li>
+  <li>不能支持Gentoo现有的文件系统层.</li>
+  <li>不支持配置文件保护.</li>
+  <li>卸载时可能毁坏二进制文件.</li>
+  <li>链接机制不够灵活高效.</li>
   <li>
-  The entire format is completely unportable and highly tied to x86
-  Linux systems.
+  此种文件格式完全的不可分离,高度绑定在x86
+  Linux系统上.
   </li>
 </ul>
 
 <p>
-Upstream are aware of these issues and have no desire to fix them <d/>
-indeed, they pass off some of their most broken behaviour as
-'features'.
+上游的相关人员知道这些问题,但无意去修整此类问题<d/>
+事实上,他们不以之为'耻',反以为'荣'.
 </p>
 </body>
 </chapter>
